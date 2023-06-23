@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { auth } from "../../firebase/auth";
 import "../../components/Tags";
 import "./PostDetail"
-import { collection, deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
@@ -27,16 +27,14 @@ const PostSection = ({
   id,
   postTitle,
   postDescription,
-  category,
   imgUrl,
   userId,
   author,
   content,
   timestamp,
-  user,
  
 }) => {
-  const [blogs, setBlogs] = useState(null);
+  // const [blogs, setBlogs] = useState(null);
   const [loading, setLoading] = useState(false);
   const [authUser, setAuthUser] = useState(null);
   const [comments, setComments] = useState([]);

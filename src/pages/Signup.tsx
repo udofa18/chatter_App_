@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { createUserWithEmailAndPassword , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
@@ -20,7 +21,7 @@ const result = await signInWithPopup(auth, provider);
 
 // The signed-in user info.
 const user = result.user;
-// This gives you a Google Access Token.
+// // This gives you a Google Access Token.
 const credential = GoogleAuthProvider.credentialFromResult(result);
 const token = credential.accessToken;
 

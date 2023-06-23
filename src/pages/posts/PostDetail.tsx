@@ -146,23 +146,45 @@ const PostDetail = () => {
     setUserComment("");
   };
 
+  // const handleLike = async () => {
+  //   if (userId) {
+  //     if (blog?.likes) {
+  //       const index = likes.findIndex((id) => id === userId);
+  //       if (index === -1) {
+  //         likes.push(userId);
+  //         setLikes([...new Set(likes)]);
+  //       } else {
+  //          likes = likes.filter((id) => id !== userId);
+  //         setLikes(likes);
+  //       }
+  //     }
+  //     await updateDoc(doc(db, "blogs", id), {
+  //       ...blog,
+  //       likes,
+  //       timestamp: serverTimestamp(),
+  //     });
+  //   }
+  // };
   const handleLike = async () => {
     if (userId) {
       if (blog?.likes) {
         const index = likes.findIndex((id) => id === userId);
+        const updatedLikes = [...likes]; // Create a new array to modify
+  
         if (index === -1) {
-          likes.push(userId);
-          setLikes([...new Set(likes)]);
+          updatedLikes.push(userId);
+          setLikes([...new Set(updatedLikes)]);
         } else {
-          likes = likes.filter((id) => id !== userId);
-          setLikes(likes);
+          updatedLikes.splice(index, 1);
+          setLikes(updatedLikes);
         }
+  
+        await updateDoc(doc(db, "blogs", id), {
+          ...blog,
+          likes: updatedLikes,
+          timestamp: serverTimestamp(),
+        });
       }
-      await updateDoc(doc(db, "blogs", id), {
-        ...blog,
-        likes,
-        timestamp: serverTimestamp(),
-      });
     }
   };
 

@@ -76,7 +76,7 @@ const Homepage: React.FC = () => {
     </div>
     <About/>
     <Features/>
-    <Trending/>
+    <Trending blogs={undefined}/>
     <Review/>
     
     {/* <Trending /> */}

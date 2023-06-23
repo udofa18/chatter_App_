@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth } from "../firebase/auth.js";
-import firebase from "firebase/app";
 import "firebase/auth";
 
 const Login = () => {
@@ -27,11 +26,9 @@ const Login = () => {
     
 
     // The signed-in user info.
-    const user = result.user;
    
     // This gives you a Google Access Token.
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
     
     
   };
@@ -55,6 +52,7 @@ const Login = () => {
   const login = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((userCredential) => {
         navigate("/dashboard");
        

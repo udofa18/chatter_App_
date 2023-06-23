@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 
 import { useEffect, useState } from "react";
-import { collection, DocumentData, DocumentSnapshot, getDocs, limit, orderBy, query, QuerySnapshot, startAfter, where,  } from "firebase/firestore";
+import { collection, DocumentData, DocumentSnapshot, getDocs, limit, orderBy, query, startAfter,  } from "firebase/firestore";
 import { db,  } from "../../firebase/auth";
 import Spinner from "../../components/Spinner.js";
 import Pagination from "../../components/Pagination.js";
@@ -10,19 +11,18 @@ import Tags from "../../components/Tags.js";
 import FeatureBlogs from "../../components/FeatureBlogs";
 import Trending from "../../components/Trending.js";
 import Category from "../../components/Category.js";
-import Search from "../../components/search.js";
-import { useLocation } from "react-router-dom";
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+// function useQuery() {
+//   return new URLSearchParams(useLocation().search);
+// }
 interface BlogData {
   id: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
 const PostsPage = () => {
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [blogs, setBlogs] = useState<BlogData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -30,16 +30,15 @@ const PostsPage = () => {
   const [noOfPages, setNoOfPages] = useState<number | null>(null);
   const [count, setCount] = useState<number | null>(null);
   const [tags, setTags] = useState([]);
-  const [blog, setBlog] = useState(null);
-  const queryString = useQuery();
-  const searchQuery = queryString.get("searchQuery");
+  // const [blog, setBlog] = useState(null);
+  // const queryString = useQuery();
+  // const searchQuery = queryString.get("searchQuery");
   const [totalBlogs, setTotalBlogs] = useState([]);
-  const [hide, setHide] = useState(false);
 
   useEffect(() => {
     getBlogsData();
     getTotalBlogs();
-    setSearch("");
+    // setSearch("");
     // setActive("blogs");
   }, []);
 
@@ -166,7 +165,7 @@ const PostsPage = () => {
           {blogs?.map((blog) => (
             <li  className=" flex justify-between gap-x-6 py-10 m-auto align-center " key={blog.id}>
               
-              <PostSection title={undefined} description={undefined} category={undefined} imgUrl={undefined} userId={undefined} author={undefined} timestamp={undefined} user={undefined} handleDelete={undefined} {...blog} />
+              <PostSection content={undefined} postTitle={undefined} postDescription={undefined} imgUrl={undefined} userId={undefined} author={undefined} timestamp={undefined} {...blog} />
             
             </li>
           ))}
