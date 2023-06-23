@@ -36,13 +36,13 @@ const CategoryBlog = ( ) => {
 
   return (
     <div>
-      <div className=" container mt-10 m-20 p-20 h-screen w-screen bg-slate-200">
-        <div className="m-10">
-          <div className="blog-heading text-left py-2 mb-4">
+      <div className=" container mt-5 m-20 pt-10 h-full w-screen bg-slate-200 overflow-hidden">
+        <div className="m-10 h-full overflow-scroll">
+          <div className="blog-heading text-white shadow  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
             Category: <strong>{category.toLocaleUpperCase()}</strong>
           </div>
           {categoryBlogs?.map((item) => (
-            <div className="col-md-6">
+            <div className="col-md-6 mt-10 ">
               <PostSection key={item.id} {...item} />
             </div>
           ))}

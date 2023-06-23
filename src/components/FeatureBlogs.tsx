@@ -7,7 +7,7 @@ const FeatureBlogs = ({ blogs, title }) => {
       <div className="card text-white font-bold pt-3 py-2 mb-4">{title}</div>
       {blogs?.map((item) => (
         <div
-          className="row flex pb-3 p-4 border-bottom my-4  "
+          className="row flex pb-3 p-4 border-bottom my-4 hvr-hang  "
           key={item.id}
           style={{ cursor: "pointer", borderBottom:"2px solid grey" }}
           onClick={() => navigate(`/posts/${item.id}`)}

@@ -158,12 +158,12 @@ const PostsPage = () => {
   return (
     <div>
     <div className="flex mt-10 ">
-      <div className="  w-800 flex-1 bg-slate-100 w-screen justify-center overflow-y-auto">
-      <div className=" text-left mt-20 text-red-400 text-3xl mx-32 font-bold">Explore Posts on Chatter</div>
+      <div className="  w-auto flex-1 bg-slate-100 w-screen justify-center overflow-y-auto">
+      <div className=" text-left mt-20 text-red-400 text-3xl mx-20 font-bold">Explore Posts on Chatter</div>
 
-        <ul role="list" className=" divide-y mx-32 divide-slate-300  ">
+        <ul role="list" className=" divide-y mx-20 divide-slate-300  ">
           {blogs?.map((blog) => (
-            <li  className=" flex justify-between gap-x-6 py-10 m-auto align-center " key={blog.id}>
+            <li  className=" flex justify-between gap-y-2 py-10 m-auto align-center " key={blog.id}>
               
               <PostSection content={undefined} postTitle={undefined} postDescription={undefined} imgUrl={undefined} userId={undefined} author={undefined} timestamp={undefined} {...blog} />
             

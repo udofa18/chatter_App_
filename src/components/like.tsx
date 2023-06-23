@@ -19,19 +19,19 @@ const Like = ({ handleLike, likes, userId }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return likes.find((id: any) => id === userId) ? (
         <>
-          <i className="fas fa-thumbs-up" />
+          <i className="fas fa-thumbs-up hvr-buzz" />
           &nbsp;{likes.length}
         </>
       ) : (
         <>
-          <i className="fas fa-thumbs-up" />
+          <i className="fas fa-thumbs-up hvr-buzz" />
           &nbsp;{likes.length}
         </>
       );
     }
     return (
       <>
-        <i className="fas fa-thumbs-up" />
+        <i className="fas fa-thumbs-up hvr-buzz" />
         &nbsp;
       </>
     );

@@ -93,10 +93,10 @@ const handleDelete = async (id: string) => {
   
 
   return (
-    <><div className="flex gap-x-4 w-full" key={id}>
+    <><div className="flex gap-x-2 w-full" key={id}>
 
 
-      <img className="h-32 w-32 flex-none  bg-gray-50" src={imgUrl} alt={postTitle} />
+      <img className="h-32 w-40 flex-none  bg-gray-50" src={imgUrl} alt={postTitle} />
       <div className="min-w-0 flex-auto w-40">
         <p className="text-1xl font-bold leading-6 text-gray-900">{postTitle}</p>
         <p className="mt-2 truncate text-x leading-5 mb-3 text-gray-500">{excerpt(postDescription, 120)}</p>
@@ -123,7 +123,7 @@ const handleDelete = async (id: string) => {
         </p>
 
         <NavLink to={`/posts/${id}`}>
-          <button className="btn bg-black">Read</button>
+          <button className="btn bg-black mt-10 hvr-bob">Read</button>
         </NavLink>
       </div>
 

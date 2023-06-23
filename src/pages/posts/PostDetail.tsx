@@ -195,20 +195,20 @@ const PostDetail = () => {
     <div className=" flex   mt-10 w-screen bg-base-200 ">
       <div className="w-80 flex-1  h-100 snap-y  overflow-hidden ">
         <div className="card  shadow-xl w-full px-10 mt-10 relative">
-          <figure style={{ margin: "0 auto",}} className="overflow-hidden mt-10 bg-slate-300">
-            <img width={600} height={200} src={blog?.imgUrl} alt="" className="" />
+          <figure style={{ margin: "0 auto",}} className="overflow-hidden mt-10 bg-slate-300 ">
+            <img width={600} height={200} src={blog?.imgUrl} alt="" className="hvr-bob" />
           </figure>
           <div className="card-body relative">
             <h1 className="text-3xl font-bold text-base-400 pb-4">
               {blog?.postTitle}
             </h1>
-            <div className="flex gap-5">
+            <div className="flex gap-5 ">
               <span>
-                <p className="text-sm">
+                <p className="text-sm text-danger">
                   -{blog?.timestamp.toDate().toDateString()}
                 </p>
               </span>
-              <span className="meta-info text-start text-sm">
+              <span className="meta-info text-start text-sm text-bg-info">
                 <p className="author">Publihed by: {blog?.author}</p>
               </span>
             </div>
