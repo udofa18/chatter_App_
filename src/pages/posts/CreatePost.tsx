@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, useState, useEffect, ChangeEventHandler } from "react";
 
 import ReactTagInput from "@pathofdev/react-tag-input";
@@ -183,11 +185,13 @@ const CreatePost = ({ user}) => {
     if (snapshot.exists()) {
       const data = snapshot.data() as {
         postTitle: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         tags: any[];
         trending: string;
         category: string;
         postDescription: string;
         content: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         comments: any[];
         likes: any[];
       };
