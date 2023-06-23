@@ -1,0 +1,59 @@
+* {
+	outline: none;
+	box-sizing: border-box;
+}
+
+
+#wrap {
+	max-width: 90%;
+	margin: auto;
+	padding: 1rem 0;
+}
+
+	.title {
+		margin: 0 0 1rem 0;
+		color: #000000;
+	}
+
+
+	.tags, #tag {
+		display: inline-block;
+	}
+
+	#tag {
+		border: none;
+		font-size: 1.05rem;
+		padding: 1rem ;
+	}
+
+	.tag {
+		display: inline-block;
+		border: 1px solid #d0d0d0;
+		padding: 0.3rem 0.4rem;
+		border-radius: 0.4rem;
+		margin: 0 3px;
+		
+	}
+
+	.tag-name {
+		color: #52a3ef;
+	}
+
+	.remove {
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: #ec0a0a;
+		margin-left: 0.3rem;
+		cursor: pointer;
+	}
+		.remove:hover {
+			color: #8f8f8f;
+		}
+	
+
+	.tip {
+		font-size: 0.9rem;
+		color: #9f9f9f;
+		margin-left: 3px;
+	}
+

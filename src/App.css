@@ -1,0 +1,40 @@
+
+.bg{
+   background-image:url("https://img.freepik.com/free-photo/interior-designer-working-out-office_52683-112924.jpg?w=996&t=st=1685015486~exp=1685016086~hmac=763d0f4cd1557f5063edafab2f503de2a9b3b15c9c48d012b5cd40aff03f3f11")!important;
+    height: 100% !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: inherit  ;
+    background-attachment: fixed;
+  
+
+}
+
+.bg{
+    position: relative;
+  }
+  
+  .bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(4, 4, 3, 0.661);
+    z-index: 0;
+  }
+
+  .overlay::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(4, 4, 4, 0.867);
+    z-index: 0;
+
+  }
+
