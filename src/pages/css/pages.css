@@ -1,0 +1,12 @@
+/* login */
+
+@media only screen and (max-width: 600px) { 
+   .mob_width{
+        width: 100%;
+       margin: 2px;
+       margin-top: 5rem;
+    }
+    .mon_mag{
+        padding: 10px !important;
+    }
+}

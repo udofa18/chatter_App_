@@ -4,19 +4,19 @@ const image = {
 const Review = () => {
   return (
     <div>
-      <div className="bg-base-200 relative p-40">
+      <div className="bg-base-200 relative p-40 mob_pad ">
         <div className="flex justify-center m-35">
-          <div className="w-full ">
+          <div className="w-full no_dis ">
             <img
               // width={80}
               src={image.url}
               style={{ borderRadius: "100%", width: "10rem", height: "10rem" }}
-              className="  m-auto
+              className="  m-auto no_dis
             "
             />
           </div>
 
-          <div className="px-5 ml-5">
+          <div className="px-5 ml-5 t_center mob_pad">
             <h2 className=" ">
               "Chatter has become an integral part of my online experience. As a
               user of this incredible blogging platform, I have discovered a
@@ -28,11 +28,11 @@ const Review = () => {
           </div>
         </div>
       </div>
-      <div className="bg-slate-300 relative p-40">
-        <div className="flex justify-between m-35">
+      <div className="bg-slate-300 relative p-40 mob_pad">
+        <div className="flex justify-between m-35 mob_block ">
           <div className="w-full flex">
             <div>
-           <div style={{ borderRadius: "100%", width: "10rem", height: "10rem", border:"2px solid orangered" }} className="p-4">
+           <div style={{ borderRadius: "100%", width: "10rem", height: "10rem", border:"2px solid orangered" }} className="p-4 no_dis">
               <img
                 // width={80}
                 src="https://img.freepik.com/free-photo/african-woman-posing-looking-up_23-2148747978.jpg?w=740&t=st=1685143630~exp=1685144230~hmac=5ba67ecca990878768d4369ca532405099e998407f2d6b3b91c9fcf5e86cd28a"
@@ -41,7 +41,7 @@ const Review = () => {
             "
               />
               </div>
-              <div style={{ borderRadius: "100%", width: "10rem", height: "10rem", border:"2px solid orangered",marginTop: "5rem", }} className="p-4">
+              <div style={{ borderRadius: "100%", width: "10rem", height: "10rem", border:"2px solid orangered",marginTop: "5rem", }} className="p-4 no_dis">
 
               <img
                 // width={80}
@@ -57,7 +57,7 @@ const Review = () => {
               />
               </div>
             </div>
-            <div style={{ borderRadius: "100%", width: "10rem", height: "10rem", border:"2px solid orangered",marginTop:"8rem"}} className="p-3 mt-10">
+            <div style={{ borderRadius: "100%", width: "10rem", height: "10rem", border:"2px solid orangered",marginTop:"8rem"}} className="p-3 mt-10 no_dis">
 
             <img
               // width={80}
@@ -68,10 +68,10 @@ const Review = () => {
             />
             </div>
           </div>
-          <div className="px-5 ml-5 w-full">
-            <h1 className="text-white">Write, read and connect with great minds on chatter</h1>
-            <p className="py-5">Share people your great ideas, and also read write-ups based on your interests. connect with people of same interests and goals  </p>
-            <button className="btn my-10">Join Chatter</button>
+          <div className="px-5 ml-5 w-full t_center mob_pad">
+            <h1 className="text-white t_center mob_font">Write, read and connect with great minds on chatter</h1>
+            <p className="py-5 t_center">Share people your great ideas, and also read write-ups based on your interests. connect with people of same interests and goals  </p>
+            <button className="btn my-10 ">Join Chatter</button>
           </div>
         </div>
       </div>

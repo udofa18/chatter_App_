@@ -3,25 +3,27 @@ import Features from "../components/Features";
 import Review from "../components/Review";
 import Trending from "../components/Trending";
 import "./Homepage.css";
+import { NavLink } from "react-router-dom";
 
 const Homepage: React.FC = () => {
   return <>
-    <div className="pt-10 m-0 z-index w-full relative bg">
+    <div className="pt-10  w-full relative bg">
       <div
         style={{
-          textAlign: "left",
-          marginBottom: "8rem",
+          textAlign: "center",
           paddingTop: "10rem",
+          backdropFilter:"blur(5px)"
         }}
-        className="text-center p-4 w-50 m-10 "
+        className="t_center h-screen pt-20  "
       >
+        <div className="mt">
         <h1
           style={{ fontSize: "3rem", color: "white" }}
-          className="py-5 blinking-text"
+          className="py-5 blinking-text  t_center mob_font mt"
         >
           <span
             // style={{ backgroundColor: "#F65942", borderRadius: "30px" }}
-            className="font-bold p-2 text-base-200 glass"
+            className="font-bold p-2 text-base-200 glass "
           >
             Express
           </span>{" "}
@@ -29,7 +31,7 @@ const Homepage: React.FC = () => {
         </h1>
         <h1
           style={{ fontSize: "5rem", color: "whitesmoke" }}
-          className="py-5 blinking-text"
+          className="py-5 blinking-text  t_center mob_font"
         >
           <span
             // style={{ backgroundColor: "#F65942", borderRadius: "30px" }}/
@@ -39,36 +41,39 @@ const Homepage: React.FC = () => {
           </span>{" "}
           your Story.
         </h1>
-        <button className="btn btn-active normal-case my-5 text-6l w-40 text-cyan-400 relative glass text-base-300">
+        </div>
+        <NavLink to="/login">
+        <button className="btn btn-accent normal-case my-5 text-6l w-40  relative ">
           Join Chatter
         </button>
+        </NavLink>
         <div className="w-full relative">
-          <h2>Browse Categories</h2>
+          <h2 className="text-base-200 font-bold text-2xl mt-20"> Categories</h2>
 
           <div className="border-b-accent">
             <span className="inline-flex items-center m-5 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-              Badge
+              Technology
             </span>
             <span className="inline-flex items-center m-5 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-              Badge
+              Fashion
             </span>
             <span className="inline-flex items-center m-5 rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
-              Badge
+              Lifestyle
             </span>
             <span className="inline-flex items-center m-5 rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-              Badge
+              Politics
             </span>
             <span className="inline-flex items-center m-5 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-              Badge
+              Academic
             </span>
             <span className="inline-flex items-center  m-5 rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
-              Badge
+              Coding
             </span>
             <span className="inline-flex items-center m-5 rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
-              Badge
+              Religion
             </span>
             <span className='inline-flex items-center m-5 rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10'>
-              Badge
+              Fun
             </span>
           </div>
         </div>

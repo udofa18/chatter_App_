@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/auth";
 import { toast } from "react-toastify";
+import "../components/css/header.css" 
 
 
 const Header: React.FC = () => {
@@ -41,11 +42,11 @@ const Header: React.FC = () => {
           zIndex: "1",
           backgroundColor: "black",
         }}
-        className="navbar "
+        className="navbar navMobile "
       >
         <div className="flex-1">
           <NavLink to="/">
-            <a className="btn normal-case text-xl text-white">
+            <a className="btn normal-case text-xl text-white  header-btn">
               Chatter
             </a>
           </NavLink>
@@ -54,7 +55,7 @@ const Header: React.FC = () => {
         <div className="mr-10">
           <div>
             <NavLink to="/posts">
-              <label className="btn btn-info normal-case text-md  w-36">
+              <label className="btn btn-info normal-case text-md header-btn  w-36">
                 Explore
               </label>
             </NavLink>
@@ -63,13 +64,13 @@ const Header: React.FC = () => {
         <div className="">
           <div>
             <NavLink to="/createpost">
-              <label className="btn normal-case text-md  w-36">
+              <label className="btn normal-case text-md  w-36 header-btn">
                 Create Post
               </label>
             </NavLink>
           </div>
 
-          <div className="navbar-end flex">
+          <div className="navbar-end flex no_display">
             <button className="btn btn-ghost btn-circle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +87,7 @@ const Header: React.FC = () => {
                 />
               </svg>
             </button>
-            <button className="btn btn-ghost btn-circle">
+            <button className="btn btn-ghost btn-circle ">
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +111,8 @@ const Header: React.FC = () => {
           {authUser ? (
             ""
           ) : (
-            <>
+            < >
+            <div className="no_display flex">
               <NavLink to="/login">
                 <div className="flex-1">
                   <label className="btn btn-ghost  text-white">Login</label>
@@ -121,6 +123,7 @@ const Header: React.FC = () => {
                   <label className="btn btn-ghost  text-white">Signup</label>
                 </div>
               </NavLink>
+              </div>
             </>
           )}
           {authUser ? (

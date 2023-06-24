@@ -1,0 +1,15 @@
+@media only screen and (max-width: 600px) { 
+    .navMobile { 
+        width: 100% !important;
+      
+    }
+    .header-btn{
+        width: 100% !important;
+        font-size: 12px !important;
+        padding: 2px 2px 2px 2px !important;
+      margin-right: 10px !important;
+    }
+    .no_display{
+        display: none !important;
+    }
+  }

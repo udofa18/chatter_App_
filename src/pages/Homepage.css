@@ -1,6 +1,6 @@
 .blinking-text {
 
-    animation: blink 9s infinite ease-in-out;
+    animation: blink 6s infinite ease-in-out;
 
 }
 
@@ -9,39 +9,66 @@
 
     0% {
         opacity: 1;
-        width: 10%;
+        /* width: 10%; */
         overflow: hidden;
+        filter: blur(5px);
+        
         text-overflow: ellipsis;
-        white-space: nowrap;
+        /* white-space: nowrap; */
     }
 
     10% {
         opacity: 0.5;
-        width: 30%;
-    }
-    20% {
-        opacity: 0.5;
-        width: 40%;
-    }
-    30% {
-        opacity: 0.5;
-        width: 50%;
-    }
-
-    50% {
-        opacity: 1;
-        width: 60%;
-    }
-    70% {
-        opacity: 1;
-        width: 80%;
+        filter: blur(5px);
+        /* width: 30%; */
     }
     100% {
         opacity: 1;
-        width: 100%;
+        /* color: rgb(0, 0, 0) */
+        /* width: 100%; */
     }
 }
 .z-index{
     position: initial;
     z-index: 0;
+}
+@media only screen and (max-width: 600px) { 
+    .mobile_featues{
+        width: 100% !important;
+    }
+    .mob_pad{
+        padding: 10px !important ;
+        width: 100% !important;
+  
+    }
+    .feaitem_con{
+        margin: auto !important;
+        padding: 3px !important; 
+       }
+       .mob_block{
+        display: block !important;
+        margin: 1px !important;
+        text-align: center !important;
+       }
+       .t_center{
+        text-align: center !important;
+        padding: 0 !important;
+        margin: 2px !important;
+       }
+       .no_dis{
+        display: none;
+       }
+       .mob_font{
+        font-size: 30px;
+       }
+       .mob_pad{
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+       }
+       .mob_mag{
+        margin: 2px;
+       }
+       .mt{
+        padding-top: 50px;
+       }
 }

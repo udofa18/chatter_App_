@@ -5,10 +5,10 @@
 
 const About = () => {
   return (
-    <div className="bg-slate-100 relative p-10 h-full">
-      <div className=" flex justify-between m-40 ">
-        <div className="w-1/2">
-        <h1 className="my-5">About Chatter</h1>
+    <div className="bg-slate-100 relative p-10 h-full mob_mag  mob_pad">
+      <div className=" flex mob_block justify-between m-40 mob_mag ">
+        <div className="w-1/2  t_center mobile_featues">
+        <h1 className="my-5 mob_font ">About Chatter</h1>
         <p>
           Chatter is a multi-functional platform where authors and readers can
           have access to their own content. It aims to be a traditional
