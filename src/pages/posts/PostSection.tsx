@@ -116,7 +116,7 @@ const handleDelete = async (id: string) => {
         
                 
             />
-             <p className="mt-1 text-xs leading-5 text-red">
+             <p className="mt-1 text-xs leading-5 text-cyan-400">
           Posted on {timestamp.toDate().toDateString()}
         </p>
         <span className="flex py-4 gap-2 text-red-400 center">
@@ -129,7 +129,7 @@ const handleDelete = async (id: string) => {
             <i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
               onClick={() => handleDelete(id)} />Delete
             <Link to={`/editpost/${id}`}>
-              <i className="fas fa-pen  text-slate-600 ml-4  text-sm"  /> Edit
+              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
             </Link>
        </span>
         )}

@@ -30,8 +30,8 @@ const Trending = ({ blogs }) => {
   };
   return (
     <>
-      <div className="mx-32">
-        <div className="text-2xl text-start py-2 mb-4 text-slate-100 font-bold">Trending</div>
+      <div className="mx-32 mob_width">
+        <div className="text-2xl text-start py-2 mb-4 text-slate-100 font-bold text_cen">Trending</div>
       
       <OwlCarousel animateIn autoplay className="owl-theme" {...options}>
         {blogs?.map((item) => (

@@ -40,4 +40,11 @@
        .p_right{
 padding-right: 0 !important;
        }
+
+       .p_5{
+         padding: 2px !important;
+       }
+       .m_5{
+         margin: 10px !important;
+       }
  }

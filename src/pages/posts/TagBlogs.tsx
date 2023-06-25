@@ -43,19 +43,22 @@ const TagBlog = () => {
 
   return (
     <div>
-      <div className="container mt-10 m-20 p-20 h-screen w-screen bg-slate-200">
-        <div className="m-10">
+      <div className="
+       mt-10  m_5 p-20 p_5  w-screen bg-slate-950 mob_width">
+        <div className="m-10 m_5">
           <div className="blog-heading text-left  py-2 mb-4">
             Tag: <strong>{tag.toLocaleUpperCase()}</strong>
           </div>
           <div  className="my-10" >
           <Tags tags={tags} />
           </div>
+          <switch>
           {tagBlogs?.map((item) => (
             <div className="col-md-6">
               <PostSection key={item.id} {...item} />
             </div>
           ))}
+          </switch>
         </div>
       </div>
     </div>
