@@ -93,51 +93,60 @@ const handleDelete = async (id: string) => {
   
 
   return (
-    <><div className="flex gap-x-2 w-full mob_block" key={id}>
 
-
-      <img className="h-32 w-40 img_size flex-none  bg-gray-50" src={imgUrl} alt={postTitle} />
-      <div className="min-w-0 flex-auto w-40 mob_width">
+    <>
+     <div className=" w-full pr-32  mob_width p_right" key={id}>
+    <NavLink to={`/posts/${id}`} className="w-full mr-32  mob_width">
+    <div className="block gap-2 text-wrap w-full text-left " key={id}>
+    <p className="text-sm leading-6 text-red-400"> Author: {author} <img src=""/></p>
+<div className="flex">
+      <div className="overflow-hidden img_con m-auto ">
+        
+      <img className="h-32 w-40 img_size flex-none m-auto bg-gray-50" src={imgUrl} alt={postTitle} />
+      </div>
+      <div className="min-w-0 flex-auto w-40 mob_width text_left">
         <p className="text-1xl font-bold leading-6 text-gray-900">{postTitle}</p>
         <p className="mt-2 truncate text-x leading-5 mb-3 text-gray-500">{excerpt(postDescription, 120)}</p>
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             // style={{ height: '500px' }} 
             children={excerpt(content, 200)as string} 
-            className=" break-words"
+            className=" break-words mob_dis"
 
         
                 
             />
-        <span className="flex py-4 gap-2 text-red-400">
-        <div><i className="fas fa-comment "/> {comments?.length} Comment(s) </div>
-        <div><i className="fas fa-thumbs-up"/> {likes?.length} Like(s) </div>
-        </span>
-      </div>
-      <div className="hidden sm:flex sm:flex-col sm:items-end">
-        
-        <p className="text-s leading-6 text-red-400"> Author: {author} <img src=""/></p>
-
-        <p className="mt-1 text-xs leading-5 text-gray-500">
+             <p className="mt-1 text-xs leading-5 text-red">
           Posted on {timestamp.toDate().toDateString()}
         </p>
-
-        <NavLink to={`/posts/${id}`}>
-          <button className="btn bg-black mt-10 hvr-bob">Read</button>
-        </NavLink>
+        <span className="flex py-4 gap-2 text-red-400 center">
+        <div><i className="fas fa-comment "/> {comments?.length}  </div>
+        <div><i className="fas fa-thumbs-up"/> {likes?.length}  </div>
+       
+      
+        {authUser && authUser.uid === userId && (
+          <span style={{ }} className="relative ml-10 ">
+            <i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
+              onClick={() => handleDelete(id)} />Delete
+            <Link to={`/editpost/${id}`}>
+              <i className="fas fa-pen  text-slate-600 ml-4  text-sm"  /> Edit
+            </Link>
+       </span>
+        )}
+         
+    
+        </span>
+       
       </div>
+      </div>
+     
+
+       
+     
 
     </div>
-    <div>
-        {authUser && authUser.uid === userId && (
-          <div style={{ float: "right" }}>
-            <i className="fas fa-trash-can border pointer rounded-2 text-red-500 ml-4 mb-2	p-2 text-xl"
-              onClick={() => handleDelete(id)} />
-            <Link to={`/editpost/${id}`}>
-              <i className="fas fa-pen border rounded-2 text-slate-600 ml-4 p-2 text-xl" />
-            </Link>
-          </div>
-        )}
+    </NavLink>
+    
       </div>
       
       </>

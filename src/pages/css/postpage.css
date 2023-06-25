@@ -3,7 +3,7 @@
          width: 100% !important;
         margin: 2px !important;
         /* margin-top: 5rem !important; */
-        padding: 10px !important;
+        /* padding: 10px !important; */
      }
      .mon_mag{
          padding: 10px !important;
@@ -15,11 +15,29 @@
        }
 
        .text_cen{
-        text-align: center;
+        text-align: center !important;
+        font-size:medium!important;
        }
 
        .img_size{
-        width: 30;
-        height: 30%;
+        width: 60% !important;
+        height: 30% !important;
+       }
+       .img_con{
+         display: none;
+        width: 150px;
+        height: 100px;
+        padding: 0;
+       }
+       .text_left{
+    text-align: left !important;
+
+       }
+       .mob_dis{
+        display: none !important;
+       }
+
+       .p_right{
+padding-right: 0 !important;
        }
  }
