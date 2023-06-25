@@ -11,6 +11,7 @@ import Tags from "../../components/Tags.js";
 import FeatureBlogs from "../../components/FeatureBlogs";
 import Trending from "../../components/Trending.js";
 import Category from "../../components/Category.js";
+import "../css/postpage.css"
 
 // function useQuery() {
 //   return new URLSearchParams(useLocation().search);
@@ -157,11 +158,11 @@ const PostsPage = () => {
   
   return (
     <div>
-    <div className="flex mt-10 ">
+    <div className="flex mt-10  mob_block ">
       <div className="  w-auto flex-1 bg-slate-100 w-screen justify-center overflow-y-auto">
-      <div className=" text-left mt-20 text-red-400 text-3xl mx-20 font-bold">Explore Posts on Chatter</div>
+      <div className=" text-left mt-20 text-red-400 text-3xl mx-20 font-bold text_cen">Explore Posts on Chatter</div>
 
-        <ul role="list" className=" divide-y mx-20 divide-slate-300  ">
+        <ul role="list" className=" divide-y mx-20 divide-slate-300   mob_width ">
           {blogs?.map((blog) => (
             <li  className=" flex justify-between gap-y-2 py-10 m-auto align-center " key={blog.id}>
               

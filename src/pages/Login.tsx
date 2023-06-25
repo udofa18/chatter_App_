@@ -168,17 +168,17 @@ const Login = () => {
               <p className="py-5 m-auto">or login with:</p>
               <div className="m-auto flex gap-7 my-5">
                 <button
-                  className="btn btn-white btn-circle"
+                  className="btn btn-active btn-circle"
                   onClick={signInWithGoogle}
                 >
                   {" "}
                   <i className="fab fa-google text-3xl"></i>
                 </button>
-                <button className="btn btn-white btn-circle">
+                <button className="btn btn-active btn-circle">
                   {" "}
                   <i className="fab fa-facebook-f text-3xl"></i>
                 </button>
-                <button className="btn btn-white  btn-circle">
+                <button className="btn btn-active btn-circle">
                   {" "}
                   <i className="fab fa-twitter text-3xl"></i>
                 </button>

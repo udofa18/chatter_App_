@@ -3,8 +3,9 @@ import { useState } from "react";
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { createUserWithEmailAndPassword , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {auth, db } from "../firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import"../pages/css/pages.css"
 
 
 const Signup = () => {
@@ -56,8 +57,8 @@ const token = credential.accessToken;
         backgroundImage:
           "url(https://img.freepik.com/free-photo/solemn-dark-skinned-african-american-student-his-workplace-looking-his-copy-book-writing-notes-preparing-final-exams-university-concentrated-handsome-guy-working-cafe-during-break_273609-7480.jpg?t=st=1685441892~exp=1685442492~hmac=3c9047f34a42bb3aaaadd0785fa188827e782ae191b569727d25a3938b1ce71c)",
       }}
-          className=" overlay bg-cover bg-center h-full p-20  ">
-        <div className="m-auto w-1/2 glass p-10 relative text-white rounded-box">
+          className=" overlay bg-cover bg-center h-full p-20  mon_mag ">
+        <div className="m-auto w-1/2 glass p-10 relative text-white rounded-box  mob_width">
          
           <h3 className="text-lg font-bold">Signup to Chatter!</h3>
           {error  &&
@@ -119,18 +120,25 @@ const token = credential.accessToken;
             </div>
 
           </form>
+           <p className="text-center m-4">
+              Dont have account yet?
+              <NavLink className="text-success" to="/login">
+                {" "}
+                Login!
+              </NavLink>{" "}
+            </p>
           <div className="m-auto form-control">
             <p className="py-5 m-auto">or signup with:</p>
             <div className="m-auto flex gap-7 my-5">
-              <button className="btn btn-ghost btn-circle" onClick={handleGoogleSignUp }>
+              <button className="btn btn-active btn-circle" onClick={handleGoogleSignUp }>
                 {" "}
                 <i className="fab fa-google text-3xl"></i>
               </button>
-              <button className="btn btn-ghost btn-circle">
+              <button className="btn btn-active btn-circle">
                 {" "}
                 <i className="fab fa-facebook-f text-3xl"></i>
               </button>
-              <button className="btn btn-ghost btn-circle">
+              <button className="btn btn-active btn-circle">
                 {" "}
                 <i className="fab fa-twitter text-3xl"></i>
               </button>

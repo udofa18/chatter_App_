@@ -1,0 +1,25 @@
+@media only screen and (max-width: 600px) { 
+    .mob_width{
+         width: 100% !important;
+        margin: 2px !important;
+        /* margin-top: 5rem !important; */
+        padding: 10px !important;
+     }
+     .mon_mag{
+         padding: 10px !important;
+     }
+     .mob_block{
+        display: block !important;
+        margin: 1px !important;
+        text-align: center !important;
+       }
+
+       .text_cen{
+        text-align: center;
+       }
+
+       .img_size{
+        width: 30;
+        height: 30%;
+       }
+ }
