@@ -102,11 +102,11 @@ const handleDelete = async (id: string) => {
 <div className="flex">
       <div className="overflow-hidden img_con m-auto ">
         
-      <img className="h-32 w-40 img_size flex-none m-auto bg-gray-50" src={imgUrl} alt={postTitle} />
+      <img className="h-32 w-40 img_size flex-none m-auto bg-gray-50 mr-4" src={imgUrl} alt={postTitle} />
       </div>
       <div className="min-w-0 flex-auto w-40 mob_width text_left">
-        <p className="text-1xl font-bold leading-6 text-gray-900">{postTitle}</p>
-        <p className="mt-2 truncate text-x leading-5 mb-3 text-gray-500">{excerpt(postDescription, 120)}</p>
+        <p className="text-1xl font-bold leading-6 text-gray-100">{postTitle}</p>
+        <p className="mt-2 truncate text-x leading-5 mb-3 text-gray-300">{excerpt(postDescription, 120)}</p>
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             // style={{ height: '500px' }} 

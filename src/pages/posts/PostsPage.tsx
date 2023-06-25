@@ -157,9 +157,9 @@ const PostsPage = () => {
   console.log(categoryCount)
   
   return (
-    <div className="w-screen">
+    <div className="w-screen bg-slate-800">
     <div className="flex mt-10  mob_block w-100">
-      <div className=" flex-1 bg-slate-100  justify-center">
+      <div className=" flex-1  justify-center">
       <div className=" text-left mt-20 text-red-400 text-3xl mx-20 font-bold text_cen">Explore Posts on Chatter</div>
 
         <ul role="list" className=" divide-y mx-20 divide-slate-300 w-full  mob_width ">
