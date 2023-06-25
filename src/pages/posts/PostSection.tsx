@@ -111,7 +111,7 @@ const handleDelete = async (id: string) => {
             remarkPlugins={[remarkGfm]}
             // style={{ height: '500px' }} 
             children={excerpt(content, 200)as string} 
-            className=" break-words mob_dis"
+            className=" break-words mob_dis text-accent"
 
         
                 

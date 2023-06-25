@@ -6,7 +6,6 @@ const Tags = ({ tags }) => {
   return (
     <div>
       <div className="tags">
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {tags?.map((tag: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal, index: Key) => (
           <div className="badge badge-accent m-1 p-2 hvr-bounce-in" key={index}>
             <Link

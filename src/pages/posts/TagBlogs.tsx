@@ -4,13 +4,11 @@ import { useParams } from "react-router-dom";
 import PostSection from "./PostSection";
 import Spinner from "../../components/Spinner";
 import { db } from "../../firebase/auth";
-import Tags from "../../components/Tags";
 
 const TagBlog = () => {
   const [tagBlogs, setTagBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const { tag } = useParams();
-  const [tags, setTags] = useState([]);
 
 
   const getTagBlogs = async () => {
@@ -27,8 +25,7 @@ const TagBlog = () => {
     setLoading(false);
     const tags = [];
   blogs.docs.map((doc) => tags.push(...doc.get("tags")));
-  const uniqueTags = [...new Set(tags)];
-  setTags(uniqueTags);
+ 
   };
   
   useEffect(() => {
@@ -44,21 +41,19 @@ const TagBlog = () => {
   return (
     <div>
       <div className="
-       mt-10  m_5 p-20 p_5  w-screen bg-slate-950 mob_width">
+       mt-5  m_5 p-20 p_5  w-screen bg-slate-950 mob_width">
         <div className="m-10 m_5">
-          <div className="blog-heading text-left  py-2 mb-4">
+          <div className="blog-heading text-left text-white shadow  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
             Tag: <strong>{tag.toLocaleUpperCase()}</strong>
           </div>
-          <div  className="my-10" >
-          <Tags tags={tags} />
-          </div>
-          <switch>
+         
+        
           {tagBlogs?.map((item) => (
-            <div className="col-md-6">
+            <div className="col-md-6 pt-10">
               <PostSection key={item.id} {...item} />
             </div>
           ))}
-          </switch>
+        
         </div>
       </div>
     </div>
