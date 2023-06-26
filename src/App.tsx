@@ -23,7 +23,7 @@ import PostDetail from "./pages/posts/PostDetail.js";
 import TagBlog from "./pages/posts/TagBlogs.js";
 import CategoryBlog from "./pages/posts/CategoryBlog.js";
 import LoginRoute from "./components/LoginRoutes.js";
-
+import Draft from "./components/Draft.js";
 const App: React.FC = () => {
  
   const [authUser, setAuthUser] = useState(null);
@@ -64,9 +64,19 @@ const App: React.FC = () => {
           >
             <Route path="/dashboard/dash" element={<Dash />} />
             <Route path="/dashboard/published" element={<Published />} />
+            <Route path="/dashboard/draft" element={<Draft />} />
           </Route>
           <Route
             path="/createpost"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <CreatePost user={authUser} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/createpost/:id"
             element={
               <ProtectedRoute>
                 {" "}

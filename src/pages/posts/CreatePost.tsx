@@ -175,11 +175,16 @@ const CreatePost = ({ user}) => {
   }, [selectedFile]);
 
   useEffect(() => {
-    id && getBlogDetail();
+    id && getBlogDetail  ();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+  useEffect(() => {
+    id && getDraft  ();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const getBlogDetail = async () => {
+
     const docRef = doc(db, "blogs", id);
     const snapshot = await getDoc(docRef);
     if (snapshot.exists()) {
@@ -196,9 +201,30 @@ const CreatePost = ({ user}) => {
         likes: any[];
       };
       setForm({ ...data });
+    } };
+    
+const getDraft =  async() => {
+const draftCollection =  doc(db,"draft", id)
+const snapshot = await getDoc(draftCollection);
+    if (snapshot.exists()) {
+      const data = snapshot.data() as {
+        postTitle: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        tags: any[];
+        trending: string;
+        category: string;
+        postDescription: string;
+        content: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        comments: any[];
+        likes: any[];
+      };
+      setForm({ ...data });
     }
+}
+
    
-  };
+ 
   const handleEditorChange = ({ html, text }) => {
     console.log("handleEditorChange", html, text);
     const content=(text as string)
@@ -241,6 +267,8 @@ const CreatePost = ({ user}) => {
     e.preventDefault();
 
     if (category && tags && postTitle && postDescription && content ) {
+
+      
       if (!id) {
         try {
           await addDoc(collection(db, "blogs"), {
@@ -267,17 +295,36 @@ const CreatePost = ({ user}) => {
         } catch (err) {
           console.log(err);
         }
-        console.log(content)
+        
       }
     } else {
       return toast.error("All fields are mandatory to fill");
-    }
+    }}
 
+    const handleAddDraft = async (e: { preventDefault: () => void; }) => {
    
+      e.preventDefault();
+  
+      if (category && tags && postTitle && postDescription && content ) {
+        
+          try {
+            await addDoc(collection(db, "draft"), {
+              ...form,
+              timestamp: serverTimestamp(),
+              author: authUser.displayName,
+              userId: authUser.uid,
+            });
+            toast.success("Added to Draft");
+            
+          } catch (err) {
+            console.log(err);
+          }
+        }
+       
   };
   return (
-      <div style={{}} className="bg-base-300 mt-20 m-10  ">
-        <div className=" container  bg-base-200 p-20 m-auto ">
+      <div style={{}} className="bg-base-300 mt-20   ">
+        <div className=" container  bg-base-200 p-20 m-auto p_5">
        
           <h3 className="text-lg font-bold"> {id ? "Edit Post" : "Create New Post "}</h3>
           <form className="form-control" onSubmit={handleAddPost}>
@@ -361,7 +408,7 @@ const CreatePost = ({ user}) => {
         
         <MdEditor
         
-            style={{ height: "500px" }}
+            style={{ height: "500px", display:"block" }}
             value={content}
             renderHTML={(text) => mdParser.render(text) }
             onChange={handleEditorChange}></MdEditor>
@@ -371,10 +418,16 @@ const CreatePost = ({ user}) => {
             <div className="m-auto py-5">
               <button
                 type="submit"
-                className="btn"
+                className="btn mr-10"
                 disabled={progress !== null && progress < 100}
               >
                 {id ? "Update" : "Submit"}
+              </button>
+              <button
+              className="btn btn-accent"
+              onClick={handleAddDraft}
+              >
+                <i className="fas fa-sd-card" />
               </button>
               
             </div> 

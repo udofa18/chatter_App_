@@ -51,7 +51,7 @@ const UserBlog = ( ) => {
 
   return (
     <>
-    {authUser ? (
+        {authUser ?(
     <div>
       <div className=" container p-10 h-full w-full bg-slate-100" >
       <div className="blog-heading text-left py-2 mb-4">
@@ -69,9 +69,13 @@ const UserBlog = ( ) => {
         </div>
       </div>
     </div>
-    )
-  :("")
-  }
+        ):("")
+      
+      }
+
+    
+
+  
   </>
   );
 

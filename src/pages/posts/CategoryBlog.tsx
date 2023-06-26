@@ -36,7 +36,7 @@ const CategoryBlog = ( ) => {
 
   return (
     <div>
-      <div className=" container mt-5 m-20 pt-10 h-full w-screen bg-slate-200 overflow-hidden">
+      <div className="  mt-5  pt-10 h-100 w-screen bg-slate-950 overflow-hidden">
         <div className="m-10 h-full overflow-scroll">
           <div className="blog-heading text-white shadow  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
             Category: <strong>{category.toLocaleUpperCase()}</strong>
