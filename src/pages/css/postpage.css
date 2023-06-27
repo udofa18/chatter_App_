@@ -2,8 +2,7 @@
     .mob_width{
          width: 100% !important;
         margin: 2px !important;
-        /* margin-top: 5rem !important; */
-        /* padding: 10px !important; */
+      
      }
      .mon_mag{
          padding: 10px !important;
@@ -47,5 +46,10 @@ padding-right: 0 !important;
        .m_5{
          margin: 10px !important;
        }
+
+       .dis_block{
+        display: block !important;
+       }
+
 
  }

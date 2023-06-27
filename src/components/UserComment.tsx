@@ -14,8 +14,8 @@ const UserComment = ({ name, body, createdAt, msg }) => {
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                       alt="user"
-                      className="rounded-circle"
-                      width={40}
+                      className="rounded-circle mr-5"
+                      width={50}
                     />
                     <div className="media-body">
                     <h3 className="text-start media-heading user_name bg-body-secondary">

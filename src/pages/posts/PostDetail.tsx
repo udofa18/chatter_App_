@@ -192,13 +192,13 @@ const PostDetail = () => {
   console.log("relatedBlogs", relatedBlogs);
   return (
     <div>
-    <div className=" flex   mt-10 w-screen bg-base-200 ">
-      <div className="w-80 flex-1  h-100 snap-y  overflow-hidden ">
-        <div className="card  shadow-xl w-full px-10 mt-10 relative">
+    <div className=" flex dis_block  mt-10 w-screen bg-base-200 ">
+      <div className="w-80 flex-1 mob_width h-100 snap-y  overflow-hidden ">
+        <div className="  shadow-xl w-full p_5 px-10 mt-10 relative">
           <figure style={{ margin: "0 auto",}} className="overflow-hidden mt-10 bg-slate-300 ">
             <img width={600} height={200} src={blog?.imgUrl} alt="" className="hvr-bob" />
           </figure>
-          <div className="card-body relative">
+          <div className="p_5 relative">
             <h1 className="text-3xl font-bold text-base-400 pb-4">
               {blog?.postTitle}
             </h1>
@@ -209,14 +209,14 @@ const PostDetail = () => {
                 </p>
               </span>
               <span className="meta-info text-start text-sm text-bg-info">
-                <p className="author">Publihed by: {blog?.author}</p>
+                <p className="author text-cyan-400">Publihed by: {blog?.author}</p>
               </span>
             </div>
-            <div className="flex flex-col-right gap-10  ">
+            <div className="flex flex-col-right gap-10 m-5  ">
             <Like handleLike={handleLike} likes={likes} userId={userId} />
             <div><i className="fas fa-comment"/> {comments?.length} Comments </div>
             </div>
-            <div className="border">
+            <div className="border mt-5 mb-5">
               {" "}
               <Tags tags={blog?.tags} />
             </div>
@@ -241,19 +241,19 @@ const PostDetail = () => {
                   <code className={className} {...props} />
                 );
               }}}
-            children={blog?.content as string} 
-            className=" break-words p-4 bg-base-100 w-100 text-wrap markdown-body"
+            children={blog?.content} 
+            className=" break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10"
 
             
         
                 
             />
             </div>
-            <div className="flex flex-col-right gap-10 w-100  ">
+            <div className="flex flex-col-right gap-10 w-100 m-5  ">
             <Like handleLike={handleLike} likes={likes} userId={userId} />
             <div><i className="fas fa-comment"/> {comments?.length} Comments </div>
             </div>
-            <div className="card glass p-5">
+            <div className=" glass p-5 mob_width">
               <div className="scroll">
                 <h4 className="small-title">{comments?.length} Comment</h4>
                 {isEmpty(comments) ? (
@@ -285,7 +285,7 @@ const PostDetail = () => {
         </div>
       </div>
 
-      <div className=" pb-4 pt-4 p-4 bg-slate-800 snap-y w-80">
+      <div className=" pb-4 pt-4 p-4 bg-slate-800 snap-y w-80 mob_width">
         <div className="container padding">
           <div className="row mx-0">
             <div className="col-md-3">

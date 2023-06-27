@@ -11,7 +11,7 @@ import {
 import { db } from "../firebase/auth";
 import Spinner from "./Spinner";
 import { auth } from "../firebase/auth.js";
-import { Link } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Tags from "./Tags.js";
@@ -47,6 +47,7 @@ const Draft = () => {
 
   
   const fetchDraft = async () => {
+    // setLoading(true);
     try {
       const draftRef = collection(db, "draft");
       const draftQuery = query(draftRef, where("userId", "==", user));
@@ -65,7 +66,6 @@ const Draft = () => {
      
     } catch (error) {
       console.error("Error fetching draft data:", error);
-      setLoading(false);
 
       console.log(draft);
     }
@@ -73,10 +73,9 @@ const Draft = () => {
   const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure wanted to delete that Draft ?")) {
       try {
-        setLoading(true);
+        
         await deleteDoc(doc(db, "draft", id));
         toast.success("Draft deleted successfully");
-        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -136,9 +135,9 @@ const Draft = () => {
             <i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
                />Delete
               </div>
-            <Link to={`/createpost/${item.id}`}>
+            <NavLink to={`/createpost/${item.id}`}>
               <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
-            </Link>
+            </NavLink>
             </span>
             
             </div>

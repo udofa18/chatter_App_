@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route,  } from "react-router-dom";
 import Header from "./components/Header";
 import "fontawesome-free-6.2.1/css/all.css";
 import BlogPost from "./components/BlogPost";
@@ -79,9 +79,8 @@ const App: React.FC = () => {
             path="/createpost/:id"
             element={
               <ProtectedRoute>
-                {" "}
                 <CreatePost user={authUser} />
-              </ProtectedRoute>
+                </ProtectedRoute>
             }
           />
           

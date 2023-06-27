@@ -81,7 +81,7 @@ const PostSection = ({
 const handleDelete = async (id: string) => {
   if (window.confirm("Are you sure wanted to delete that Post ?")) {
     try {
-      setLoading(true);
+      
       await deleteDoc(doc(db, "blogs", id));
       toast.success("Blog deleted successfully");
       setLoading(false);
@@ -96,7 +96,7 @@ const handleDelete = async (id: string) => {
 
     <>
      <div className=" w-full pr-32  mob_width p_right" key={id}>
-    <NavLink to={`/posts/${id}`} className="w-full mr-32  mob_width">
+    <NavLink to={`/posts/${id}`} className="w-full mr-32  mob_width hvr-backward">
     <div className="block gap-2 text-wrap w-full text-left " key={id}>
     <p className="text-sm leading-6 text-red-400"> Author: {author} <img src=""/></p>
 <div className="flex">
@@ -124,16 +124,7 @@ const handleDelete = async (id: string) => {
         <div><i className="fas fa-thumbs-up"/> {likes?.length}  </div>
        
       
-        {authUser && authUser.uid === userId && (
-          <span style={{ }} className="relative ml-10 ">
-            <i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
-              onClick={() => handleDelete(id)} />Delete
-            <Link to={`/editpost/${id}`}>
-              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
-            </Link>
-       </span>
-        )}
-         
+       
     
         </span>
        
@@ -146,6 +137,16 @@ const handleDelete = async (id: string) => {
 
     </div>
     </NavLink>
+    {authUser && authUser.uid === userId && (
+          <span style={{ }} className="relative ml-10 float-right flex m-0 justify-center">
+            <span className="cursor-pointer text-red-500 hvr-scale"><i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
+              onClick={() => handleDelete(id)} />Delete</span>
+            <Link to={`/editpost/${id}`}>
+              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
+            </Link>
+       </span>
+        )}
+         
     
       </div>
       

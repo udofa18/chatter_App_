@@ -93,6 +93,7 @@ const CreatePost = ({ user}) => {
   const [form, setForm] = useState(initialState);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [blogId, setBlogID]= useState();
 
   const { postTitle, category, tags, postDescription, content  } = form;
 
@@ -179,14 +180,15 @@ const CreatePost = ({ user}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   useEffect(() => {
-    id && getDraft  ();
+    getDraft  ();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   const getBlogDetail = async () => {
 
     const docRef = doc(db, "blogs", id);
     const snapshot = await getDoc(docRef);
+    //  const blogId = id
     if (snapshot.exists()) {
       const data = snapshot.data() as {
         postTitle: string;
@@ -201,7 +203,12 @@ const CreatePost = ({ user}) => {
         likes: any[];
       };
       setForm({ ...data });
-    } };
+     
+      
+    } 
+  
+     
+  };
     
 const getDraft =  async() => {
 const draftCollection =  doc(db,"draft", id)
@@ -283,8 +290,12 @@ const snapshot = await getDoc(draftCollection);
           console.log(err);
         }
       } else {
+
+        
+
+      if (id){
         try {
-          await updateDoc(doc(db, "blogs", id), {
+          await updateDoc(doc(db, "blogs" , id), {
             ...form,
             timestamp: serverTimestamp(),
             author: authUser.displayName,
@@ -292,9 +303,27 @@ const snapshot = await getDoc(draftCollection);
           });
           toast.success("Blog updated successfully");
           navigate("/posts")
-        } catch (err) {
+
+          // try {
+          //   await updateDoc(doc(db, "draft", id), {
+          //     ...form,
+          //     timestamp: serverTimestamp(),
+          //     author: authUser.displayName,
+          //     userId: authUser.uid,
+          //   });
+          //   toast.success("Blog updated successfully");
+          //   navigate("/posts")
+          // } catch (err) {
+          //   console.log(err);
+          }
+      
+        
+        
+        catch (err) {
           console.log(err);
+          toast.error("Click on Publish Draft Instead")
         }
+      }
         
       }
     } else {
@@ -306,7 +335,7 @@ const snapshot = await getDoc(draftCollection);
       e.preventDefault();
   
       if (category && tags && postTitle && postDescription && content ) {
-        
+        if (!id) {
           try {
             await addDoc(collection(db, "draft"), {
               ...form,
@@ -319,9 +348,48 @@ const snapshot = await getDoc(draftCollection);
           } catch (err) {
             console.log(err);
           }
+        }else {
+          if (id){
+            try {
+              await updateDoc(doc(db, "draft" , id), {
+                ...form,
+                timestamp: serverTimestamp(),
+                author: authUser.displayName,
+                userId: authUser.uid,
+              });
+              toast.success("Draft updated ");
+              
+            }
+            catch (err) {
+              console.log(err);
+              // toast.error("Click on Publish Draft Instead")
+            }
         }
+      }
+    }
        
   };
+  const handlepublishDraft = async (e: { preventDefault: () => void; }) => {
+   
+    e.preventDefault();
+
+    if (category && tags && postTitle && postDescription && content ) {
+      
+        try {
+          await addDoc(collection(db, "blogs"), {
+            ...form,
+            timestamp: serverTimestamp(),
+            author: authUser.displayName,
+            userId: authUser.uid,
+          });
+          toast.success("Draft Published");
+          
+        } catch (err) {
+          console.log(err);
+        }
+      }
+     
+};
   return (
       <div style={{}} className="bg-base-300 mt-20   ">
         <div className=" container  bg-base-200 p-20 m-auto p_5">
@@ -408,10 +476,11 @@ const snapshot = await getDoc(draftCollection);
         
         <MdEditor
         
-            style={{ height: "500px", display:"block" }}
+            style={{ height: "500px", display:"" }}
             value={content}
             renderHTML={(text) => mdParser.render(text) }
             onChange={handleEditorChange}></MdEditor>
+            
         
       </div>
 
@@ -421,14 +490,28 @@ const snapshot = await getDoc(draftCollection);
                 className="btn mr-10"
                 disabled={progress !== null && progress < 100}
               >
-                {id ? "Update" : "Submit"}
+                {id? "Update" : "Submit"}
+
               </button>
+               { id? (
+               <button
+                onClick={handlepublishDraft}
+                 className="btn mr-10"
+                 disabled={progress !== null && progress < 100}>
+                   Publish Draft
+                 
+               </button>)
+              :
+              
+              ("")}
+             
               <button
               className="btn btn-accent"
               onClick={handleAddDraft}
               >
-                <i className="fas fa-sd-card" />
+                <i className="fas fa-sd-card" />  {id? "Update" : ""}
               </button>
+
               
             </div> 
             </div>
