@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 import { useEffect, useState } from "react";
-import { collection, DocumentData, DocumentSnapshot, getDocs, limit, orderBy, query, startAfter,  } from "firebase/firestore";
+import { collection, DocumentData, DocumentSnapshot, getDocs, limit, orderBy, query, startAfter, where,  } from "firebase/firestore";
 import { db,  } from "../../firebase/auth";
 import Spinner from "../../components/Spinner.js";
 import Pagination from "../../components/Pagination.js";
@@ -12,10 +10,13 @@ import FeatureBlogs from "../../components/FeatureBlogs";
 import Trending from "../../components/Trending.js";
 import Category from "../../components/Category.js";
 import "../css/postpage.css"
+import Search from "../../components/search.js";
+import { isEmpty, isNull } from "lodash";
+import { useLocation } from "react-router-dom";
 
-// function useQuery() {
-//   return new URLSearchParams(useLocation().search);
-// }
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 interface BlogData {
   id: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,16 +30,19 @@ const PostsPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [lastVisible, setLastVisible] = useState<DocumentSnapshot<DocumentData> | null>(null);
   const [noOfPages, setNoOfPages] = useState<number | null>(null);
-  const [count, setCount] = useState<number | null>(null);
+  const [count, setCount] = useState(null);
   const [tags, setTags] = useState([]);
   // const [blog, setBlog] = useState(null);
-  // const queryString = useQuery();
-  // const searchQuery = queryString.get("searchQuery");
+
   const [totalBlogs, setTotalBlogs] = useState([]);
+  const [hide, setHide] = useState(false);
+  
+  
 
   useEffect(() => {
     getBlogsData();
     getTotalBlogs();
+    getPostsData()
     // setSearch("");
     // setActive("blogs");
   }, []);
@@ -48,12 +52,35 @@ const PostsPage = () => {
     
   }
  
+  const getPostsData = async () => {
+    setLoading(true);
+   
+
+    const blogRef = collection(db, "blogs");
+    const docSnapshot = await getDocs(blogRef);
+    const blogData = docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as BlogData[];
+    const list = [];
+    docSnapshot.docs.forEach((doc) => {
+     
+      list.push({ id: doc.id, ...doc.data() });
+    });
+  
+   
+
+    const tags = [];
+    docSnapshot.docs.map((doc) => tags.push(...doc.get("tags")));
+    const uniqueTags = [...new Set(tags)];
+    setTags(uniqueTags);
+  
+    // setBlog(blogs.data());
+    
+    }
 
   const getBlogsData = async () => {
     setLoading(true);
     const blogRef = collection(db, "blogs");
-    // const first = query(blogRef, orderBy("title"), limit(4));
-    const docSnapshot = await getDocs(blogRef);
+    const first = query(blogRef, orderBy("postTitle"), limit(4));
+    const docSnapshot = await getDocs(first);
     const blogData = docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as BlogData[];
     const list = [];
     docSnapshot.docs.forEach((doc) => {
@@ -67,14 +94,7 @@ const PostsPage = () => {
     setLoading(false);
     console.log(list);
 
-    const tags = [];
-    docSnapshot.docs.map((doc) => tags.push(...doc.get("tags")));
-    
-
-
-    const uniqueTags = [...new Set(tags)];
-    setTags(uniqueTags);
-  
+   
     // setBlog(blogs.data());
     
     }
@@ -93,7 +113,7 @@ const PostsPage = () => {
     const blogRef = collection(db, "blogs");
     const nextBlogsQuery = query(
       blogRef,
-      orderBy("title"),
+      orderBy("postTitle"),
       startAfter(lastVisible),
       limit(4)
     );
@@ -104,6 +124,11 @@ const PostsPage = () => {
     setLastVisible(nextBlogsSnapshot.docs[nextBlogsSnapshot.docs.length - 1]);
     setLoading(false);
   };
+
+  
+  if (loading) {
+    return <Spinner />;
+  }
 
   const fetchPrev = async () => {
     setLoading(true);
@@ -117,7 +142,7 @@ const PostsPage = () => {
         : count! <= 4 && noOfPages! % 2 === 0
         ? limit(4)
         : limit(4);
-    const prevBlogsQuery = query(blogRef, orderBy("title"), end, limitData);
+    const prevBlogsQuery = query(blogRef, orderBy("postTitle"), end, limitData);
     const prevBlogsSnapshot = await getDocs(prevBlogsQuery);
     const prevBlogData = prevBlogsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as BlogData[];
     setBlogs(prevBlogData);
@@ -155,13 +180,16 @@ const PostsPage = () => {
    
   });
   console.log(categoryCount)
+ 
+
   
   return (
-    <div className="w-screen bg-slate-800">
-    <div className="flex mt-10  mob_block w-100">
+    <div className="w-screen bg-slate-800 h-100">
+    <div className="flex mt-10  mob_block w-100 ">
   
       <div className=" flex-1  justify-center">
-      <div className=" text-left mt-20 text-red-400 bg-slate-950 mob_width text-2xl mx-20 font-bold text_cen p-4 rounded-full">Explore Posts on Chatter</div>
+      <div className=" text-left mt-20 text-red-400 bg-slate-950 mob_width text-2xl mx-20 font-bold text_cen p-4 rounded-full mar_top">Explore Posts on Chatter</div>
+      {/* <Search search={search} handleChange={handleChange} /> */}
 
         <ul role="list" className=" divide-y mx-20 divide-slate-300 w-full  mob_width ">
           {blogs?.map((blog) => (

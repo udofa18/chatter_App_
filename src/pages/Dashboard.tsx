@@ -1,5 +1,6 @@
 import {
   Link,
+  NavLink,
   Outlet,
 } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -47,13 +48,77 @@ const Dashboard = () => {
   };
   return (
     <>
-     {authUser ? (
-    <div className="mt-1 p-20 w-full ">
-    <div>
+     <div>
     <h2 className="text-white text-3xl pt-3 pb-3">Dashboard</h2>
   </div>
+  <div className=" absolute hidden mob_dis_yes w-full mx-10">
+  <ul className="menu menu-horizontal bg-base-200 rounded-box mt-6">
+  <li>
+    <NavLink  to="Dash" className="tooltip" data-tip="Home" >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+    </NavLink>
+  </li>
+  <li>
+    <a className="tooltip" data-tip="Details">
+    <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"
+                  />
+                </svg>    </a>
+  </li>
+  <li>
+    <NavLink to="published" className="tooltip" data-tip="Published">
+    <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>    </NavLink>
+  </li>
+  <li>
+    <NavLink to="Draft" className="tooltip" data-tip="Draft" >
+      <i className="fas fa-download"/>
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to="#" className="tooltip" data-tip="Bookmarks" >
+      <i className="fas fa-bookmark"/>
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to="#" className="tooltip" data-tip="Settings" >
+      <i className="fas fa-cog"/>
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to="#" className="tooltip" data-tip="Log-out" onClick={userSignout}>
+      <i className="fas fa-sign-out"/>
+    </NavLink>
+  </li>
+</ul>
+</div>
+     {authUser ? (
+    <div className="mt-1 p-20 w-full p_5 ">
+   
   <div className="flex">
-      <aside className="flex flex-col w-100 h-screen px-5 py-8  bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+      <aside className="flex no_dis flex-col w-100 h-screen px-5 py-8  bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
       <div
         style={{ }}
         className=" text-white block "
@@ -262,7 +327,7 @@ const Dashboard = () => {
        
   
 
-      <div className=" flex flex-col w-full justify-between p-5 border ml-2">
+      <div className="  w-screen justify-between p-5 border ml-2 mob_width m_5 p_5">
       <Outlet/>
       </div>
       </div>

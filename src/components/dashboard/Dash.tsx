@@ -29,7 +29,7 @@ const Dash = () => {
       {authUser ? (
 
     <div className="w-100 bg-slate-300">
-      <div className="card card-side bg-base-100 shadow-xl">
+      <div className=" bg-base-100 shadow-xl flex">
         <figure>
           <img
             // width={80}

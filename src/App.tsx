@@ -92,6 +92,10 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+           <Route
+          path="/search"
+          element={<BlogPost />}
+        />
           <Route path="/category/:category" element={<CategoryBlog/>} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/posts" element={<PostsPage />} />

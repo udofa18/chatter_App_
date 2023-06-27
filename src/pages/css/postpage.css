@@ -4,6 +4,9 @@
         margin: 2px !important;
       
      }
+     .no_dis{
+      display: none !important;
+     }
      .mon_mag{
          padding: 10px !important;
      }
@@ -35,6 +38,11 @@
        .mob_dis{
         display: none !important;
        }
+       .mob_dis_yes{
+        display:inline-flex !important;
+        position: absolute!important;
+
+       }
 
        .p_right{
 padding-right: 0 !important;
@@ -49,6 +57,10 @@ padding-right: 0 !important;
 
        .dis_block{
         display: block !important;
+       }
+       .mar_top{
+        margin-top: 4rem!important;
+        border-radius: 0 !important;
        }
 
 
