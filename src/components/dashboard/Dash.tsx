@@ -28,18 +28,18 @@ const Dash = () => {
    <>
       {authUser ? (
 
-    <div className="w-100 bg-slate-300">
+    <div className="w-100 bg-slate-300 p-5 p_5">
       <div className=" bg-base-100 shadow-xl flex">
         <figure>
           <img
             // width={80}
             src={authUser.photoURL}
-            style={{  width: "10rem", height: "10rem" }}
-            className="  m-0 rounded-full
+            style={{  width: "5rem", height: "5rem" }}
+            className="  m-0 rounded-full m-5
             "
           />
         </figure>
-        <div className="card-body">
+        <div className=" text ">
           <label>Full name:</label>
           <p className="card-title text-base">{authUser.displayName}</p>
           <label>Email:</label>         

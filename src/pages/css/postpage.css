@@ -19,6 +19,7 @@
        .text_cen{
         text-align: center !important;
         font-size:medium!important;
+        font-weight: 600;
        }
 
        .img_size{
@@ -61,6 +62,15 @@ padding-right: 0 !important;
        .mar_top{
         margin-top: 4rem!important;
         border-radius: 0 !important;
+       }
+       .mar_top2{
+        margin-top: 8rem!important;
+       }
+       .p_0{
+padding: 0 !important;
+       }
+       .text{
+        font-size: 13px !important; 
        }
 
 
