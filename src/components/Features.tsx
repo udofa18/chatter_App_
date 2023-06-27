@@ -28,7 +28,7 @@ const Features: React.FC = () => {
     <div className=" glass p-5 relative py-10 mobile_featues">
       <div className="text-center text-3xl text-slate-200 mob_pad">
         <h5>Features</h5>
-        <p className="text-center text-base m-10 mob_pad .mob_mag">
+        <p className="text-center text-base m-10 m_5 mob_pad .mob_mag">
           Our goal is to make writers and readers see our platform as their next
           heaven for blogging, ensuring ease in interactions, connecting with
           like-minded peers, have access to favorite content based on interests
@@ -40,7 +40,7 @@ const Features: React.FC = () => {
           with our in-built markdown, a rich text editor
         </p>
       </div>
-      <ul className="flex justify-between flex-wrap  text-centre px-10 feaitem_con ">
+      <ul className="flex justify-between dis_block flex-wrap  text-centre px-10 p_5 feaitem_con m-0 ">
         {features.map((features) => (
           <li
             key={features.title}

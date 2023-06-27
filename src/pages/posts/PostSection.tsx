@@ -81,7 +81,7 @@ const PostSection = ({
 const handleDelete = async (id: string) => {
   if (window.confirm("Are you sure wanted to delete that Post ?")) {
     try {
-      
+      setLoading(true);
       await deleteDoc(doc(db, "blogs", id));
       toast.success("Blog deleted successfully");
       setLoading(false);
@@ -96,13 +96,14 @@ const handleDelete = async (id: string) => {
 
     <>
      <div className=" w-full pr-32  mob_width p_right" key={id}>
-    <NavLink to={`/posts/${id}`} className="w-full mr-32  mob_width hvr-backward">
+    <NavLink to={`/posts/${id}`} className="w-full mr-32 flex mob_width p_5 hvr-backward">
+    {/* <img src={imgUrl} width={100} height={20}/> */}
     <div className="block gap-2 text-wrap w-full text-left " key={id}>
-    <p className="text-sm leading-6 text-red-400"> Author: {author} <img src=""/></p>
+    <p className="text-sm leading-6 text-neutral-200"> Author: {author} </p>
 <div className="flex">
-      <div className="overflow-hidden img_con m-auto ">
+      <div className="overflow-hidden  m-auto ">
         
-      <img className="h-32 w-40 img_size flex-none m-auto bg-gray-50 mr-4" src={imgUrl} alt={postTitle} />
+      <img className="h-24 w-40  flex-none m-auto bg-gray-50 mr-4" src={imgUrl} alt={postTitle} />
       </div>
       <div className="min-w-0 flex-auto w-40 mob_width text_left">
         <p className="text-1xl font-bold leading-6 text-gray-100">{postTitle}</p>
@@ -138,12 +139,16 @@ const handleDelete = async (id: string) => {
     </div>
     </NavLink>
     {authUser && authUser.uid === userId && (
-          <span style={{ }} className="relative ml-10 float-right flex m-0 justify-center">
-            <span className="cursor-pointer text-red-500 hvr-scale"><i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
-              onClick={() => handleDelete(id)} />Delete</span>
-            <Link to={`/editpost/${id}`}>
-              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
+          <span style={{ }} className="relative ml-10 float-right gap-2 flex mr-5 mob_width bg-slate-950 p-2 rounded-full justify-center">
+            <span  onClick={() => handleDelete(id)}  className="cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm "
+             />Delete
+             </span>
+             <span className="">
+            <Link to={`/editpost/${id}`} className="text-cyan-400">
+              <i className="fas fa-pen  	p-2 text-sm "  /> 
+              Edit
             </Link>
+            </span>
        </span>
         )}
          

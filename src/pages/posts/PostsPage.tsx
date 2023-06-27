@@ -159,8 +159,9 @@ const PostsPage = () => {
   return (
     <div className="w-screen bg-slate-800">
     <div className="flex mt-10  mob_block w-100">
+  
       <div className=" flex-1  justify-center">
-      <div className=" text-left mt-20 text-red-400 text-3xl mx-20 font-bold text_cen">Explore Posts on Chatter</div>
+      <div className=" text-left mt-20 text-red-400 bg-slate-950 mob_width text-2xl mx-20 font-bold text_cen p-4 rounded-full">Explore Posts on Chatter</div>
 
         <ul role="list" className=" divide-y mx-20 divide-slate-300 w-full  mob_width ">
           {blogs?.map((blog) => (
