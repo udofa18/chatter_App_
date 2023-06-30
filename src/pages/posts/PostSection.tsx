@@ -8,8 +8,8 @@ import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
-import remarkGfm from "remark-gfm";
-import ReactMarkdown from "react-markdown";
+// import remarkGfm from "remark-gfm";
+// import ReactMarkdown from "react-markdown";
 
 
 
@@ -30,7 +30,7 @@ const PostSection = ({
   imgUrl,
   userId,
   author,
-  content,
+  // content,
   timestamp,
  
 }) => {
