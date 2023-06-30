@@ -43,8 +43,8 @@ const Header: React.FC = () => {
         }}
         className="navbar navMobile  relative bg-slate-950"
       >
-         <div className="block absolute -inset-1 blur w-full" aria-hidden="true"></div>
-        <div className=" flex w-full relative px-20 ">
+         {/* <div className="block absolute -inset-1 blur w-full" aria-hidden="true"></div> */}
+        <div className=" flex w-full relative px-20 p_lr ">
         <div className="">
           <NavLink to="/">
             <a className="font-bold normal-case text-xl text-white  header-btn blinking-text flex m-auto">
@@ -54,17 +54,21 @@ const Header: React.FC = () => {
         </div>
 
         
-        <div className=" gap-20 navbar-end flex w-full ">
+        <div className="  navbar-end flex w-full ">
         <div className=" m-auto flex gap-5">
           
             <NavLink to="/posts">
-              <label className="text-slate-500  normal-case text-md header-btn  w-36">
-                Explore
+              <label className="text-slate-300  normal-case text-md header-btn  w-36 ">
+                <i className="fa fa-globe icn_text   mx-2"></i>
+                <span className="no_dis">Explore</span>
+                
               </label>
             </NavLink>
-            <NavLink to="/posts">
-            <label className="text-slate-500  normal-case text-md header-btn  w-36">
-              Community
+            <NavLink to="/posts"> 
+            <label className="text-slate-300  normal-case text-md header-btn  w-36">
+              <i className="fas fa-comments mx-2 icn_text "/>
+              <span className="no_dis">Community</span>
+              
             </label>
           </NavLink>
           
@@ -74,11 +78,12 @@ const Header: React.FC = () => {
        
         
      
-          <div>
+          <div className="m-auto text-grey " >
             <NavLink to="/createpost">
-              <label className="btn btn-primary normal-case text-md  w-full header-btn">
-                Create Post
+              <label className="m-auto normal-case text-md icn_text   w-full header-btn">
+               <span><i className="fas fa-plus p-2 icn_text text-slate-300 "></i></span> <span className=" no_dis text-slate-300">Create Post</span>
               </label>
+             
             </NavLink>
           </div>
 

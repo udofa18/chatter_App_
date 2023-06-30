@@ -255,7 +255,7 @@ const PostsPage = () => {
           <span></span>
           <span></span>
         </div>
-        <div className=" text-center  mt-10 text-slate-200   text-4xl  font-bold p-40  mar_top">
+        <div className=" text-center p_lr mt-10 text-slate-200   text-4xl  font-bold p-40  mar_top">
           Explore Posts on{" "}
           <div className="badge badge-primary badge-xs mb-4"></div> Chatter
         </div>
@@ -268,12 +268,12 @@ const PostsPage = () => {
           {/* <Search search={search} handleChange={handleChange} /> */}
           <div>
             {random.map((random) => (
-              <div className="heroh-full bg-white p-10">
+              <div className="heroh-full bg-white p-10 m_0 p_lr">
                 <div className="hero-content flex-col lg:flex-row">
                   <img
                     src={random.imgUrl}
                     
-                    className="max-w-sm  rounded-lg shadow-2xl"
+                    className="  rounded-lg shadow-2xl"
                   />
                   <div>
                   <p className="text-sm leading-6 text-primary"> Author: {random.author} </p>
@@ -291,7 +291,7 @@ const PostsPage = () => {
           </div>
           <ul
             role="list"
-            className=" flex  flex-wrap w-full p-10 mob_width  m-auto pointer  bg-sky-50"
+            className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer  bg-sky-50"
           >
             {blogs?.map((blog) => (
               <li
