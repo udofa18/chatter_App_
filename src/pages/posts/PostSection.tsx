@@ -30,7 +30,8 @@ const PostSection = ({
   imgUrl,
   userId,
   author,
-  // content,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  content,
   timestamp,
  
 }) => {
