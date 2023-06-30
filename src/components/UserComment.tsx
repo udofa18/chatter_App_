@@ -1,4 +1,3 @@
-
 const UserComment = ({ name, body, createdAt, msg }) => {
   return (
     <div>
@@ -10,21 +9,28 @@ const UserComment = ({ name, body, createdAt, msg }) => {
                 <h4 className="mt-5">{msg}</h4>
               ) : (
                 <>
-                  <div className="left flex m-2">
-                    <img
+                  <div className="left flex m-2 w-full">
+                    <div className="mt-10">                    <img
                       src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                       alt="user"
-                      className="rounded-circle mr-5"
-                      width={50}
+                      className="rounded-circle "
+                      width={30}
+                      height={32}
                     />
-                    <div className="media-body">
-                    <h3 className="text-start media-heading user_name bg-body-secondary">
-                      {name} <small>{createdAt.toDate().toDateString()}</small>
-                    </h3>
-                    <p className="text-black">{body}</p>
+                    </div>
+
+                    <div className="chat chat-start w-auto">
+                      <div className="chat-header">
+                      {name}{" "}
+                        <time className="text-xs opacity-50">{createdAt.toDate().toDateString()}</time>
+                      </div>
+                      <div className="chat-bubble chat-bubble-primary w-full">
+                      {body}
+                      </div>
+                      
+                    </div>
+                    
                   </div>
-                  </div>
-                  
                 </>
               )}
             </div>

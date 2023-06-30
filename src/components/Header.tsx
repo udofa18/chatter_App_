@@ -40,37 +40,49 @@ const Header: React.FC = () => {
           position: "fixed",
           top: "0",
           zIndex: "1",
-          backgroundColor: "black",
         }}
-        className="navbar navMobile "
+        className="navbar navMobile  relative bg-slate-950"
       >
-        <div className="flex-1">
+         <div className="block absolute -inset-1 blur w-full" aria-hidden="true"></div>
+        <div className=" flex w-full relative px-20 ">
+        <div className="">
           <NavLink to="/">
-            <a className="btn normal-case text-xl text-white  header-btn">
-              Chatter
+            <a className="font-bold normal-case text-xl text-white  header-btn blinking-text flex m-auto">
+            <div className="badge badge-primary badge-xs"></div> Chatter
             </a>
           </NavLink>
         </div>
 
-        <div className="mr-10">
-          <div>
+        
+        <div className=" gap-20 navbar-end flex w-full ">
+        <div className=" m-auto flex gap-5">
+          
             <NavLink to="/posts">
-              <label className="btn btn-info normal-case text-md header-btn  w-36">
+              <label className="text-slate-500  normal-case text-md header-btn  w-36">
                 Explore
               </label>
             </NavLink>
+            <NavLink to="/posts">
+            <label className="text-slate-500  normal-case text-md header-btn  w-36">
+              Community
+            </label>
+          </NavLink>
+          
           </div>
-          </div>
-        <div className="">
+        
+          
+       
+        
+     
           <div>
             <NavLink to="/createpost">
-              <label className="btn normal-case text-md  w-36 header-btn">
+              <label className="btn btn-primary normal-case text-md  w-full header-btn">
                 Create Post
               </label>
             </NavLink>
           </div>
 
-          <div className="navbar-end flex no_display">
+          <div className=" flex no_display">
             <button className="btn btn-ghost btn-circle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +118,6 @@ const Header: React.FC = () => {
                 <span className="badge badge-xs badge-primary indicator-item"></span>
               </div>
             </button>
-            <div className="flex-1"></div>
           </div>
           {authUser ? (
             ""
@@ -172,6 +183,7 @@ const Header: React.FC = () => {
         
          
 
+        </div>
         </div>
       </div>
 

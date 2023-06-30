@@ -95,10 +95,57 @@ const handleDelete = async (id: string) => {
   return (
 
     <>
-     <div className=" w-full pr-32  mob_width p_right" key={id}>
-    <NavLink to={`/posts/${id}`} className="w-full mr-32 flex mob_width p_5 hvr-backward">
+     <div className="  mob_width p_right relative" key={id}>
+    <NavLink to={`/posts/${id}`} className="  mob_width p_5 hvr-float m-2">
     {/* <img src={imgUrl} width={100} height={20}/> */}
-    <div className="block gap-2 text-wrap w-full text-left " key={id}>
+
+    <div style={{height:"500px"}} className="card w-80   bg-sky-900 shadow-xl" key={id}>
+      {/* <div style={{width:"100%",height:"150px"}} className="relative overflow-hidden "> */}
+  <figure  style={{width:"100%",height:"150px"}} className=" w-100 relative overflow-hidden"><img src={imgUrl} 
+ 
+   alt="Shoes" />
+   </figure>
+   {/* </div> */}
+  <div className="card-body bg-gradient ">
+  <div className="badge badge-ghost">Author: {author}</div>
+    <h2 className="card-title text-white">
+    {postTitle}
+     
+    </h2>
+    <p className="mt-1 text-xs leading-5 text-cyan-400">
+          Posted on {timestamp.toDate().toDateString()}
+        </p>
+    <p className="text-gray-300">{excerpt(postDescription, 120)}</p>
+    <div className="flex gap-4 ">
+      <span className="text-white">
+      <i className="fas fa-comment text-white "/> {comments?.length} 
+      </span>
+      <span className="text-white">
+      <i className="fas fa-thumbs-up text-white"/> {likes?.length} 
+      </span>
+       </div>
+       
+    <div className="card-actions justify-end">
+    {authUser && authUser.uid === userId && (
+          <span style={{ }} className="relative  float-right gap-2 flex mob_width rounded-full justify-center">
+            <span  onClick={() => handleDelete(id)}  className="cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm "
+             />Delete
+             </span>
+             <span className="">
+            <Link to={`/editpost/${id}`} className="text-cyan-400">
+              <i className="fas fa-pen  	p-2 text-sm "  /> 
+              Edit
+            </Link>
+            </span>
+       </span>
+        )}
+    </div>
+    
+         
+  </div>
+</div>
+
+    {/* <div className="block gap-2 text-wrap w-full text-left " key={id}>
     <p className="text-sm leading-6 text-neutral-200"> Author: {author} </p>
 <div className="flex">
       <div className="overflow-hidden  m-auto ">
@@ -106,8 +153,8 @@ const handleDelete = async (id: string) => {
       <img className="h-24 w-40  flex-none m-auto bg-gray-50 mr-4" src={imgUrl} alt={postTitle} />
       </div>
       <div className="min-w-0 flex-auto w-40 mob_width text_left">
-        <p className="text-1xl font-bold leading-6 text-gray-100">{postTitle}</p>
-        <p className="mt-2 truncate text-x leading-5 mb-3 text-gray-300">{excerpt(postDescription, 120)}</p>
+        <p className="text-1xl font-bold leading-6 text-black">{postTitle}</p>
+        <p className="mt-2 truncate text-x leading-5 mb-3 text-gray-100">{excerpt(postDescription, 120)}</p>
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             // style={{ height: '500px' }} 
@@ -136,22 +183,9 @@ const handleDelete = async (id: string) => {
        
      
 
-    </div>
+    </div> */}
     </NavLink>
-    {authUser && authUser.uid === userId && (
-          <span style={{ }} className="relative ml-10 float-right gap-2 flex mr-5 mob_width bg-slate-950 p-2 rounded-full justify-center">
-            <span  onClick={() => handleDelete(id)}  className="cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm "
-             />Delete
-             </span>
-             <span className="">
-            <Link to={`/editpost/${id}`} className="text-cyan-400">
-              <i className="fas fa-pen  	p-2 text-sm "  /> 
-              Edit
-            </Link>
-            </span>
-       </span>
-        )}
-         
+   
     
       </div>
       

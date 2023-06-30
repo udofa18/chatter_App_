@@ -5,11 +5,13 @@ import Spinner from "../../components/Spinner";
 import { db } from "../../firebase/auth";
 import { auth } from "../../firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+// import { useParams } from "react-router-dom";
 
 const UserBlog = ( ) => {
   const [userBlogs, setUserBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [authUser, setAuthUser] = useState(null);
+  // const id ={useParams}
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -25,10 +27,12 @@ const UserBlog = ( ) => {
   }, []);
 
   const user = authUser?.uid
+  
 
   const getUserBlogs = async () => {
-    setLoading(true);
-    const blogRef = collection(db, "blogs");
+    // setLoading(true);
+    try{
+    const blogRef = collection(db, "blogs", );
     const userBlogQuery = query(blogRef, where("userId", "==", user));
     const docSnapshot = await getDocs(userBlogQuery);
     const userBlogs = [];
@@ -37,27 +41,30 @@ const UserBlog = ( ) => {
     });
     setUserBlogs(userBlogs);
     setLoading(false);
-    
+  }
+   catch (error) {
+    console.error("Error fetching draft data:", error);
+  }
   };
   console.log(userBlogs)
   useEffect(() => {
     getUserBlogs();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (loading) {
-    return <Spinner />;
-  }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, );
+ 
+   if (loading) {
+     return <Spinner />;
+   }  
 
   return (
     <>
         {authUser ?(
     <div>
-      <div className=" container p-10 h-full w-full bg-slate-100" >
-      <div className="blog-heading text-left py-2 mb-4">
+      <div className="  h-full w-full " >
+      <div className="blog-heading text-left py-2 mb-4 font-bold">
             My Posts
           </div>
-        <div className="m-5" style={{
+        <div className="m_5" style={{
         overflow: "scroll" , height: "40rem",
       }}>
          
@@ -69,10 +76,10 @@ const UserBlog = ( ) => {
         </div>
       </div>
     </div>
-        ):("")
+  
       
+        ):("")
       }
-
     
 
   

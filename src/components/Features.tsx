@@ -25,7 +25,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <div className=" glass p-5 relative py-10 mobile_featues">
+    <div className=" bg-slate-950 px-40 relative py-10 mobile_featues">
       <div className="text-center text-3xl text-slate-200 mob_pad">
         <h5>Features</h5>
         <p className="text-center text-base m-10 m_5 mob_pad .mob_mag">

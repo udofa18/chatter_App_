@@ -30,7 +30,21 @@ import "react-markdown-editor-lite/lib/index.css";
 import gfm from 'remark-gfm'
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+
+import {
+  paragraphStyle,
+  heading1,
+  heading2,
+  heading3,
+  heading4,
+  heading5,
+  heading6,
+  orderedListStyle,
+  unorderedListStyle,
+} from '../posts/MarkdownStyles.tsx'
 
 
 
@@ -226,22 +240,36 @@ const PostDetail = () => {
             <ReactMarkdown
             remarkPlugins={[gfm]}
             components={{
+              p: ({ children }) => <p style={paragraphStyle}>{children}</p>,
+              h1: ({ children }) => <h1 style={heading1}>{children}</h1>,
+              h2: ({ children }) => <h2 style={heading2}>{children}</h2>,
+              h3: ({ children }) => <h3 style={heading3}>{children}</h3>,
+              h4: ({ children }) => <h4 style={heading4}>{children}</h4>,
+              h5: ({ children }) => <h5 style={heading5}>{children}</h5>,
+              h6: ({ children }) => <h6 style={heading6}>{children}</h6>,
+              ol: ({ children }) => <ol style={orderedListStyle}>{children}</ol>,
+              ul: ({ children }) => <ul style={unorderedListStyle}>{children}</ul>,
+
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
                 return !inline && match ? (
                   <SyntaxHighlighter
                     // style={light}
-                    language={match[1]}
+                    {...props}
+                    style={atomDark}
+                    language={language}                   
                     PreTag="div"
                     children={String(children).replace(/\n$/, "")}
-                    {...props}
+                   
                   />
                 ) : (
-                  <code className={className} {...props} />
+                  <code {...props}  className={` bg-gray-200 p-4 text-black-900`}>
+                    {children}
+                  </code> 
                 );
               }}}
-            children={blog?.content} 
+            children={blog?.content as string} 
             className=" break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10"
 
             

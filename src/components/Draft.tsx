@@ -47,8 +47,9 @@ const Draft = () => {
 
   
   const fetchDraft = async () => {
-    // setLoading(true);
     try {
+    // setLoading(true);
+
       const draftRef = collection(db, "draft");
       const draftQuery = query(draftRef, where("userId", "==", user));
       const querySnapshot = await getDocs(draftQuery);
@@ -63,12 +64,14 @@ const Draft = () => {
       setLoading(false);
       const uniqueTags = [...new Set(tags)];
     setTags(uniqueTags);
-     
+   
     } catch (error) {
       console.error("Error fetching draft data:", error);
 
       console.log(draft);
+
     }
+    setLoading(false);
   };
   const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure wanted to delete that Draft ?")) {

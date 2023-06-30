@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&family=Rubik+Moonrocks&display=swap'); */
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(32, 31, 31, 0.87);
+  background-color: #fffafa;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  font-family: 'Hind Siliguri';
+    /* font-family: 'Rubik Moonrocks', cursive; */
+  /* src: url(); */
 }
 
 a {
