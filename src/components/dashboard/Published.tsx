@@ -69,7 +69,7 @@ const UserBlog = ( ) => {
       }}>
          
           {userBlogs?.map((item) => (
-            <div className="col-md-6 bg-base-300 p-10 m-4 ">
+            <div className="flex-wrap w-50 flex p-10 m-2 ">
               <PostSection key={item.id} {...item} />
             </div>
           ))}

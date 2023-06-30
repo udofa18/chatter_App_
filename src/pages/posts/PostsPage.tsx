@@ -172,12 +172,12 @@ const PostsPage = () => {
     setLoading(false);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   const fetchPrev = async () => {
-    setLoading(true);
+    // setLoading(true);
     const blogRef = collection(db, "blogs");
     const end =
       noOfPages !== currentPage
@@ -199,7 +199,7 @@ const PostsPage = () => {
     setBlogs(prevBlogData);
     setCount(prevBlogsSnapshot.size);
     setLastVisible(prevBlogsSnapshot.docs[prevBlogsSnapshot.docs.length - 1]);
-    setLoading(false);
+    // setLoading(false);
   };
 
   const handlePageChange = (value: string) => {
@@ -233,7 +233,7 @@ const PostsPage = () => {
   console.log(categoryCount);
 
   return (
-    <div className="w-screen bg-slate-800 h-100">
+    <div className="w-screen bg-slate-800 h-100 overflow-hidden">
       <div className="w-screen relative bg-slate-950">
         <div className="background h-25">
           <span></span>
@@ -260,6 +260,7 @@ const PostsPage = () => {
           <div className="badge badge-primary badge-xs mb-4"></div> Chatter
         </div>
       </div>
+      {/* <Spinner></Spinner> */}
       <div
         className="flex  mob_block w-100 relative"
         style={{ backgroundColor: "white" }}
@@ -268,12 +269,12 @@ const PostsPage = () => {
           {/* <Search search={search} handleChange={handleChange} /> */}
           <div>
             {random.map((random) => (
-              <div className="heroh-full bg-white p-10 m_0 p_lr">
+              <div className="heroh-full bg-light-subtle p-10 m_0 p_lr">
                 <div className="hero-content flex-col lg:flex-row">
                   <img
                     src={random.imgUrl}
                     
-                    className="  rounded-lg shadow-2xl"
+                    className=" max-w-sm rounded-lg shadow-2xl"
                   />
                   <div>
                   <p className="text-sm leading-6 text-primary"> Author: {random.author} </p>
