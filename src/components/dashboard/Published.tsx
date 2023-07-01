@@ -13,6 +13,7 @@ const UserBlog = ( ) => {
   const [authUser, setAuthUser] = useState(null);
   // const id ={useParams}
 
+
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -26,12 +27,20 @@ const UserBlog = ( ) => {
     };
   }, []);
 
-  const user = authUser?.uid
-  
+  useEffect(() => {
+    getUserBlogs();
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, );
+   
 
+  
+  const user = authUser?.uid
+
+  
   const getUserBlogs = async () => {
-    // setLoading(true);
+   
     try{
+      setLoading;
     const blogRef = collection(db, "blogs", );
     const userBlogQuery = query(blogRef, where("userId", "==", user));
     const docSnapshot = await getDocs(userBlogQuery);
@@ -40,39 +49,40 @@ const UserBlog = ( ) => {
       userBlogs.push({ id: doc.id, ...doc.data() });
     });
     setUserBlogs(userBlogs);
-    setLoading(false);
+    // setLoading(false)
   }
+  
    catch (error) {
     console.error("Error fetching draft data:", error);
   }
-  };
-  console.log(userBlogs)
-  useEffect(() => {
-    getUserBlogs();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, );
  
-   if (loading) {
-     return <Spinner />;
-   }  
+  };
+  if (loading) {
+    return <Spinner />;
+  }  
+  
+ 
+  console.log(userBlogs)
 
+  
   return (
     <>
         {authUser ?(
     <div>
       <div className="  h-full w-full " >
-      <div className="blog-heading text-left py-2 mb-4 font-bold">
+      <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
             My Posts
           </div>
         <div className="m_5" style={{
         overflow: "scroll" , height: "40rem",
       }}>
-         
+         <ul  className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer  bg-sky-50">
           {userBlogs?.map((item) => (
-            <div className="flex-wrap w-50 flex p-10 m-2 ">
+            <div className="flex-wrap w-50 flex  ">
               <PostSection key={item.id} {...item} />
             </div>
           ))}
+          </ul>
         </div>
       </div>
     </div>

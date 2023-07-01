@@ -98,10 +98,10 @@ const Draft = () => {
     <>
       {authUser ? (
         <div>
-          <div className="container  h-full w-full bg-slate-950">
-            <div className="blog-heading text-left py-2 mb-4 pt-5">
-              My Posts
-            </div>
+          <div className="  h-full w-full ">
+          <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
+            My Drafts
+          </div>
             <div
               className=" "
               style={{
