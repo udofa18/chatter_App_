@@ -8,9 +8,9 @@ const About = () => {
     <div className="bg-slate-100 relative p-10 h-full mob_mag  mob_pad">
       <div className=" flex mob_block justify-between m-40 mob_mag ">
         <div className="w-1/2  t_center mobile_featues">
-        <h1 className="my-5 mob_font ">About Chatter</h1>
+        <h1 className="my-5 mob_font ">About Scroll</h1>
         <p>
-          Chatter is a multi-functional platform where authors and readers can
+          Scroll is a multi-functional platform where authors and readers can
           have access to their own content. It aims to be a traditional
           bookworm’s heaven and a blog to get access to more text based content.
           Our vision is to foster an inclusive and vibrant community where
@@ -20,7 +20,7 @@ const About = () => {
         </p>
         </div>
         <div>
-            <img src={image.url} width={450} alt="chatter" className="rounded-box " />
+            <img src={image.url} width={450} alt="Scroll" className="rounded-box " />
         </div>
       </div>
     </div>

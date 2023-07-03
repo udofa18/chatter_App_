@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import {
+  addDoc,
   collection,
   DocumentData,
   DocumentSnapshot,
@@ -148,18 +149,18 @@ const PostsPage = () => {
     const blogRef = collection(db, "blogs");
     const docSnapshot = await getDocs(blogRef);
     const totalBlogs = docSnapshot.size;
-    const totalPage = Math.ceil(totalBlogs / 4);
+    const totalPage = Math.ceil(totalBlogs / 6);
     setNoOfPages(totalPage);
   };
 
   const fetchMore = async () => {
-    setLoading(true);
+    // setLoading(true);
     const blogRef = collection(db, "blogs");
     const nextBlogsQuery = query(
       blogRef,
       orderBy("postTitle"),
       startAfter(lastVisible),
-      limit(4)
+      limit(6)
     );
     const nextBlogsSnapshot = await getDocs(nextBlogsQuery);
     const nextBlogData = nextBlogsSnapshot.docs.map((doc) => ({
@@ -169,7 +170,7 @@ const PostsPage = () => {
     setBlogs(nextBlogData);
     setCount(nextBlogsSnapshot.size);
     setLastVisible(nextBlogsSnapshot.docs[nextBlogsSnapshot.docs.length - 1]);
-    setLoading(false);
+    // setLoading(false);
   };
 
   // if (loading) {
@@ -185,11 +186,11 @@ const PostsPage = () => {
         : startAfter(lastVisible);
     const limitData =
       noOfPages !== currentPage
-        ? limit(4)
+        ? limit(6)
         : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        count! <= 4 && noOfPages! % 2 === 0
-        ? limit(4)
-        : limit(4);
+        count! <= 6 && noOfPages! % 2 === 0
+        ? limit(6)
+        : limit(6);
     const prevBlogsQuery = query(blogRef, orderBy("postTitle"), end, limitData);
     const prevBlogsSnapshot = await getDocs(prevBlogsQuery);
     const prevBlogData = prevBlogsSnapshot.docs.map((doc) => ({
@@ -232,6 +233,7 @@ const PostsPage = () => {
   });
   console.log(categoryCount);
 
+
   return (
     <div className="w-screen bg-slate-800 h-100 overflow-hidden">
       <div className="w-screen relative bg-slate-950">
@@ -257,13 +259,13 @@ const PostsPage = () => {
         </div>
         <div className=" text-center p_lr mt-10 text-slate-200   text-4xl  font-bold p-40  mar_top">
           Explore Posts on{" "}
-          <div className="badge badge-primary badge-xs mb-4"></div> Chatter
+          <div className="badge badge-primary badge-xs mb-4"></div> <span>Scroll <i className="fas fa-feather"/></span>
         </div>
       </div>
-      {/* <Spinner></Spinner> */}
+     
       <div
-        className="flex  mob_block w-100 relative"
-        style={{ backgroundColor: "white" }}
+        className="flex  mob_block w-100 bg-orange-400 relative"
+      
       >
         <div className=" flex-1  justify-center">
           {/* <Search search={search} handleChange={handleChange} /> */}

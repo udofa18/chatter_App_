@@ -14,6 +14,7 @@
             >
               <i className="fa fa-long-arrow-left"></i>&nbsp;&nbsp; Prev
             </button>
+          
             <span className="btn btn-accent btn-outline m-5">{currentPage}</span>
             <button
               className=" btn_mange_pagging"

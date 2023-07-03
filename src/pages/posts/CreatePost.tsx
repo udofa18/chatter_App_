@@ -34,6 +34,20 @@ import {
 } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
+import "react-markdown-editor-lite/lib/index.css";
+import gfm from 'remark-gfm'
+import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c';
+import {
+  paragraphStyle,
+  heading1,
+  heading2,
+  heading3,
+  heading4,
+  heading5,
+  heading6,
+  orderedListStyle,
+  unorderedListStyle,
+} from '../posts/MarkdownStyles.tsx'
 // import ReactTagInput from "react-tag-input";
 
 const mdParser = new MarkdownIt();
@@ -473,13 +487,63 @@ const snapshot = await getDoc(draftCollection);
             <label className="label-text mt-5 md-5 text-l">Content</label>
             <div className="k-flex-grow" style={{ maxWidth: "100%" }}>
             <div className="App">
-        
+           
         <MdEditor
         
             style={{ height: "500px", display:"" }}
             value={content}
             renderHTML={(text) => mdParser.render(text) }
-            onChange={handleEditorChange}></MdEditor>
+            onChange={handleEditorChange}
+            view={{ menu: true, md: true, html: false }}
+            canView={{
+              menu: true,
+              md: true,
+              html: false,
+              both: false,
+              fullScreen: false,
+              hideMenu: false,}}
+            ></MdEditor>
+
+<label className="label-text mt-20  text-l">Preview</label>
+                <ReactMarkdown
+            remarkPlugins={[gfm]}
+            components={{
+              p: ({ children }) => <p style={paragraphStyle}>{children}</p>,
+              h1: ({ children }) => <h1 style={heading1}>{children}</h1>,
+              h2: ({ children }) => <h2 style={heading2}>{children}</h2>,
+              h3: ({ children }) => <h3 style={heading3}>{children}</h3>,
+              h4: ({ children }) => <h4 style={heading4}>{children}</h4>,
+              h5: ({ children }) => <h5 style={heading5}>{children}</h5>,
+              h6: ({ children }) => <h6 style={heading6}>{children}</h6>,
+              ol: ({ children }) => <ol style={orderedListStyle}>{children}</ol>,
+              ul: ({ children }) => <ul style={unorderedListStyle}>{children}</ul>,
+
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || "");
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    // style={light}
+                    {...props}
+                    style={atomDark}
+                    language={language}                   
+                    PreTag="div"
+                    children={String(children).replace(/\n$/, "")}
+                   
+                  />
+                ) : (
+                  <code {...props}  className={` bg-gray-200 p-4 text-black-900`}>
+                    {children}
+                  </code> 
+                );
+              }}}
+            children={content as string} 
+            className=" break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10"
+
+            
+        
+                
+            />
             
         
       </div>

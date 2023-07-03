@@ -7,13 +7,13 @@ import {
 import { useState, useEffect } from "react";
 // import {au } from "../../node_modules/firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { auth } from "../firebase/auth.js";
 import "firebase/auth";
 import"../pages/css/pages.css"
 
 const Login = () => {
-  const [authUser, setAuthUser] = useState(null);
+  // const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
@@ -33,19 +33,19 @@ const Login = () => {
     
     
   };
-  useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuthUser(user);
-      } else {
-        setAuthUser(null);
-      }
-    });
+  // useEffect(() => {
+  //   const listen = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setAuthUser(user);
+  //     } else {
+  //       setAuthUser(null);
+  //     }
+  //   });
 
-    return () => {
-      listen();
-    };
-  }, []);
+  //   return () => {
+  //     listen();
+  //   };
+  // }, []);
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
@@ -72,21 +72,36 @@ const Login = () => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
-  {authUser
-    ? toast.info(`Welcome ${authUser.email}`)
-    : toast.error("Signed out")}
+
   // const loading = useAuthState(auth)
 
   return (
       <div
-        style={{
-          backgroundImage:
-            "url(https://img.freepik.com/free-photo/concentrated-dark-skinned-freelancer-holds-paper-documents-mobile-phone-works-remotely-coworking-space-watches-digital-online-webinar-thinks-about-organisation-plan_273609-34363.jpg?w=996&t=st=1685430209~exp=1685430809~hmac=4ded39b93c9539abc0e2084c623b671537667b9aa7bce5f11a503eff6b966cca)",
-        }}
-        className=" overlay bg-cover bg-center h-full p-20 mon_mag "
+        
+        className="   h-full p-20 mon_mag "
       >
+        <div className="background">
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+</div>
         {/* <input type="checkbox" id="my-modal-2" className="modal-toggle" /> */}
-        <div className=" m-auto w-1/2  glass p-5 relative text-white rounded-box mob_width">
+        <div className="mar_top m-auto w-1/2 bg-slate-950 p_5  p-10 relative text-white rounded-box mob_width">
           <div className="">
             <h3 className="text-lg font-bold">Login to Chatter!</h3>
             {error && (
@@ -119,7 +134,7 @@ const Login = () => {
                 className="input input-bordered w-full  mt-3 text-slate-600"
               />
               <label className="label-text mt-5 text-slate-100">Password</label>
-              <span className="flex mt-3">
+              <span className="flex mt-3 gap-2">
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -144,7 +159,7 @@ const Login = () => {
               <div className="form-control">
                 <label className="label cursor-pointer">
                   <span className="label-text text-slate-100">Remember me</span>
-                  <input type="checkbox" className="checkbox" />
+                  <input type="checkbox" className="checkbox border-base-300" />
                 </label>
               </div>
               <div className="m-auto">

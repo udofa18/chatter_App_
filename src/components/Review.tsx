@@ -1,7 +1,7 @@
 const image = {
   url: "https://img.freepik.com/free-photo/stylish-businessman-office_23-2147626601.jpg?w=740&t=st=1685139765~exp=1685140365~hmac=1f06f9cf4e1815a3d13079e6050b8c43921bbee914fcb55e2680c991060d12bc",
 };
-const Review = () => {
+const Scroll = () => {
   return (
     <div>
       <div className="bg-base-200 relative p-40 mob_pad ">
@@ -18,17 +18,17 @@ const Review = () => {
 
           <div className="px-5 ml-5 t_center mob_pad">
             <h2 className=" ">
-              "Chatter has become an integral part of my online experience. As a
+              "Scroll has become an integral part of my online experience. As a
               user of this incredible blogging platform, I have discovered a
               vibrant community of individuals who are passionate about sharing
               their ideas and engaging in thoughtful discussions.”
             </h2>
             <h1 className="py-4 text-3xl">Adedayo Daniel</h1>
-            <button className="btn">Join Chatter</button>
+            <button className="btn">Join Scroll</button>
           </div>
         </div>
       </div>
-      <div className="bg-slate-300 relative p-40 mob_pad">
+      <div className="bg-orange-400 relative p-40 mob_pad">
         <div className="flex justify-between m-35 mob_block ">
           <div className="w-full flex">
             <div>
@@ -69,9 +69,9 @@ const Review = () => {
             </div>
           </div>
           <div className="px-5 ml-5 w-full t_center mob_pad">
-            <h1 className="text-white t_center mob_font">Write, read and connect with great minds on chatter</h1>
+            <h1 className="text-white t_center mob_font">Write, read and connect with great minds on Scroll</h1>
             <p className="py-5 t_center">Share people your great ideas, and also read write-ups based on your interests. connect with people of same interests and goals  </p>
-            <button className="btn my-10 ">Join Chatter</button>
+            <button className="btn my-10 ">Join Scroll</button>
           </div>
         </div>
       </div>
@@ -79,4 +79,4 @@ const Review = () => {
   );
 };
 
-export default Review;
+export default Scroll;

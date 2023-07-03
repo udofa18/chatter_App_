@@ -48,7 +48,7 @@ const Header: React.FC = () => {
         <div className="">
           <NavLink to="/">
             <a className="font-bold normal-case text-xl text-white  header-btn blinking-text flex m-auto">
-            <div className="badge badge-primary badge-xs"></div> Chatter
+            <div className="badge badge-primary badge-xs"></div> Scroll <i className="fas fa-feather  icn_text text-slate-300 "/>
             </a>
           </NavLink>
         </div>
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
           <div className="m-auto text-grey " >
             <NavLink to="/createpost">
               <label className="m-auto normal-case text-md icn_text   w-full header-btn">
-               <span><i className="fas fa-plus p-2 icn_text text-slate-300 "></i></span> <span className=" no_dis text-slate-300">Create Post</span>
+               <span><i className="fas fa-feather p-2 icn_text text-slate-300 "/></span> <span className=" no_dis text-slate-300">Create Post</span>
               </label>
              
             </NavLink>

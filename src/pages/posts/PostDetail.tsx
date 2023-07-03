@@ -32,7 +32,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-
+import { FacebookShareButton, LinkedinShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 
 import {
   paragraphStyle,
@@ -66,7 +66,7 @@ const PostDetail = () => {
   }, []);
 
 
-
+  const url = window.location.href
   const userId = authUser?.uid;
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
@@ -179,6 +179,15 @@ const PostDetail = () => {
   //     });
   //   }
   // };
+  function copyText() {
+      
+    /* Copy text into clipboard */
+    navigator.clipboard.writeText
+        // eslint-disable-next-line no-unexpected-multiline
+        (url);
+        toast.success("Link copied successfully")
+}
+
   const handleLike = async () => {
     if (userId) {
       if (blog?.likes) {
@@ -223,13 +232,47 @@ const PostDetail = () => {
                 </p>
               </span>
               <span className="meta-info text-start text-sm text-bg-info">
-                <p className="author text-cyan-400">Publihed by: {blog?.author}</p>
+                <p className="author text-lh-base-400">Publihed by: {blog?.author}</p>
               </span>
             </div>
             <div className="flex flex-col-right gap-10 m-5  ">
             <Like handleLike={handleLike} likes={likes} userId={userId} />
-            <div><i className="fas fa-comment"/> {comments?.length} Comments </div>
+            <div><i className="fas fa-comment"/> {comments?.length}  </div>
+
+            <div className="flex gap-4 m-auto">
+              <span>
+              <i className="fas fa-share-nodes" />
+              </span>
+        <LinkedinShareButton 
+            url={url}
+            title={blog?.postTitle}
+        >
+            <i className="fab fa-linkedin text-sky-500 text-xl"/>
+        </LinkedinShareButton>
+        <FacebookShareButton 
+            url={url}
+            title={blog?.postTitle}
+        >
+            <i className="fab fa-facebook text-sky-500 text-xl"/>
+        </FacebookShareButton>
+        <TwitterShareButton 
+            url={url}
+            title={blog?.postTitle}
+        >
+            <i className="fab fa-twitter text-sky-500 text-xl"/>
+        </TwitterShareButton>
+        <WhatsappShareButton 
+            url={url}
+            title={blog?.postTitle}
+        >
+            <i className="fab fa-whatsapp text-green-500 text-xl"/>
+        </WhatsappShareButton>
+        <span onClick={copyText}>
+          <i className="fas fa-link text-xl"/>
+        </span>
+    </div>
             </div>
+            
             <div className="border mt-5 mb-5">
               {" "}
               <Tags tags={blog?.tags} />
@@ -281,7 +324,7 @@ const PostDetail = () => {
             <Like handleLike={handleLike} likes={likes} userId={userId} />
             <div><i className="fas fa-comment"/> {comments?.length} Comments </div>
             </div>
-            <div className=" glass p-5 mob_width">
+            <div className=" bg-slate-950 text-base-200 p-5 mob_width">
               <div className="scroll">
                 <h4 className="small-title">{comments?.length} Comment</h4>
                 {isEmpty(comments) ? (

@@ -4,10 +4,12 @@ import { Link, NavLink } from "react-router-dom";
 import { auth } from "../../firebase/auth";
 import "../../components/Tags";
 import "./PostDetail"
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
+
+// import { AiFillLinkedin } from 'react-icons/ai';
 // import remarkGfm from "remark-gfm";
 // import ReactMarkdown from "react-markdown";
 
@@ -21,6 +23,7 @@ const excerpt = (str: string | undefined, count: number) => {
   }
   return str;
 };
+
 
 
 const PostSection = ({
@@ -91,7 +94,22 @@ const handleDelete = async (id: string) => {
     }
   }
 };
-  
+// const handleAddBookmark = async   => {
+
+//   try {
+//     await addDoc(collection(db, "bookmarks"), {
+//       ...form,
+//       timestamp: serverTimestamp(),
+//       author: authUser.displayName,
+//       userId: authUser.uid,
+//     });
+//     toast.success("Added to Draft");
+    
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
 
   return (
 
@@ -142,7 +160,7 @@ const handleDelete = async (id: string) => {
         )}
     </div>
     
-         
+    
   </div>
 </div>
 
