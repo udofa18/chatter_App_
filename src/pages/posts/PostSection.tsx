@@ -51,14 +51,14 @@ const PostSection = ({
  useEffect(() => {
   const checkBookmarkStatus = async () => {
   
-    const isPostBookmarked = await checkIfPostBookmarked(id);
+    const isPostBookmarked = await checkIfPostBookmarked(userId);
     setIsBookmarked(isPostBookmarked);
   };
 
   checkBookmarkStatus();
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
-const checkIfPostBookmarked = async (id) => {
+const checkIfPostBookmarked = async (userId) => {
  
 
 
@@ -232,22 +232,23 @@ const handleDelete = async (id: string) => {
  
 
     </NavLink>
-    <div className="card-actions absolute bottom-10 right-6 justify-end">
+    <div className="card-actions absolute bottom-5 right-6 justify-end">
     {authUser && authUser.uid === userId && (
-          <span style={{ }} className="relative  float-right gap-2 flex mob_width rounded-full justify-center">
-            <span  onClick={() => handleDelete(id)}  className="  cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm "
-             />Delete
-             </span>
-             <span className="">
-            <Link to={`/editpost/${id}`} className="text-cyan-400">
-              <i className="fas fa-pen  	p-2 text-sm "  /> 
-              Edit
-            </Link>
-            </span>
-       </span>
+         <span style={{}} className="relative m-auto float-right gap-2 flex mob_width rounded-full justify-center">
+              <span onClick={() => handleDelete(id)} className="  cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm " />Delete
+              </span>
+              <span className="">
+                <Link to={`/editpost/${id}`} className="text-cyan-400">
+                  <i className="fas fa-pen  	p-2 text-sm " />
+                  Edit
+                </Link>
+                </span>
+                <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
+              </span>
+          
         )}
     </div>
-    <button onClick={handleAddBookmark}  key={id} style={buttonStyle} className="absolute left-0 top-0 "><i className="fas fa-bookmark " /></button>
+    
     
       </div>
       
