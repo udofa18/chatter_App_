@@ -243,10 +243,11 @@ const handleDelete = async (id: string) => {
                   Edit
                 </Link>
                 </span>
-                <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
+              
               </span>
           
         )}
+          <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
     </div>
     
     
