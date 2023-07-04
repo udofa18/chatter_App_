@@ -358,10 +358,10 @@ const PostDetail = () => {
         </div>
       </div>
 
-      <div className=" pb-4 pt-4 p-4 bg-slate-800 snap-y w-80 mob_width">
+      <div style={{height:"2000px"}} className=" pb-4 pt-4 p-4 bg-slate-800 border-l-base-300 snap-y w-80 mob_width overflow-scroll ">
         <div className="container padding">
           <div className="row mx-0">
-            <div className="col-md-3">
+            <div className="col-md-3 ">
               <div className="font-bold text-start py-4 w-32 text-white">Tags</div>
               <Tags tags={tags} />
               <FeatureBlogs title={"Recent Blogs"} blogs={blogs} />

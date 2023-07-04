@@ -319,7 +319,7 @@ const PostsPage = () => {
             handlePageChange={handlePageChange}
           />
         </div>
-        <div className=" pb-4 pt-20 p-4 bg-slate-950 w-80 relative mob_width">
+        <div className=" pb-4 pt-20 p-4 bg-slate-950 w-80 border-l-base-300 border-l-base-200 relative mob_width">
           <div className="container padding">
             <div className="row mx-0">
               <div className="col-md-3">

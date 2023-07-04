@@ -56,6 +56,7 @@ const PostSection = ({
   };
 
   checkBookmarkStatus();
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 const checkIfPostBookmarked = async (id) => {
  
@@ -105,7 +106,8 @@ const checkIfPostBookmarked = async (id) => {
   
   const buttonStyle = {
     color: isBookmarked ? "gold" : "white",
-    backgroundColor: isBookmarked ? "black" : "grey"
+    backgroundColor: isBookmarked ? "black" : "grey",
+    opacity: isBookmarked ? "100%" : "50%"
     // Add any other button styles as needed
   };
   
