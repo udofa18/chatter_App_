@@ -62,3 +62,7 @@ export const paragraphStyle = {
     listStyleType: 'disc',
     marginLeft: '1rem',
  };
+ export const imgStyle = {
+   margin: 'auto',
+ 
+};

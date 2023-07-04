@@ -294,7 +294,7 @@ const PostsPage = () => {
           </div>
           <ul
             role="list"
-            className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer  bg-sky-50"
+            className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer  bg-slate-950"
           >
             {blogs?.map((blog) => (
               <li
@@ -302,15 +302,14 @@ const PostsPage = () => {
                 key={blog.id}
               >
                 <PostSection
-                  content={undefined}
+                   content={undefined}
                   postTitle={undefined}
                   postDescription={undefined}
                   imgUrl={undefined}
                   userId={undefined}
                   author={undefined}
                   timestamp={undefined}
-                  {...blog}
-                />
+                  {...blog}                />
               </li>
             ))}
           </ul>

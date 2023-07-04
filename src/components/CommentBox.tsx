@@ -11,7 +11,7 @@ const CommentBox = ({ userId, userComment, setUserComment, handleComment }) => {
             rows= {4}
             value={userComment}
             onChange={(e) => setUserComment(e.target.value)}
-            className="form-control description w-full p-4"
+            className="form-control description w-full p-4 text-black border-1 rounded-3 "
           />
         </div>
       </form>

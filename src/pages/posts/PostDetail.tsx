@@ -44,6 +44,7 @@ import {
   heading6,
   orderedListStyle,
   unorderedListStyle,
+ 
 } from '../posts/MarkdownStyles.tsx'
 
 
@@ -218,9 +219,9 @@ const PostDetail = () => {
     <div className=" flex dis_block  mt-10 w-screen bg-base-200 ">
       <div className="w-80 flex-1 mob_width h-100 snap-y  overflow-hidden ">
         <div className="  shadow-xl w-full p_5 px-10 mt-10 relative">
-          <figure style={{ margin: "0 auto",}} className="overflow-hidden mt-10 bg-slate-300 ">
-            <img width={600} height={200} src={blog?.imgUrl} alt="" className="hvr-bob" />
-          </figure>
+          <div className="w-full relative border overflow-hidden m-auto">
+            <img width={600} height={200}  src={blog?.imgUrl} alt="" className="hvr-bob m-auto w-100 " />
+            </div>
           <div className="p_5 relative">
             <h1 className="text-3xl font-bold text-base-400 pb-4">
               {blog?.postTitle}
@@ -292,7 +293,7 @@ const PostDetail = () => {
               h6: ({ children }) => <h6 style={heading6}>{children}</h6>,
               ol: ({ children }) => <ol style={orderedListStyle}>{children}</ol>,
               ul: ({ children }) => <ul style={unorderedListStyle}>{children}</ul>,
-
+              // img: ({children}) => <img style={imgStyle} src={`${children}`} />,
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
@@ -313,7 +314,8 @@ const PostDetail = () => {
                 );
               }}}
             children={blog?.content as string} 
-            className=" break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10"
+            
+            className= " break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10 "
 
             
         

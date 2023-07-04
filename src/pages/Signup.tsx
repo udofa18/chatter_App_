@@ -19,13 +19,21 @@ const Signup = () => {
 provider.addScope('profile');
 provider.addScope('email');
 const result = await signInWithPopup(auth, provider);
-
 // The signed-in user info.
 const user = result.user;
 // // This gives you a Google Access Token.
 const credential = GoogleAuthProvider.credentialFromResult(result);
 const token = credential.accessToken;
+console.log(result.user)
+await setDoc(
+  doc(db, 'users', result.user.uid), 
+  {name: user.displayName,
+    email: user.email,
+    photoURL: user.photoURL
+  },
 
+)
+navigate('/posts');
   }
      const [password, setPassword] = useState("");
 	const passwordChangeHandler = (event) => {
