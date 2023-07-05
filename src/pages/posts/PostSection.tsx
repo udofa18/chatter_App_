@@ -48,30 +48,7 @@ const PostSection = ({
 
 
 
- useEffect(() => {
-  const checkBookmarkStatus = async () => {
-  
-    const isPostBookmarked = await checkIfPostBookmarked(userId);
-    setIsBookmarked(isPostBookmarked);
-  };
-
-  checkBookmarkStatus();
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-const checkIfPostBookmarked = async (userId) => {
  
-
-
-  const bookmarkRef = doc(db, "bookmarks", userId);
-  const bookmarkSnapshot = await getDoc(bookmarkRef);
-
-  if (bookmarkSnapshot.exists()) {
-    const bookmarks = bookmarkSnapshot.data();
-    return id in bookmarks;
-  }
-
-  return false;
-};
 
 
 
@@ -96,7 +73,31 @@ const checkIfPostBookmarked = async (userId) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useEffect(() => {
+    const checkBookmarkStatus = async () => {
+    
+      const isPostBookmarked = await checkIfPostBookmarked(id);
+      setIsBookmarked(isPostBookmarked);
+    };
   
+    checkBookmarkStatus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const checkIfPostBookmarked = async (id) => {
+   
+  
+  
+    const bookmarkRef = doc(db, "bookmarks", authUser.uid);
+    const bookmarkSnapshot = await getDoc(bookmarkRef);
+  
+    if (bookmarkSnapshot.exists()) {
+      const bookmarks = bookmarkSnapshot.data();
+      return id in bookmarks;
+    }
+  
+    return false;
+  };
 
   if (loading) {
     return <Spinner />;
@@ -171,6 +172,7 @@ const handleDelete = async (id: string) => {
     toast.error("Failed to toggle bookmark");
   }
 };
+
 
 // const checkBookmarkStatus = async () => {
 //   try {
