@@ -11,6 +11,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../firebase/auth.js";
 import "firebase/auth";
 import"../pages/css/pages.css"
+import { db } from "../firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const Login = () => {
   // const [authUser, setAuthUser] = useState(null);
@@ -24,13 +26,20 @@ const Login = () => {
     provider.addScope("email");
 
     const result = await signInWithPopup(auth, provider);
-    
+    const user = result.user
 
     // The signed-in user info.
    
     // This gives you a Google Access Token.
     const credential = GoogleAuthProvider.credentialFromResult(result);
+    await setDoc(
+      doc(db, 'users', result.user.uid), 
+      {name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL
+      },
     
+    )
     
   };
   // useEffect(() => {
