@@ -1,7 +1,7 @@
 @media only screen and (max-width: 600px) { 
     .mob_width{
          width: 100% !important;
-        margin: 2px !important;
+       
       
      }
      .no_dis{
@@ -52,6 +52,9 @@ padding-right: 0 !important;
        .p_5{
          padding: 5px !important;
        }
+       /* .p_2{
+        padding: ;
+       } */
        .m_5{
          margin: 10px !important;
        }
@@ -82,6 +85,9 @@ padding: 0 !important;
        }
        .icn_text{
         font-size: 20px;
+       }
+       .w_scr{
+        width: screen !important;
        }
 
  }

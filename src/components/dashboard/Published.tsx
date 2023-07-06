@@ -5,6 +5,7 @@ import Spinner from "../../components/Spinner";
 import { db } from "../../firebase/auth";
 import { auth } from "../../firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { NavLink } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 
 const UserBlog = ( ) => {
@@ -73,12 +74,18 @@ const UserBlog = ( ) => {
       <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
             My Posts
           </div>
-        <div className="m_5" style={{
-        overflow: "scroll" , height: "40rem",
+        <div className="m_5 block align-center  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl" style={{
+        overflowY: "scroll" , height: "40rem", overflowX:"hidden",
       }}>
-         <ul  className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer  bg-sky-50">
+         <ul 
+         style={{
+          justifyContent: "center",
+          alignItems: 'center',
+          width:'100%'
+        }}
+         className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto   ">
           {userBlogs?.map((item) => (
-            <div className="flex-wrap w-50 flex  ">
+            <div className="flex-wrap w-50 flex" key={item.id}>
               <PostSection key={item.id} {...item} />
             </div>
           ))}
@@ -88,7 +95,12 @@ const UserBlog = ( ) => {
     </div>
   
       
-        ):("")
+        ):(
+        
+        <div>  No Publihed Items 
+         <NavLink to="createpost"> Create a scroll</NavLink>
+        </div>
+          )
       }
     
 

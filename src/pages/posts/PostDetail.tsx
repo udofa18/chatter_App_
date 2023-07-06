@@ -242,7 +242,7 @@ const PostDetail = () => {
 
             <div className="flex gap-4 m-auto">
               <span>
-              <i className="fas fa-share-nodes" />
+              Share:
               </span>
         <LinkedinShareButton 
             url={url}

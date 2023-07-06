@@ -76,28 +76,23 @@ const PostSection = ({
 
   useEffect(() => {
     const checkBookmarkStatus = async () => {
-    
-      const isPostBookmarked = await checkIfPostBookmarked(id);
-      setIsBookmarked(isPostBookmarked);
+      try {
+        const bookmarkDocRef = doc(db, "bookmarks", authUser.uid);
+        const bookmarkDocSnapshot = await getDoc(bookmarkDocRef);
+        const bookmarks = bookmarkDocSnapshot.data();
+        // eslint-disable-next-line no-prototype-builtins
+        setIsBookmarked(bookmarks && bookmarks.hasOwnProperty(id));
+      } catch (error) {
+        console.error("Error checking bookmark status: ", error);
+      }
     };
   
-    checkBookmarkStatus();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const checkIfPostBookmarked = async (id) => {
-   
-  
-  
-    const bookmarkRef = doc(db, "bookmarks", authUser.uid);
-    const bookmarkSnapshot = await getDoc(bookmarkRef);
-  
-    if (bookmarkSnapshot.exists()) {
-      const bookmarks = bookmarkSnapshot.data();
-      return id in bookmarks;
+    if (authUser) {
+      checkBookmarkStatus();
     }
   
-    return false;
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser]);
 
   if (loading) {
     return <Spinner />;
@@ -173,32 +168,14 @@ const handleDelete = async (id: string) => {
   }
 };
 
-
-// const checkBookmarkStatus = async () => {
-//   try {
-   
-//       const bookmarkRef = collection(db, "bookmarks", authUser.id);
-//       const draftQuery = query(bookmarkRef, id); // Assuming you have the user ID available
-//       const querySnapshot = await getDocs(draftQuery);
-//       setIsBookmarked(!querySnapshot.empty);
-//       console.log(!querySnapshot.empty)
-    
-//   } catch (error) {
-//     console.error("Error checking bookmark status: ", error);
-//   }
-// };
-
-
-
-
   return (
 
     <>
-     <div className="  mob_width p_right relative" key={id}>
-    <NavLink to={`/posts/${id}`} className="  mob_width p_5 hvr-float m-2">
+     <div className=" m-auto block align-self-center relative" key={id}>
+    <NavLink to={`/posts/${id}`} className="  mob_width m-auto p_5 hvr-float p-2 ">
     {/* <img src={imgUrl} width={100} height={20}/> */}
 
-    <div style={{height:"450px"}} className="card w-80   bg-sky-900 shadow-xl" key={id}>
+    <div style={{height:"450px"}} className="card w-80 block m-auto  bg-sky-900 shadow-xl" key={id}>
       {/* <div style={{width:"100%",height:"150px"}} className="relative overflow-hidden "> */}
   <figure  style={{width:"100%",height:"150px"}} className=" w-100 relative overflow-hidden"><img src={imgUrl} 
  
@@ -236,7 +213,7 @@ const handleDelete = async (id: string) => {
     </NavLink>
     <div className="card-actions absolute bottom-5 right-6 justify-end">
     {authUser && authUser.uid === userId && (
-         <span style={{}} className="relative m-auto float-right gap-2 flex mob_width rounded-full justify-center">
+         <><span style={{}} className="relative m-auto float-right gap-2 flex mob_width rounded-full justify-center">
               <span onClick={() => handleDelete(id)} className="  cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm " />Delete
               </span>
               <span className="">
@@ -244,13 +221,16 @@ const handleDelete = async (id: string) => {
                   <i className="fas fa-pen  	p-2 text-sm " />
                   Edit
                 </Link>
-                </span>
-              
               </span>
-          
+
+            </span></>
+
         )}
-          <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
     </div>
+    
+    
+      <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" absolute left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
+    
     
     
       </div>

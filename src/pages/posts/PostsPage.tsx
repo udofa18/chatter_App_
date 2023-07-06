@@ -264,12 +264,12 @@ const PostsPage = () => {
       </div>
      
       <div
-        className="flex  mob_block w-100 bg-orange-400 relative"
+        className="flex  mob_block w-100  relative"
       
       >
         <div className=" flex-1  justify-center">
           {/* <Search search={search} handleChange={handleChange} /> */}
-          <div>
+          <div className="bg-orange-400">
             {random.map((random) => (
               <div className="heroh-full bg-light-subtle p-10 m_0 p_lr">
                 <div className="hero-content flex-col lg:flex-row">
@@ -293,8 +293,13 @@ const PostsPage = () => {
             ))}
           </div>
           <ul
+          style={{
+            justifyContent: "center",
+            alignItems: 'center',
+            width:'100%'
+          }}
             role="list"
-            className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer  bg-slate-950"
+            className=" flex  justify-content-center align-items-center flex-wrap w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950"
           >
             {blogs?.map((blog) => (
               <li
@@ -319,7 +324,7 @@ const PostsPage = () => {
             handlePageChange={handlePageChange}
           />
         </div>
-        <div className=" pb-4 pt-20 p-4 bg-slate-950 w-80 border-l-base-300 border-l-base-200 relative mob_width">
+        <div className=" pb-4 pt-20 p-4 bg-slate-800 w-80  relative mob_width">
           <div className="container padding">
             <div className="row mx-0">
               <div className="col-md-3">

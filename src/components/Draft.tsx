@@ -66,7 +66,7 @@ const Draft = () => {
     setTags(uniqueTags);
    
     } catch (error) {
-      console.error("Error fetching draft data:", error);
+      console.error("Error fetching draft data:",);
 
       console.log(draft);
 
@@ -103,20 +103,20 @@ const Draft = () => {
             My Drafts
           </div>
             <div
-              className=" "
+              className="  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl "
               style={{
                 overflow: "scroll",
                 height: "40rem",
               }}
             >
               {draft?.map((item) => (
-                <div className="flex p-5 m-2 hvr-backward ">
+                <div className="flex p-5 m-2 hvr-backward " key={item.id}>
                   <img
                     className="h-32 w-40 img_size  bg-gray-50"
                     src={item.imgUrl}
                     alt={item.postTitle}
                   />
-                  <div className="text-1xl font-bold text-gray-100 ml-5">
+                  <div className="text-1xl font-bold text-gray-100 ml-2">
                     {" "}
                     {item.postTitle}
                     <p>{excerpt(item.postDescription, 120)}</p>
@@ -151,7 +151,10 @@ const Draft = () => {
        </div>
        </div>
       ) : (
-        ""
+        
+        <div className="text-white">
+          NO DRAFT MADE
+        </div>
       )}
     </>
   );

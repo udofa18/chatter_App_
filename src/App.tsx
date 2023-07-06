@@ -24,6 +24,7 @@ import TagBlog from "./pages/posts/TagBlogs.js";
 import CategoryBlog from "./pages/posts/CategoryBlog.js";
 import LoginRoute from "./components/LoginRoutes.js";
 import Draft from "./components/Draft.js";
+import Bookmark from "./components/Bookmark.js";
 const App: React.FC = () => {
  
   const [authUser, setAuthUser] = useState(null);
@@ -65,6 +66,7 @@ const App: React.FC = () => {
             <Route path="/dashboard/dash" element={<Dash />} />
             <Route path="/dashboard/published" element={<Published />} />
             <Route path="/dashboard/draft" element={<Draft />} />
+            <Route path="/dashboard/bookmarks" element={<Bookmark />} />
           </Route>
           <Route
             path="/createpost"
@@ -98,6 +100,7 @@ const App: React.FC = () => {
         />
           <Route path="/category/:category" element={<CategoryBlog/>} />
           <Route path="/dashboard" element={<Dashboard />} />
+       
           <Route path="/posts" element={<PostsPage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/tag/:tag" element={<TagBlog />} />

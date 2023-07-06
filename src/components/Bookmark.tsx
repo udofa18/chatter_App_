@@ -7,21 +7,24 @@ import {
   where,
   doc,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/auth";
 import Spinner from "./Spinner";
 import { auth } from "../firebase/auth.js";
-import {  NavLink } from "react-router-dom";
+import {  NavLink, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Tags from "./Tags.js";
 import { toast } from "react-toastify";
+import PostSection from "../pages/posts/PostSection.js";
 
 const Bookmark = () => {
   const [authUser, setAuthUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [bookmark, setBookmark] = useState([]);
   const [tags, setTags] = useState([]);
+  const id = (useParams)
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -45,50 +48,45 @@ const Bookmark = () => {
   };
 
 
-  
-  const fetchDraft = async () => {
+  useEffect(() => {
+  const fetchBookmarks = async () => {
     try {
     // setLoading(true);
 
-      const bookmarkRef = collection(db, "bookmarks");
-      const bookmarkQuery = query(bookmarkRef, where("userId", "==", user));
-      const querySnapshot = await getDocs(bookmarkQuery);
-      const bookmarkData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      const tags = [];
-      querySnapshot.docs.map((doc) => tags.push(...doc.get("tags")))
-
-      setBookmark(bookmarkData);
-      setLoading(false);
-      const uniqueTags = [...new Set(tags)];
-    setTags(uniqueTags);
-   
-    } catch (error) {
-      console.error("Error fetching Bookmark data:", error);
-
-      console.log(bookmark);
-
-    }
-    setLoading(false);
-  };
-  const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure wanted to delete that Draft ?")) {
-      try {
-        
-        await deleteDoc(doc(db, "draft", id));
-        toast.success("Draft deleted successfully");
-      } catch (err) {
-        console.log(err);
+      const bookmarkDocRef = doc(db, "bookmarks", user);
+      const bookmarkDocSnapshot = await getDoc(bookmarkDocRef);
+      const bookmarksData = bookmarkDocSnapshot.data();
+      if (bookmarksData) {
+        const bookmarkList = Object.keys(bookmarksData).map((bookmarkId) => {
+          return {
+            id: bookmarkId,
+            ...bookmarksData[bookmarkId]
+          };
+        });
+        setBookmark(bookmarkList);
+      } else {
+        setBookmark([]);
       }
+    //   const bookmarkList = [];
+    //   bookmarkDocSnapshot((doc) => {
+    //     bookmarkList.push({ id: doc.id, ...doc.data() });
+    //   });
+    //   setBookmark(bookmarkList);
+    //   // setLoading(false)
     }
+      // console.log(bookmark);
+    catch (error) {
+      console.error("Error fetching bookmarks: ", error);
+    }
+    
+    // setLoading(false);
   };
+  if (authUser) {
+    fetchBookmarks();
+  }
 
-  useEffect(() => {
-    fetchDraft();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+
+  },[authUser]);
 
   if (loading) {
     return <Spinner />;
@@ -96,63 +94,40 @@ const Bookmark = () => {
 
   return (
     <>
-      {authUser ? (
-        <div>
-          <div className="  h-full w-full ">
-          <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
-            My Drafts
+      {authUser ?(
+        <div >
+          <div className="  h-full w-full " >
+      <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
+           Bookmarks
           </div>
-            <div
-              className=" "
-              style={{
-                overflow: "scroll",
-                height: "40rem",
-              }}
-            >
-              {bookmark?.map((item) => (
-                <div className="flex p-5 m-2 hvr-backward ">
-                  <img
-                    className="h-32 w-40 img_size  bg-gray-50"
-                    src={item.imgUrl}
-                    alt={item.postTitle}
-                  />
-                  <div className="text-1xl font-bold text-gray-100 ml-5">
-                    {" "}
-                    {item.postTitle}
-                    <p>{excerpt(item.postDescription, 120)}</p>
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      // style={{ height: '500px' }}
-                      children={excerpt(item.content, 200) as string}
-                      className=" break-words mob_dis text-accent"
-                    />
-                    <p className="mt-1 text-xs leading-5 text-cyan-400">
-                      Drafted on {item.timestamp.toDate().toDateString()}
-                    </p>
-                    <div className=""> 
-              
-              <Tags tags={tags} />
+        <div className="m_5  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl" style={{
+        overflow: "scroll" , height: "40rem",
+      }}>
+         <ul 
+        style={{
+          justifyContent: "center",
+          alignItems: 'center',
+          width:'100%'
+        }} 
+        
+         className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer "  key={user}   >
+          {bookmark?.map((item)  => ( 
+            <div className="flex-wrap w-50 flex" key={item.id}  >
+              <PostSection key={item.id} {...item} />
             </div>
-            <span style={{ }} className="relative ml-10 ">
-              <div onClick={() => handleDelete(item.id)} className="pointer hvr-glow">
-            <i className="fas fa-trash-can  pointer  text-red-500 	p-2 text-sm "
-               />Delete
-              </div>
-            <NavLink to={`/createpost/${item.id}`}>
-              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
-            </NavLink>
-            </span>
-            
-            </div>
-          </div>
-            ) )}
-          </div>
-         
+          ))}
+          </ul>
+        </div>
+      </div>
        </div>
-       </div>
-      ) : (
-        ""
-      )}
+     ):(
+        
+      <div>  No Publihed Items 
+       <NavLink to="createpost"> Create a scroll</NavLink>
+      </div>
+        )
+    }
+  
     </>
   );
 };
