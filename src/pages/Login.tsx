@@ -86,7 +86,7 @@ const Login = () => {
   return (
       <div
         
-        className="   h-full p-20 mon_mag "
+        className="   h-full p-20 p_0 mon_mag "
       >
         <div className="background">
    <span></span>
@@ -109,7 +109,7 @@ const Login = () => {
    <span></span>
 </div>
         {/* <input type="checkbox" id="my-modal-2" className="modal-toggle" /> */}
-        <div className="mar_top m-auto w-1/2 bg-slate-950 p_5  p-10 relative text-white rounded-box mob_width">
+        <div className="mar_top m-auto w-1/2 bg-slate-950  p-10 relative text-white h_scr rounded-box w_scr">
           <div className="">
             <h3 className="text-lg font-bold">Login to Chatter!</h3>
             {error && (

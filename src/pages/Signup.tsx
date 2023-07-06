@@ -62,7 +62,7 @@ navigate('/posts');
   return (
     <div>
          <div 
-          className=" h-full p-20  mon_mag ">
+          className=" h-full p-20 p_0   mon_mag ">
             <div className="background">
    <span></span>
    <span></span>
@@ -83,7 +83,7 @@ navigate('/posts');
    <span></span>
    <span></span>
 </div>
-        <div className="mar_top m-auto w-1/2 bg-slate-950 p_5 p-10 relative text-white rounded-box  mob_width">
+        <div className="mar_top w_scr m-auto w-1/2 bg-slate-950  p-10 relative text-white rounded-box  mob_width">
          
           <h3 className="text-lg font-bold">Signup to Chatter!</h3>
           {error  &&
@@ -107,7 +107,7 @@ navigate('/posts');
               className="input input-bordered w-full  mt-3 text-slate-600"
             />
              <label className="label-text mt-5 text-slate-100">Password</label>
-            <span className="flex mt-3">
+            <span className="flex mt-3 gap-2">
             <input
             value={password}
             

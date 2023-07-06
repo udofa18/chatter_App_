@@ -87,7 +87,9 @@ padding: 0 !important;
         font-size: 20px;
        }
        .w_scr{
-        width: screen !important;
+        width: 100vw !important;
        }
-
+       .h_scr{
+        heighr: 100vh !important;
+       }
  }
