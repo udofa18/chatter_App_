@@ -1,10 +1,9 @@
 import {
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // import {au } from "../../node_modules/firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
@@ -12,7 +11,7 @@ import { auth } from "../firebase/auth.js";
 import "firebase/auth";
 import"../pages/css/pages.css"
 import { db } from "../firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Login = () => {
   // const [authUser, setAuthUser] = useState(null);
@@ -32,7 +31,7 @@ const Login = () => {
    
     // This gives you a Google Access Token.
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    await setDoc(
+    await updateDoc(
       doc(db, 'users', result.user.uid), 
       {name: user.displayName,
         email: user.email,

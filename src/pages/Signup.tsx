@@ -4,7 +4,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { createUserWithEmailAndPassword , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {auth, db } from "../firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import"../pages/css/pages.css"
 
 
@@ -25,7 +25,7 @@ const user = result.user;
 const credential = GoogleAuthProvider.credentialFromResult(result);
 const token = credential.accessToken;
 console.log(result.user)
-await setDoc(
+await updateDoc(
   doc(db, 'users', result.user.uid), 
   {name: user.displayName,
     email: user.email,
