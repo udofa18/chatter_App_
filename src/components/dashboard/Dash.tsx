@@ -19,6 +19,7 @@ const Dash = () => {
   const [country, setCountry] = useState("");
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [occupation, setOccupation] = useState("");
+  const [profileData, setProfileData] = useState("");
 
   useEffect(()=>{
     const listen =onAuthStateChanged(auth, (user)=>{
@@ -54,7 +55,9 @@ useEffect(() => {
           setCountry(profileData.country || "");
           setWebsiteUrl(profileData.websiteUrl || "");
           setOccupation(profileData.occupation || "");
+          // setProfileData(profileData)
         }
+         
       } catch (error) {
         console.error("Error fetching profile data: ", error);
       }
@@ -106,8 +109,16 @@ useEffect(() => {
             "
           />
           <p className=" text-white m-auto text-center text-3xl">{authUser.displayName} {""} </p>
-          <p className=" text-center text-base">Last Activity: {authUser.metadata.lastSignInTime}</p>
-          <p className="text-center">Social Accounts</p>
+          <p className=" text-center text-base-300">Last Activity: {authUser.metadata.lastSignInTime}</p>
+          <div className="w-full m-auto flex align-content-center text-center align-self-center m-auto flex gap-5 text-2xl" style={{justifyContent:"center"}}>
+            
+            <a href={facebookLink}><i className=" fab fa-facebook text-info"></i></a>
+            <a href={twitterLink}> <i className="fab fa-twitter text-info"></i></a>
+            <a href={linkedinLink}> <i className=" fab fa-linkedin text-info"></i></a>
+            <a href={githubLink}> <i className="fab fa-github text-info"></i></a>
+            <a href={websiteUrl}><i className="fas fa-globe text-accent"></i></a>
+         
+            </div>
           </div>
           <form onSubmit={handleSubmit} className=" text-white m-auto">
             <div className="flex mob_block ">
@@ -175,10 +186,11 @@ style={{width: '20rem',}}
                <label className="flex gap-4 p_5 p-5">
                <div className="m-auto text-white">Facebook:</div>
         <input
-          type="text"
+          type="url"
           className="p-2 border rounded-full m-auto  text-slate-600 enabled:hover:border-gray-400 "
           style={{width: '20rem',}}
           value={facebookLink}
+          pattern="https://.*"
           onChange={(e) => setFacebookLink(e.target.value)}
         />
       </label>
@@ -186,10 +198,11 @@ style={{width: '20rem',}}
       <div className="m-auto text-white">Twitter:</div>
 
         <input
-          type="text"
+          type="url"
           className="p-2 border rounded-full m-auto  text-slate-600 enabled:hover:border-gray-400 "
           style={{width: '20rem',}}
           value={twitterLink}
+          pattern="https://.*"
           onChange={(e) => setTwitterLink(e.target.value)}
         />
       </label>
@@ -197,10 +210,11 @@ style={{width: '20rem',}}
       <div className="m-auto text-white">Github:</div>
 
         <input
-          type="text"
+          type="url"
           className="p-2 border rounded-full m-auto  text-slate-600 enabled:hover:border-gray-400 "
           style={{width: '20rem',}}
           value={githubLink}
+          pattern="https://.*"
           onChange={(e) => setGithubLink(e.target.value)}
         />
       </label>
@@ -208,10 +222,11 @@ style={{width: '20rem',}}
       <div className="m-auto text-white">Linkedin:</div>
 
         <input
-          type="text"
+          type="url"
           className="p-2 border rounded-full m-auto  text-slate-600 enabled:hover:border-gray-400 "
           style={{width: '20rem',}}
           value={linkedinLink}
+          pattern="https://.*"
           onChange={(e) => setLinkedinLink(e.target.value)}
         />
       </label>
@@ -219,7 +234,8 @@ style={{width: '20rem',}}
        <div className="m-auto text-white">Website:</div>
 
         <input
-          type="text"
+          type="url"
+          pattern="https://.*"
           className="p-2 border rounded-full m-auto  text-slate-600 enabled:hover:border-gray-400 "
           style={{width: '20rem',}}
           value={websiteUrl}

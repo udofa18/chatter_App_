@@ -78,6 +78,8 @@ const PostDetail = () => {
   const [likes, setLikes] = useState([]);
   const [userComment, setUserComment] = useState("");
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [profileId, setProfileId] = useState([]);
+  const[profileData, setProfileData]=useState([]);
   // const [totalBlogs, setTotalBlogs] = useState([]);
 
   useEffect(() => {
@@ -95,8 +97,47 @@ const PostDetail = () => {
 
     getRecentBlogs();
   }, []);
+  useEffect(() => {
+    // Retrieve the user ID data from the "blogs" collection
+    const fetchUserData = async () => {
+      try {
+        // Access the Firestore collection
+        const blogsRef = db.collection('blogs', id);
 
-  // const MdEditor = () => import('react-markdown-editor-lite')
+        // Retrieve all documents from the collection
+        const querySnapshot = await blogsRef.get();
+
+        // Extract the user ID data from the documents
+        const userData = querySnapshot.docs.map(doc => doc.data().userId);
+        setProfileId(userData);
+        console.log(userData);
+      } catch (error) {
+        console.error('Error retrieving user ID data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+// useEffect(()=>{
+//   const profileData = async () => {
+//     try{
+//       const blogsRef = db.collection('users', profileId);
+//       const querySnapshot = await blogsRef.get();
+//       const profileData = querySnapshot.docs.map((doc) => ({
+//         id: doc.id,
+//         ...doc.data(),
+//       }));
+//       setProfileData(profileData)
+//     }catch (error) {
+//       console.error("Error fetching draft data:",);
+
+//       console.log(profileData);
+//   }
+// };
+// if (authUser) {
+//   profileData();
+
+// },[profileId])};
 
   useEffect(() => {
     id && getBlogDetail();
@@ -108,7 +149,7 @@ const PostDetail = () => {
   if (loading) {
     return <Spinner />;
   }
-  
+
 
   const getBlogDetail = async () => {
     
@@ -220,7 +261,7 @@ const PostDetail = () => {
       <div className="w-80 flex-1 mob_width h-100 snap-y  overflow-hidden ">
         <div className="  shadow-xl w-full p_5 px-10 mt-10 relative">
           <div className="w-full relative border overflow-hidden m-auto">
-            <img width={600} height={200}  src={blog?.imgUrl} alt="" className="hvr-bob m-auto w-100 " />
+            <img width={600} height={200} style={{alignItems:"center"}} src={blog?.imgUrl} alt="" className="hvr-bob m-auto w-100 flex " />
             </div>
           <div className="p_5 relative">
             <h1 className="text-3xl font-bold text-base-400 pb-4">
