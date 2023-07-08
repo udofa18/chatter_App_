@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import "bootstrap/js/dist/tab.js";
 import { useNavigate } from "react-router-dom";
 import { greetings } from "../components/greeting";
+import { Helmet } from 'react-helmet';
 
 
 
@@ -48,6 +49,9 @@ const Dashboard = () => {
   };
   return (
     <>
+     <Helmet>
+           <meta name="Dashboard" content="My Dashboard" />
+         </Helmet>
     <div className="relative mar_top mt-10 pt-5 bg-slate-950">
      <div className=" w-full bg-base-950">
     <h2 className="text-white text-3xl pt-3 p_5 pb-3 text_cen">Dashboard</h2>

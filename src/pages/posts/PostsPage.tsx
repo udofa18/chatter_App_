@@ -25,6 +25,7 @@ import Search from "../../components/search.js";
 import { isEmpty, isNull } from "lodash";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import "../Homepage.css";
+import { Helmet } from "react-helmet";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -50,13 +51,13 @@ const PostsPage = () => {
 
   const [totalBlogs, setTotalBlogs] = useState([]);
   const [hide, setHide] = useState(false);
-  const id = (useParams)
+  const id = useParams;
 
   useEffect(() => {
     getBlogsData();
     getTotalBlogs();
     getPostsData();
-  randomPost();
+    randomPost();
     // setSearch("");
     // setActive("blogs");
   }, []);
@@ -233,9 +234,11 @@ const PostsPage = () => {
   });
   console.log(categoryCount);
 
-
   return (
     <div className="w-screen bg-slate-800 h-100 overflow-hidden">
+      <Helmet>
+        <meta name="Explore" content="Explore Slate" />
+      </Helmet>
       <div className="w-screen relative bg-slate-950">
         <div className="background h-25">
           <span></span>
@@ -259,14 +262,14 @@ const PostsPage = () => {
         </div>
         <div className=" text-center p_lr mt-10 text-slate-200   text-4xl  font-bold p-40  mar_top">
           Explore Posts on{" "}
-          <div className="badge badge-primary badge-xs mb-4"></div> <span>Scroll <i className="fas fa-feather"/></span>
+          <div className="badge badge-primary badge-xs mb-4"></div>{" "}
+          <span>
+            Scroll <i className="fas fa-feather" />
+          </span>
         </div>
       </div>
-     
-      <div
-        className="flex  mob_block w-100  relative"
-      
-      >
+
+      <div className="flex  mob_block w-100  relative">
         <div className=" flex-1  justify-center">
           {/* <Search search={search} handleChange={handleChange} /> */}
           <div className="bg-orange-400">
@@ -275,46 +278,45 @@ const PostsPage = () => {
                 <div className="hero-content flex-col lg:flex-row">
                   <img
                     src={random.imgUrl}
-                    
                     className=" max-w-sm rounded-lg shadow-2xl"
                   />
                   <div>
-                  <p className="text-sm leading-6 text-primary"> Author: {random.author} </p>
-                  <div className="badge"></div>
+                    <p className="text-sm leading-6 text-primary">
+                      {" "}
+                      Author: {random.author}{" "}
+                    </p>
+                    <div className="badge"></div>
                     <h1 className="text-5xl font-bold">{random.postTitle}!</h1>
                     <p className="py-6">{random.postDescription}</p>
                     <NavLink to={`/posts/${random.id}`}>
-                    <button className="btn btn-primary">Read</button>
+                      <button className="btn btn-primary">Read</button>
                     </NavLink>
                   </div>
-
                 </div>
               </div>
             ))}
           </div>
           <ul
-          style={{
-            justifyContent: "center",
-            alignItems: 'center',
-            width:'100%'
-          }}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
             role="list"
             className=" flex  justify-content-center align-items-center flex-wrap w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950"
           >
             {blogs?.map((blog) => (
-              <li
-                className="   align-center "
-                key={blog.id}
-              >
+              <li className="   align-center " key={blog.id}>
                 <PostSection
-                   content={undefined}
+                  content={undefined}
                   postTitle={undefined}
                   postDescription={undefined}
                   imgUrl={undefined}
                   userId={undefined}
                   author={undefined}
                   timestamp={undefined}
-                  {...blog}                />
+                  {...blog}
+                />
               </li>
             ))}
           </ul>

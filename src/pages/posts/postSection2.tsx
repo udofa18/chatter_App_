@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { auth } from "../../firebase/auth";
 import "../../components/Tags";
 import "./PostDetail"
-import { collection, deleteDoc, deleteField, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, deleteField, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
@@ -26,7 +26,7 @@ const excerpt = (str: string | undefined, count: number) => {
 
 
 
-const PostSection = ({
+const PostSection2 = ({
   id,
   postTitle,
   postDescription,
@@ -45,8 +45,6 @@ const PostSection = ({
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
  const [isBookmarked, setIsBookmarked] = useState(false);
- const [viewCount, setViewCount] = useState(0);
-
 
 
 
@@ -75,32 +73,6 @@ const PostSection = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
-  useEffect(() => {
-    // Retrieve the view count from Firestore
-    const fetchViewCount = async () => {
-      try {
-        const docRef = doc(db, 'views', id);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setViewCount(docSnap.data().count);
-        }
-      } catch (error) {
-        console.log('Error fetching view count:', error);
-      }
-    };
-    
-    fetchViewCount();
-  }, [id]);
-
-  const handleIncrementViewCount = () => {
-    const docRef = doc(db, 'views', id);
-  setDoc(docRef, {
-    count: viewCount + 1,
-  }, { merge: true });
-
-    setViewCount(viewCount + 1);
-  };
 
   useEffect(() => {
     const checkBookmarkStatus = async () => {
@@ -199,27 +171,23 @@ const handleDelete = async (id: string) => {
   return (
 
     <>
-     <div className=" m-auto block align-self-center relative" key={id}>
-    <NavLink to={`/posts/${id}`} className="  mob_width m-auto p_5 hvr-float p-2 " onClick={handleIncrementViewCount}>
-    {/* <img src={imgUrl} width={100} height={20}/> */}
-
-    <div style={{height:"450px"}} className="card w-80 block m-auto  bg-sky-900 shadow-xl" key={id}>
-      {/* <div style={{width:"100%",height:"150px"}} className="relative overflow-hidden "> */}
-  <figure  style={{width:"100%",height:"150px"}} className=" w-100 relative overflow-hidden"><img src={imgUrl} 
+     <div className=" m-auto block relative m-4 text-left" key={id}>
+     <div className="">
  
-   alt={postTitle}/>
-   </figure>
+</div>
+    <NavLink to={`/posts/${id}`} className="   mob_width m-auto w-full p_5  h-aut0 ">
+    <div className="w-full block " key={id}>
+ 
    {/* </div> */}
-  <div className="card-body bg-gradient ">
-  <div className="badge badge-ghost">Author: {author}</div>
-    <h2 className="card-title text-white">
+  <div className=" flex w-full space-x-5 align-center text-left ">
+  <div>  <h2 className="font-bold text-left text-white">
     {postTitle}
      
     </h2>
-    <p className="mt-1 text-xs leading-5 text-cyan-400">
+    <p className=" text-xs leading-5 text-cyan-400">
           Posted on {timestamp.toDate().toDateString()}
-        </p>
-    <p className="text-gray-300">{excerpt(postDescription, 120)}</p>
+        </p></div>
+    {/* <p className="text-gray-300">{excerpt(postDescription, 120)}</p> */}
     <div className="flex gap-4 ">
       <span className="text-white">
       <i className="fas fa-comment text-white "/> {comments?.length} 
@@ -227,30 +195,18 @@ const handleDelete = async (id: string) => {
       <span className="text-white">
       <i className="fas fa-thumbs-up text-white"/> {likes?.length} 
       </span>
-      <span>
-        <i className="fas fa-binoculars"/> {viewCount}
-      </span>
        </div>
        
     
-   
-    
-    
-  </div>
-</div>
-
- 
-
-    </NavLink>
-    <div className="card-actions absolute bottom-5 right-6 justify-end">
+       <div className="card-actions   bottom-2 right-6 justify-end">
     {authUser && authUser.uid === userId && (
          <><span style={{}} className="relative m-auto float-right gap-2 flex mob_width rounded-full justify-center">
-              <span onClick={() => handleDelete(id)} className="  cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm " />Delete
+              <span onClick={() => handleDelete(id)} className="  cursor-pointer text-red-500"><i className="fas fa-trash-can   text-red-500 	p-2 text-sm " />
               </span>
               <span className="">
                 <Link to={`/editpost/${id}`} className="text-cyan-400">
                   <i className="fas fa-pen  	p-2 text-sm " />
-                  Edit
+                 
                 </Link>
               </span>
 
@@ -260,7 +216,15 @@ const handleDelete = async (id: string) => {
     </div>
     
     
-      <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" absolute left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
+  </div>
+</div>
+
+ 
+
+    </NavLink>
+   
+    
+
     
     
     
@@ -272,4 +236,4 @@ const handleDelete = async (id: string) => {
   );
 };
 
-export default PostSection;
+export default PostSection2;

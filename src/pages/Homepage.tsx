@@ -4,10 +4,13 @@ import Review from "../components/Review";
 import Trending from "../components/Trending";
 import "./Homepage.css";
 import { NavLink } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 const Homepage: React.FC = () => {
   return <>
-
+  <Helmet>
+           <meta name="Homepage" content="Slate Homepage" />
+         </Helmet>
     <div className="pt-10  w-full relative  bg-slate-950">
     <div className="background">
    <span></span>

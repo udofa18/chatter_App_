@@ -1,6 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import  { useState, useEffect } from "react";
 import PostSection from "../../pages/posts/PostSection"
+import PostSection2 from "../../pages/posts/postSection2";
 import Spinner from "../../components/Spinner";
 import { db } from "../../firebase/auth";
 import { auth } from "../../firebase/auth";
@@ -75,19 +76,19 @@ const UserBlog = ( ) => {
             My Posts
           </div>
         <div className="m_5 block align-center  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl" style={{
-        overflowY: "scroll" , height: "40rem", overflowX:"hidden",
+          height: "auto"
       }}>
          <ul 
          style={{
-          justifyContent: "center",
-          alignItems: 'center',
+          // justifyContent: "center",
+          // alignItems: 'center',
           width:'100%'
         }}
-         className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto   ">
+         className="  w-full mob_width m_0 p-2  ">
           {userBlogs?.map((item) => (
-            <div className="flex-wrap w-50 flex" key={item.id}>
-              <PostSection key={item.id} {...item} />
-            </div>
+            <li className=" my-2 m-2 " key={item.id}>
+              <PostSection2 key={item.id} {...item} />
+            </li>
           ))}
           </ul>
         </div>

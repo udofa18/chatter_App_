@@ -3,6 +3,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
+  orderBy,
   // limit,
   query,
   serverTimestamp,
@@ -12,7 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 import { isEmpty } from "lodash";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Profiler } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import CommentBox from "../../components/CommentBox";
@@ -33,6 +35,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
+import { Helmet } from 'react-helmet';
 
 import {
   paragraphStyle,
@@ -78,46 +81,40 @@ const PostDetail = () => {
   const [likes, setLikes] = useState([]);
   const [userComment, setUserComment] = useState("");
   const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const [profileId, setProfileId] = useState([]);
-  const[profileData, setProfileData]=useState([]);
+  const[profileData, setProfileData]=useState(null);
   // const [totalBlogs, setTotalBlogs] = useState([]);
 
   useEffect(() => {
     const getRecentBlogs = async () => {
       const blogRef = collection(db, "blogs");
 
-      // const recentBlogs = query(
-      //   blogRef,
-      //   orderBy("timestamp", "desc"),
-      //   limit(5)
-      // );
-      const docSnapshot = await getDocs(blogRef);
+      const recentBlogs = query(
+        blogRef,
+        orderBy("timestamp", "desc"),
+        limit(10)
+      );
+      const docSnapshot = await getDocs(recentBlogs);
       setBlogs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     };
 
     getRecentBlogs();
   }, []);
   useEffect(() => {
-    // Retrieve the user ID data from the "blogs" collection
-    const fetchUserData = async () => {
+    const fetchProfileData = async () => {
       try {
-        // Access the Firestore collection
-        const blogsRef = db.collection('blogs', id);
-
-        // Retrieve all documents from the collection
-        const querySnapshot = await blogsRef.get();
-
-        // Extract the user ID data from the documents
-        const userData = querySnapshot.docs.map(doc => doc.data().userId);
-        setProfileId(userData);
-        console.log(userData);
+        const profileDocRef = doc(db, "users", blog?.userId); // Assuming you have a "users" collection in Firebase
+        const profileDocSnapshot = await getDoc(profileDocRef);
+        setProfileData ( profileDocSnapshot.data())
+        
       } catch (error) {
-        console.error('Error retrieving user ID data:', error);
+        console.error("Error fetching profile data: ", error);
       }
     };
-
-    fetchUserData();
-  }, []);
+  console.log(profileData)
+    if (id) {
+      fetchProfileData();
+    }
+  }, [id]);
 // useEffect(()=>{
 //   const profileData = async () => {
 //     try{
@@ -180,7 +177,7 @@ const PostDetail = () => {
     // setActive(null);
     setLoading(false);
 
-    
+    console.log(blog.userId)
   };
 
 
@@ -255,9 +252,13 @@ const PostDetail = () => {
 
 
   console.log("relatedBlogs", relatedBlogs);
+ 
   return (
     <div>
-    <div className=" flex dis_block  mt-10 w-screen bg-base-200 ">
+       <Helmet>
+           <meta name="Read" content={blog?.postDescription} />
+         </Helmet>
+    <div className=" flex dis_block  mt-10 w-screen bg-base-200 "key={id}>
       <div className="w-80 flex-1 mob_width h-100 snap-y  overflow-hidden ">
         <div className="  shadow-xl w-full p_5 px-10 mt-10 relative">
           <div className="w-full relative border overflow-hidden m-auto">
@@ -363,7 +364,19 @@ const PostDetail = () => {
                 
             />
             </div>
+            <div className="card bg-slate-950 text-white">
+            
+                <div className="flex card-body">
+                  <img className="w-24 rounded-full" src={profileData?.photoURL}></img>
+                  <div className="text-center">
+                  <p className="text-xl">Author: {profileData?.name}</p>
+                  <p className="text-base-100"> Email: {profileData?.email}</p>
+                  </div>
+
+                </div>
+              </div>
             <div className="flex flex-col-right gap-10 w-100 m-5  ">
+              
             <Like handleLike={handleLike} likes={likes} userId={userId} />
             <div><i className="fas fa-comment"/> {comments?.length} Comments </div>
             </div>
