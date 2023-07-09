@@ -14,7 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 import { isEmpty } from "lodash";
-import { useState, useEffect, Profiler } from "react";
+import { useState, useEffect,  } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import CommentBox from "../../components/CommentBox";
@@ -82,6 +82,8 @@ const PostDetail = () => {
   const [userComment, setUserComment] = useState("");
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const[profileData, setProfileData]=useState(null);
+  const [viewCount, setViewCount] = useState(0);
+
   // const [totalBlogs, setTotalBlogs] = useState([]);
 
   useEffect(() => {
@@ -98,7 +100,24 @@ const PostDetail = () => {
     };
 
     getRecentBlogs();
-  }, []);
+  }, [id]);
+  useEffect(() => {
+    // Retrieve the view count from Firestore
+    const fetchViewCount = async () => {
+      try {
+        const docRef = doc(db, 'views', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setViewCount(docSnap.data().count);
+        }
+      } catch (error) {
+        console.log('Error fetching view count');
+      }
+    };
+    
+    fetchViewCount();
+  }, [id]);
+
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -111,30 +130,11 @@ const PostDetail = () => {
       }
     };
   console.log(profileData)
-    if (id) {
+    if (blog?.userId) {
       fetchProfileData();
     }
-  }, [id]);
-// useEffect(()=>{
-//   const profileData = async () => {
-//     try{
-//       const blogsRef = db.collection('users', profileId);
-//       const querySnapshot = await blogsRef.get();
-//       const profileData = querySnapshot.docs.map((doc) => ({
-//         id: doc.id,
-//         ...doc.data(),
-//       }));
-//       setProfileData(profileData)
-//     }catch (error) {
-//       console.error("Error fetching draft data:",);
+  }, [blog?.userId, profileData]);
 
-//       console.log(profileData);
-//   }
-// };
-// if (authUser) {
-//   profileData();
-
-// },[profileId])};
 
   useEffect(() => {
     id && getBlogDetail();
@@ -156,10 +156,17 @@ const PostDetail = () => {
     const blogDetail = await getDoc(docRef);
     const blogs = await getDocs(blogRef);
      const tags = [];
-    blogs.docs.map((doc) => tags.push(...doc.get("tags")));
-  
-    const uniqueTags = [...new Set(tags)];
-    setTags(uniqueTags);
+     if (blogs && Array.isArray(blogs.docs)) {
+      blogs.docs.forEach((doc) => {
+          const blogData = doc.data();
+          if (blogData && Array.isArray(blogData.tags)) {
+              tags.push(...blogData.tags);
+          }
+      });
+  }
+
+  const uniqueTags = [...new Set(tags)];
+  setTags(uniqueTags)
   
     setBlog(blogDetail.data());
     const relatedBlogsQuery = query(
@@ -265,23 +272,27 @@ const PostDetail = () => {
             <img width={600} height={200} style={{alignItems:"center"}} src={blog?.imgUrl} alt="" className="hvr-bob m-auto w-100 flex " />
             </div>
           <div className="p_5 relative">
-            <h1 className="text-3xl font-bold text-base-400 pb-4">
+            <h1 className="text-3xl my-4 font-bold text-base-400 pb-4">
               {blog?.postTitle}
             </h1>
             <div className="flex gap-5 ">
-              <span>
-                <p className="text-sm text-danger">
+              <span className="flex">
+                <p className=" text-sm text-danger m-auto ">
+                  <i className="fas fa-calendar-days text-xl text-danger"></i>
                   -{blog?.timestamp.toDate().toDateString()}
                 </p>
               </span>
-              <span className="meta-info text-start text-sm text-bg-info">
-                <p className="author text-lh-base-400">Publihed by: {blog?.author}</p>
+              <span className=" flex meta-info text-start text-sm text-bg-info ">
+                <p className="author m-auto text-lh-base-400">Publihed by: {blog?.author}</p>
+                <img className="w-5  rounded-full" src={profileData?.photoURL}></img>
               </span>
             </div>
             <div className="flex flex-col-right gap-10 m-5  ">
             <Like handleLike={handleLike} likes={likes} userId={userId} />
             <div><i className="fas fa-comment"/> {comments?.length}  </div>
-
+            <span className="">
+        <i className="fas fa-binoculars"/> {viewCount}
+      </span>
             <div className="flex gap-4 m-auto">
               <span>
               Share:
@@ -370,7 +381,9 @@ const PostDetail = () => {
                   <img className="w-24 rounded-full" src={profileData?.photoURL}></img>
                   <div className="text-center">
                   <p className="text-xl">Author: {profileData?.name}</p>
-                  <p className="text-base-100"> Email: {profileData?.email}</p>
+                  <p className="text-base-300">Bio: {profileData?.shortBio}</p>
+                  <p className="text-base-300">Interest: {profileData?.interests}</p>
+                  <p className="text-base-300"> Email: {profileData?.email}</p>
                   </div>
 
                 </div>
@@ -418,7 +431,7 @@ const PostDetail = () => {
             <div className="col-md-3 ">
               <div className="font-bold text-start py-4 w-32 text-white">Tags</div>
               <Tags tags={tags} />
-              <FeatureBlogs title={"Recent Blogs"} blogs={blogs} />
+              <FeatureBlogs title={"Recent Blogs"} blogs={blogs} id={id} />
               
             </div>
           </div>

@@ -38,14 +38,21 @@ const CategoryBlog = ( ) => {
     <div>
       <div className="  mt-5  pt-10 h-100 w-screen bg-slate-950 overflow-hidden">
         <div className="m-10 m_5 h-full overflow-scroll">
-          <div className="blog-heading text-white shadow  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
+          <div className="blog-heading text-white shadow z-10  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
             Category: <strong>{category.toLocaleUpperCase()}</strong>
           </div>
+          <ul className="flex flex-wap"
+           style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}>
           {categoryBlogs?.map((item) => (
-            <div className="col-md-6 mt-10 ">
+            <li className="mt-10  ">
               <PostSection key={item.id} {...item} />
-            </div>
+            </li>
           ))}
+          </ul>
         </div>
       </div>
     </div>

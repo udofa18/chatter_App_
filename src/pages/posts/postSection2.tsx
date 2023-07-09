@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { auth } from "../../firebase/auth";
 import "../../components/Tags";
 import "./PostDetail"
-import { deleteDoc, deleteField, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, deleteField, doc, getDoc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
@@ -45,6 +45,9 @@ const PostSection2 = ({
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
  const [isBookmarked, setIsBookmarked] = useState(false);
+ const [viewCount, setViewCount] = useState(0);
+ const [bookmarkCount, setBookmarkCount] = useState(0);
+
 
 
 
@@ -72,6 +75,38 @@ const PostSection2 = ({
    
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+  useEffect(() => {
+    // Retrieve the view count from Firestore
+    const fetchViewCount = async () => {
+      try {
+        const docRef = doc(db, 'views', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setViewCount(docSnap.data().count);
+        }
+      } catch (error) {
+        console.log('Error fetching view count');
+      }
+    };
+    
+    fetchViewCount();
+  }, [id]);
+  useEffect(() => {
+    // Retrieve the view count from Firestore
+    const fetchBookmarkCount = async () => {
+      try {
+        const docRef = doc(db, 'blogs', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setBookmarkCount(docSnap.data().count);
+        }
+      } catch (error) {
+        console.log('Error fetching view count');
+      }
+    };
+    
+    fetchBookmarkCount();
   }, [id]);
 
   useEffect(() => {
@@ -122,13 +157,31 @@ const PostSection2 = ({
 const handleDelete = async (id: string) => {
   if (window.confirm("Are you sure wanted to delete that Post ?")) {
     try {
-      setLoading(true);
+      // setLoading(true);
       await deleteDoc(doc(db, "blogs", id));
       toast.success("Blog deleted successfully");
-      setLoading(false);
+      // setLoading(false);
     } catch (err) {
       console.log(err);
     }
+  }
+};
+
+const handleIncrementViewCount = async () => {
+  const docRef = doc(db, 'views', id);
+   try {
+    await getDoc(docRef);
+    // Document exists, increment view count
+    updateDoc(docRef, {
+      'count': increment(1)
+    });
+    setViewCount(viewCount + 1);
+  } catch (error) {
+    // Document does not exist, set view count to 1
+    await setDoc(docRef, {
+      'count': 1
+    });
+    setViewCount(1);
   }
 };
 
@@ -175,11 +228,11 @@ const handleDelete = async (id: string) => {
      <div className="">
  
 </div>
-    <NavLink to={`/posts/${id}`} className="   mob_width m-auto w-full p_5  h-aut0 ">
+    <NavLink to={`/posts/${id}`} className="   mob_width m-auto w-full p_5  h-aut0 " onClick={handleIncrementViewCount}>
     <div className="w-full block " key={id}>
  
    {/* </div> */}
-  <div className=" flex w-full space-x-5 align-center text-left ">
+  <div className=" flex w-full dis_block space-x-5 align-center text-left ">
   <div>  <h2 className="font-bold text-left text-white">
     {postTitle}
      
@@ -194,6 +247,12 @@ const handleDelete = async (id: string) => {
       </span>
       <span className="text-white">
       <i className="fas fa-thumbs-up text-white"/> {likes?.length} 
+      </span>
+      <span className="text-white">
+        <i className="fas fa-binoculars"/> {viewCount}
+      </span>
+      <span className="text-white">
+        <i className="fas fa-bookmark"/> {bookmarkCount}
       </span>
        </div>
        

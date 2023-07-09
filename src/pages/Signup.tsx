@@ -4,7 +4,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { createUserWithEmailAndPassword , GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {auth, db } from "../firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import"../pages/css/pages.css"
 
 
@@ -24,15 +24,22 @@ const user = result.user;
 // // This gives you a Google Access Token.
 const credential = GoogleAuthProvider.credentialFromResult(result);
 const token = credential.accessToken;
+const userRef = doc(db, 'users', result.user.uid);
 console.log(result.user)
-await updateDoc(
-  doc(db, 'users', result.user.uid), 
-  {name: user.displayName,
-    email: user.email,
-    photoURL: user.photoURL
-  },
+const userDetails = {
+  name: user.displayName,
+  email: user.email,
+  photoURL: user.photoURL
+};
 
-)
+const docSnapshot = await getDoc(userRef);
+if (docSnapshot.exists()) {
+  await updateDoc(userRef, userDetails);
+} else {
+  await setDoc(userRef, userDetails);
+}
+
+
 navigate('/posts');
   }
      const [password, setPassword] = useState("");

@@ -18,6 +18,7 @@ import remarkGfm from "remark-gfm";
 import Tags from "./Tags.js";
 import { toast } from "react-toastify";
 import PostSection from "../pages/posts/PostSection.js";
+import PostSection2 from "../pages/posts/postSection2.js";
 
 const Bookmark = () => {
   const [authUser, setAuthUser] = useState(null);
@@ -51,7 +52,7 @@ const Bookmark = () => {
   useEffect(() => {
   const fetchBookmarks = async () => {
     try {
-    // setLoading(true);
+    setLoading(true);
 
       const bookmarkDocRef = doc(db, "bookmarks", user);
       const bookmarkDocSnapshot = await getDoc(bookmarkDocRef);
@@ -67,14 +68,10 @@ const Bookmark = () => {
       } else {
         setBookmark([]);
       }
-    //   const bookmarkList = [];
-    //   bookmarkDocSnapshot((doc) => {
-    //     bookmarkList.push({ id: doc.id, ...doc.data() });
-    //   });
-    //   setBookmark(bookmarkList);
-    //   // setLoading(false)
+    
+      setLoading(false)
     }
-      // console.log(bookmark);
+   
     catch (error) {
       console.error("Error fetching bookmarks: ", error);
     }
@@ -86,7 +83,7 @@ const Bookmark = () => {
   }
 
 
-  },[authUser]);
+  },[authUser, user]);
 
   if (loading) {
     return <Spinner />;
@@ -100,9 +97,8 @@ const Bookmark = () => {
       <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
            Bookmarks
           </div>
-        <div className="m_5  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl" style={{
-        overflow: "scroll" , height: "40rem",
-      }}>
+        <div className="m_5  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl" 
+      >
          <ul 
         style={{
           justifyContent: "center",
@@ -110,11 +106,11 @@ const Bookmark = () => {
           width:'100%'
         }} 
         
-         className=" flex  flex-wrap w-full p-10 mob_width p_lr m_0 m-auto pointer "  key={user}   >
+         className=" w-full mob_width m_0   "  key={user}   >
           {bookmark?.map((item)  => ( 
-            <div className="flex-wrap w-50 flex" key={item.id}  >
-              <PostSection key={item.id} {...item} />
-            </div>
+            <li className="my-2 m-2 px-2 rounded-lg   bg-slate-700 hover:bg-slate-950 " key={item.id}  >
+              <PostSection2 key={item.id} {...item} />
+            </li>
           ))}
           </ul>
         </div>

@@ -138,6 +138,7 @@ const CreatePost = ({ user}) => {
     }
 
     setSelectedFile(e.target.files[0]);
+    
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreviewUrl(fileReader.result as string);
@@ -145,7 +146,15 @@ const CreatePost = ({ user}) => {
 
     fileReader.readAsDataURL(e.target.files[0]);
   };
-
+  const handleImageEdit = async () => {
+    const docRef = doc(db, "blogs", id);
+    const snapshot = await getDoc(docRef);
+    const data = snapshot.data();
+    if (data) {
+      const imgUrl = data.imgUrl as string;
+      setPreviewUrl(imgUrl);
+    }
+  };
 
   const [progress, setProgress] = useState(null);
 
@@ -198,6 +207,10 @@ const CreatePost = ({ user}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+useEffect(()=>{
+  id && handleImageEdit()
+},[id])
+
   const getBlogDetail = async () => {
 
     const docRef = doc(db, "blogs", id);
@@ -215,6 +228,7 @@ const CreatePost = ({ user}) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         comments: any[];
         likes: any[];
+        imgUrl: any
       };
       setForm({ ...data });
      
@@ -282,6 +296,7 @@ const snapshot = await getDoc(draftCollection);
    }
  }, [])
  console.log(content)
+
 
   const handleAddPost = async (e: { preventDefault: () => void; }) => {
    

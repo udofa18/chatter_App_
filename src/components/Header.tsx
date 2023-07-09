@@ -146,10 +146,10 @@ const Header: React.FC = () => {
             <div className="dropdown dropdown-end ">
               <label
                 tabIndex={0}
-                className="btn btn-primary btn-circle avatar flex-row "
+                className="btn-primary   flex-row "
               >
-                <div className="w-10 rounded-full  bg-primary">
-                  <img src= {authUser.photoURL} />
+                <div className="w-10  m-1 bg-primary rounded-full">
+                  <img src= {authUser.photoURL}  className="rounded-full"/>
                  
                 </div>
                 
@@ -159,13 +159,13 @@ const Header: React.FC = () => {
                 tabIndex={0}
                 className="menu menu-compact dropdown-content mt-3 p-4 shadow bg-slate-600 rounded-box w-60"
               >
-                <div>
+                <li>
                   {auth ? (
                     <p className="lowercase  left text-m ">{`${authUser.email}`}</p>
                   ) : (
                     ""
                   )}
-                </div>
+                </li>
 
                 <li className="">
                   <NavLink to="dashboard/Dash" className="justify-between">

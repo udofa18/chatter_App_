@@ -5,8 +5,11 @@ import {
   collection,
   DocumentData,
   DocumentSnapshot,
+  endAt,
+  endBefore,
   getDocs,
   limit,
+  limitToLast,
   orderBy,
   query,
   startAfter,
@@ -37,7 +40,6 @@ interface BlogData {
 }
 
 const PostsPage = () => {
-  // const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [blogs, setBlogs] = useState<BlogData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -45,22 +47,36 @@ const PostsPage = () => {
     useState<DocumentSnapshot<DocumentData> | null>(null);
   const [noOfPages, setNoOfPages] = useState<number | null>(null);
   const [count, setCount] = useState(null);
+  const [noBlogs, setNoBlogs] = useState(null);
+  // const queryString = useQuery();
+  // const searchQuery = queryString.get("searchQuery");
   const [tags, setTags] = useState([]);
   const [random, useRandom] = useState<BlogData[]>([]);
   // const [blog, setBlog] = useState(null);
-
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [totalBlogs, setTotalBlogs] = useState([]);
   const [hide, setHide] = useState(false);
   const id = useParams;
 
+  // useEffect(() => {
+  //   if (!isNull(searchQuery)) {
+  //     searchBlogs();
+  //   }
+  // }, [searchQuery]);
   useEffect(() => {
     getBlogsData();
     getTotalBlogs();
     getPostsData();
     randomPost();
     // setSearch("");
-    // setActive("blogs");
-  }, []);
+    // setActive("post");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  useEffect(() => {
+    getPostsData();
+  }, [search]);
 
   if (loading) {
     return <Spinner />;
@@ -90,6 +106,7 @@ const PostsPage = () => {
     } catch (error) {
       console.log("Error getting blog posts: ", error);
     }
+    setLoading(false);
   };
   console.log(random);
   // Call the function to get a random blog post
@@ -116,7 +133,14 @@ const PostsPage = () => {
     });
 
     const tags = [];
-    docSnapshot.docs.map((doc) => tags.push(...doc.get("tags")));
+    if (docSnapshot && Array.isArray(docSnapshot.docs)) {
+      docSnapshot.docs.forEach((doc) => {
+        const blogData = doc.data();
+        if (blogData && Array.isArray(blogData.tags)) {
+          tags.push(...blogData.tags);
+        }
+      });
+    }
     const uniqueTags = [...new Set(tags)];
     setTags(uniqueTags);
 
@@ -136,7 +160,21 @@ const PostsPage = () => {
     docSnapshot.docs.forEach((doc) => {
       list.push({ id: doc.id, ...doc.data() });
     });
+
+    const filteredBlogs = blogData.filter((blog) => {
+      // Customize the search condition based on your requirements
+      // Here, we check if the post title or tags contain the search query
+      return (
+        blog.postTitle.toLowerCase().includes(search.toLowerCase()) ||
+        blog.tags.includes(search.toLowerCase())
+      );
+    });
+    setBlogs(filteredBlogs);
+    setCount(filteredBlogs.length);
+    setLastVisible(null);
+
     setTotalBlogs(list);
+
     setBlogs(blogData);
     setCount(docSnapshot.size);
     setLastVisible(docSnapshot.docs[docSnapshot.docs.length - 1]);
@@ -155,7 +193,6 @@ const PostsPage = () => {
   };
 
   const fetchMore = async () => {
-    // setLoading(true);
     const blogRef = collection(db, "blogs");
     const nextBlogsQuery = query(
       blogRef,
@@ -168,40 +205,65 @@ const PostsPage = () => {
       id: doc.id,
       ...doc.data(),
     })) as BlogData[];
+
+    if (nextBlogsSnapshot.size === 0) {
+      // setLoading(false);
+      return; // Exit the function without updating the state or page number
+    }
+
     setBlogs(nextBlogData);
     setCount(nextBlogsSnapshot.size);
+    console.log(nextBlogsSnapshot.size);
     setLastVisible(nextBlogsSnapshot.docs[nextBlogsSnapshot.docs.length - 1]);
-    // setLoading(false);
   };
 
   // if (loading) {
   //   return <Spinner />;
   // }
 
+  // const fetchPrev = async () => {
+  //   setLoading(true);
+  //   const blogRef = collection(db, "blogs");
+  //   const end =
+  //     noOfPages !== currentPage
+  //       ? startAfter(lastVisible)
+  //       : startAfter(lastVisible);
+  //   const limitData =
+  //     noOfPages !== currentPage
+  //       ? limit(6)
+  //       : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //       count! <= 6 && noOfPages! % 2 === 0
+  //       ? limit(6)
+  //       : limit(6);
+  //   const prevBlogsQuery = query(blogRef, orderBy("postTitle"), end, limitData);
+  //   const prevBlogsSnapshot = await getDocs(prevBlogsQuery);
+  //   const prevBlogData = prevBlogsSnapshot.docs.map((doc) => ({
+  //     id: doc.id,
+  //     ...doc.data(),
+  //   })) as BlogData[];
+  //   setBlogs(prevBlogData);
+  //   setCount(prevBlogsSnapshot.size);
+  //   setLastVisible(prevBlogsSnapshot.docs[prevBlogsSnapshot.docs.length - 1]);
+  //   setLoading(false);
+  // };
+
   const fetchPrev = async () => {
-    // setLoading(true);
     const blogRef = collection(db, "blogs");
     const end =
-      noOfPages !== currentPage
-        ? startAfter(lastVisible)
-        : startAfter(lastVisible);
+      noOfPages !== currentPage ? endAt(lastVisible) : endBefore(lastVisible);
     const limitData =
       noOfPages !== currentPage
         ? limit(6)
-        : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        count! <= 6 && noOfPages! % 2 === 0
+        : count <= 6 && noOfPages % 2 === 0
         ? limit(6)
-        : limit(6);
+        : limitToLast(6);
     const prevBlogsQuery = query(blogRef, orderBy("postTitle"), end, limitData);
-    const prevBlogsSnapshot = await getDocs(prevBlogsQuery);
-    const prevBlogData = prevBlogsSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as BlogData[];
-    setBlogs(prevBlogData);
-    setCount(prevBlogsSnapshot.size);
-    setLastVisible(prevBlogsSnapshot.docs[prevBlogsSnapshot.docs.length - 1]);
-    // setLoading(false);
+    const prevBlogsSnaphot = await getDocs(prevBlogsQuery);
+    setBlogs(
+      prevBlogsSnaphot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+    );
+    setCount(prevBlogsSnaphot.size);
+    setLastVisible(prevBlogsSnaphot.docs[prevBlogsSnaphot.docs.length - 1]);
   };
 
   const handlePageChange = (value: string) => {
@@ -212,6 +274,15 @@ const PostsPage = () => {
       setCurrentPage((page) => page - 1);
       fetchPrev();
     }
+  };
+  const handleChange = (e) => {
+    const { value } = e.target;
+    if (isEmpty(value)) {
+      console.log("test");
+      setBlogs([]);
+      setHide(false);
+    }
+    setSearch(value);
   };
   const counts = totalBlogs.reduce((prevValue, currentValue) => {
     const name = currentValue.category;
@@ -233,6 +304,29 @@ const PostsPage = () => {
     };
   });
   console.log(categoryCount);
+  // const searchBlogs = async () => {
+  //     const blogRef = collection(db, "blogs");
+  //     const searchTitleQuery = query(blogRef, where("postTitle", "==", searchQuery));
+  //     const searchTagQuery = query(
+  //       blogRef,
+  //       where("tags", "array-contains", searchQuery)
+  //     );
+  //     const titleSnapshot = await getDocs(searchTitleQuery);
+  //     const tagSnapshot = await getDocs(searchTagQuery);
+
+  //     const searchTitleBlogs = [];
+  //     const searchTagBlogs = [];
+  //     titleSnapshot.forEach((doc) => {
+  //       searchTitleBlogs.push({ id: doc.id, ...doc.data() });
+  //     });
+  //     tagSnapshot.forEach((doc) => {
+  //       searchTagBlogs.push({ id: doc.id, ...doc.data() });
+  //     });
+  //     const combinedSearchBlogs = searchTitleBlogs.concat(searchTagBlogs);
+  //     setBlogs(combinedSearchBlogs);
+  //     setHide(true);
+  //     setActive("");
+  //   };
 
   return (
     <div className="w-screen bg-slate-800 h-100 overflow-hidden">
@@ -296,6 +390,12 @@ const PostsPage = () => {
               </div>
             ))}
           </div>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search blog posts..."
+          />
           <ul
             style={{
               justifyContent: "center",
@@ -324,6 +424,7 @@ const PostsPage = () => {
             currentPage={currentPage}
             noOfPages={noOfPages}
             handlePageChange={handlePageChange}
+            
           />
         </div>
         <div className=" pb-4 pt-20 p-4 bg-slate-800 w-80  relative mob_width">
@@ -335,7 +436,7 @@ const PostsPage = () => {
                 </div>
                 <Tags tags={tags} />
                 <Category catgBlogsCount={categoryCount} />
-                <FeatureBlogs title={"Recent Blogs"} blogs={blogs} />
+                <FeatureBlogs title={"Recent Blogs"} blogs={blogs} id={id} />
               </div>
             </div>
             {/* <RelatedBlog id={id} blogs={relatedBlogs} /> */}

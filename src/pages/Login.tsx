@@ -11,7 +11,7 @@ import { auth } from "../firebase/auth.js";
 import "firebase/auth";
 import"../pages/css/pages.css"
 import { db } from "../firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 const Login = () => {
   // const [authUser, setAuthUser] = useState(null);
@@ -31,15 +31,20 @@ const Login = () => {
    
     // This gives you a Google Access Token.
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    await updateDoc(
-      doc(db, 'users', result.user.uid), 
-      {name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL
-      },
+    const userRef = doc(db, 'users', result.user.uid);
+    const userDetails = {
+      name: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL
+    };
     
-    )
-    
+    const docSnapshot = await getDoc(userRef);
+    if (docSnapshot.exists()) {
+      await updateDoc(userRef, userDetails);
+    } else {
+      await setDoc(userRef, userDetails);
+    }
+    navigate('/posts');
   };
   // useEffect(() => {
   //   const listen = onAuthStateChanged(auth, (user) => {

@@ -47,13 +47,21 @@ const TagBlog = () => {
             Tag: <strong>{tag.toLocaleUpperCase()}</strong>
           </div>
          
-        
+        <ul
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+        role="list"
+        className=" flex flex-wrap  justify-content-center align-items-center flex-wrap w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950">
           {tagBlogs?.map((item) => (
-            <div className="col-md-6 pt-10">
+            <li className="mt-10 ">
               <PostSection key={item.id} {...item} />
-            </div>
+            </li>
           ))}
         
+        </ul>
         </div>
       </div>
     </div>

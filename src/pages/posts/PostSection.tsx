@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { auth } from "../../firebase/auth";
 import "../../components/Tags";
 import "./PostDetail"
-import { collection, deleteDoc, deleteField, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, deleteField, doc, getDoc, getDocs, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
@@ -46,7 +46,7 @@ const PostSection = ({
   const [likes, setLikes] = useState([]);
  const [isBookmarked, setIsBookmarked] = useState(false);
  const [viewCount, setViewCount] = useState(0);
-
+const [bookmarkCount, setBookmarkCount] = useState(0);
 
 
 
@@ -86,22 +86,51 @@ const PostSection = ({
           setViewCount(docSnap.data().count);
         }
       } catch (error) {
-        console.log('Error fetching view count:', error);
+        console.log('Error fetching view count');
       }
     };
     
     fetchViewCount();
   }, [id]);
 
-  const handleIncrementViewCount = () => {
+  const handleIncrementViewCount = async () => {
     const docRef = doc(db, 'views', id);
-  setDoc(docRef, {
-    count: viewCount + 1,
-  }, { merge: true });
-
-    setViewCount(viewCount + 1);
+     try {
+      await getDoc(docRef);
+      // Document exists, increment view count
+      updateDoc(docRef, {
+        'count': increment(1)
+      });
+      setViewCount(viewCount + 1);
+    } catch (error) {
+      // Document does not exist, set view count to 1
+      await setDoc(docRef, {
+        'count': 1
+      });
+      setViewCount(1);
+    }
   };
-
+ 
+  
+  
+  useEffect(() => {
+    // Retrieve the view count from Firestore
+    const fetchBookmarkCount = async () => {
+      try {
+        const docRef = doc(db, 'blogs', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setBookmarkCount(docSnap.data().count);
+         
+        }
+        console.log(docSnap.data().count)
+      } catch (error) {
+        console.log('Error fetching view count');
+      }
+    };
+    
+    fetchBookmarkCount ();
+  }, [id]);
   useEffect(() => {
     const checkBookmarkStatus = async () => {
       try {
@@ -110,8 +139,9 @@ const PostSection = ({
         const bookmarks = bookmarkDocSnapshot.data();
         // eslint-disable-next-line no-prototype-builtins
         setIsBookmarked(bookmarks && bookmarks.hasOwnProperty(id));
+
       } catch (error) {
-        console.error("Error checking bookmark status: ", error);
+        console.error("Error checking bookmark status: ");
       }
     };
   
@@ -162,10 +192,9 @@ const handleDelete = async (id: string) => {
 
 
 
-
  const handleAddBookmark = async () => {
   const bookmarkRef = doc(db, "bookmarks", authUser.uid); // Assuming you have the authenticated user's ID available
-
+  const blogRef = doc(db, "blogs",id)
   try {
     if (isBookmarked) {
       // If the post is already bookmarked, remove the bookmark
@@ -185,9 +214,16 @@ const handleDelete = async (id: string) => {
   userId,
   author,
   content,
+  count: bookmarkCount + 1,
         },
       },{ merge: true });
+   await  updateDoc(blogRef, {
+    count: increment(1),
+      }, );
+      setBookmarkCount(bookmarkCount + 1)
+      
       setIsBookmarked(true);
+      
       toast.success("Added to Bookmarks");
     }
   } catch (error) {
@@ -227,7 +263,7 @@ const handleDelete = async (id: string) => {
       <span className="text-white">
       <i className="fas fa-thumbs-up text-white"/> {likes?.length} 
       </span>
-      <span>
+      <span className="text-white">
         <i className="fas fa-binoculars"/> {viewCount}
       </span>
        </div>
@@ -260,7 +296,7 @@ const handleDelete = async (id: string) => {
     </div>
     
     
-      <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" absolute left-0 top-0 px-4"><i className="fas fa-bookmark text-sm " /></button>
+      <button onClick={handleAddBookmark} key={id} style={buttonStyle} className=" absolute left-0 top-0 px-4"><i className="fas fa-bookmark text-sm p-1" />{bookmarkCount}</button>
     
     
     

@@ -25,6 +25,8 @@ import CategoryBlog from "./pages/posts/CategoryBlog.js";
 import LoginRoute from "./components/LoginRoutes.js";
 import Draft from "./components/Draft.js";
 import Bookmark from "./components/Bookmark.js";
+import ScrollToTop from "./components/ScrollToTop.js";
+import Analytics from "./components/dashboard/Analytics.js";
 const App: React.FC = () => {
  
   const [authUser, setAuthUser] = useState(null);
@@ -46,6 +48,7 @@ const App: React.FC = () => {
     <>
       <Router>
         <Header />
+       
         <ToastContainer position="top-left" />
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -67,6 +70,8 @@ const App: React.FC = () => {
             <Route path="/dashboard/published" element={<Published />} />
             <Route path="/dashboard/draft" element={<Draft />} />
             <Route path="/dashboard/bookmarks" element={<Bookmark />} />
+            <Route path="/dashboard/analytics" element={<Analytics />} />
+
           </Route>
           <Route
             path="/createpost"
@@ -105,6 +110,7 @@ const App: React.FC = () => {
           <Route path="*" element={<NotFound />} />
           <Route path="/tag/:tag" element={<TagBlog />} />
         </Routes>
+        <ScrollToTop/>
         <Footer />
       </Router>
     </>

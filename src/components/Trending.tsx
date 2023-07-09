@@ -3,8 +3,41 @@ import OwlCarousel from "react-owl-carousel";
 import { Link } from "react-router-dom";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import { doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
+import { db } from "../firebase/auth";
+
+
 
 const Trending = ({ blogs }) => {
+
+  const [viewCount, setViewCount] = useState(0);
+
+  // const handleIncrementViewCount = () => {
+  //   const docRef = doc(db, 'views', blogs.id);
+  // setDoc(docRef, {
+  //   count: viewCount + 1,
+  // }, { merge: true });
+  
+  //   setViewCount(viewCount + 1);
+  // };
+  const handleIncrementViewCount = async () => {
+    const docRef = doc(db, 'views', blogs.id);
+     try {
+      await getDoc(docRef);
+      // Document exists, increment view count
+      updateDoc(docRef, {
+        'count': increment(1)
+      });
+      setViewCount(viewCount + 1);
+    } catch (error) {
+      // Document does not exist, set view count to 1
+      await setDoc(docRef, {
+        'count': 1
+      });
+      setViewCount(1);
+    }
+  };
   const options = {
     loop: true,
     margin: 10,
@@ -35,8 +68,8 @@ const Trending = ({ blogs }) => {
       
       <OwlCarousel animateIn autoplay className="owl-theme" {...options}>
         {blogs?.map((item) => (
-          <div className="card px-2" key={item.id}>
-            <Link to={`/posts/${item.id}`}>
+          <div className="card px-2" key={item.id} >
+            <Link to={`/posts/${item.id}`} onClick={handleIncrementViewCount}>
               <div className="relative pointer flex ">
                 <div className="" style={{maxWidth:"300px", maxHeight:"300px"}}>
                   <img

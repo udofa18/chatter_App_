@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { collection, getDocs, query, where } from "firebase/firestore";
 import  { useState, useEffect } from "react";
 import PostSection from "../../pages/posts/PostSection"
@@ -28,21 +29,25 @@ const UserBlog = ( ) => {
       listen();
     };
   }, []);
-
-  useEffect(() => {
-    getUserBlogs();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, );
-   
-
-  
   const user = authUser?.uid
 
+  useEffect(() => {
+
+    user && getUserBlogs();
+   
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [user]);
+   
+
+  
+ 
+  if (loading) {
+    return <Spinner />;
+  }  
   
   const getUserBlogs = async () => {
-   
-    try{
-      setLoading;
+    
+      setLoading(true);
     const blogRef = collection(db, "blogs", );
     const userBlogQuery = query(blogRef, where("userId", "==", user));
     const docSnapshot = await getDocs(userBlogQuery);
@@ -51,20 +56,11 @@ const UserBlog = ( ) => {
       userBlogs.push({ id: doc.id, ...doc.data() });
     });
     setUserBlogs(userBlogs);
-    // setLoading(false)
-  }
+    setLoading(false);
+    console.log(userBlogs)
   
-   catch (error) {
-    console.error("Error fetching draft data:", error);
-  }
- 
   };
-  if (loading) {
-    return <Spinner />;
-  }  
   
- 
-  console.log(userBlogs)
 
   
   return (
@@ -84,9 +80,9 @@ const UserBlog = ( ) => {
           // alignItems: 'center',
           width:'100%'
         }}
-         className="  w-full mob_width m_0 p-2  ">
+         className="  w-full mob_width m_0 p-2 ">
           {userBlogs?.map((item) => (
-            <li className=" my-2 m-2 " key={item.id}>
+            <li className=" my-2   rounded-lg  p-1 bg-slate-700 hover:bg-slate-950 " key={item.id}>
               <PostSection2 key={item.id} {...item} />
             </li>
           ))}

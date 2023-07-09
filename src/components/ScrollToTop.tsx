@@ -4,7 +4,7 @@ const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
-    if (window.pageYOffset > 200) {
+    if (window.scrollY > 200) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -27,10 +27,10 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <div className="scroll-to-top">
+    <div className=" absolute">
       {isVisible && (
-        <span onClick={scrollToTop}>
-          <i className="fa fa-arrow-up" />
+        <span onClick={scrollToTop} className="fixed bottom-5 right-10">
+          <i className="fa fa-arrow-up text-white btn bg-sky-600 text-2xl" />
         </span>
       )}
     </div>

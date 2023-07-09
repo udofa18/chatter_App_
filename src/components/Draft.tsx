@@ -102,6 +102,7 @@ const Draft = () => {
           <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
             My Drafts
           </div>
+          
             <div
               className="  shadow-xl font-bold m-auto w-100 border border-sky-100 rounded-2xl "
               style={{
@@ -110,16 +111,12 @@ const Draft = () => {
               }}
             >
               {draft?.map((item) => (
-                <div className="flex p-5 m-2 hvr-backward " key={item.id}>
-                  <img
-                    className="h-32 w-40 img_size  bg-gray-50"
-                    src={item.imgUrl}
-                    alt={item.postTitle}
-                  />
+                <div className="flex m-2 cursor  rounded-lg  p-1 bg-slate-700 hover:bg-slate-950 " key={item.id}>
+      
                   <div className="text-1xl font-bold text-gray-100 ml-2">
                     {" "}
-                    {item.postTitle}
-                    <p>{excerpt(item.postDescription, 120)}</p>
+                    <p className="text-2xl">{item.postTitle}</p>
+                    <p className="italic">{excerpt(item.postDescription, 120)}</p>
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       // style={{ height: '500px' }}
@@ -130,8 +127,7 @@ const Draft = () => {
                       Drafted on {item.timestamp.toDate().toDateString()}
                     </p>
                     <div className=""> 
-              
-              <Tags tags={tags} />
+            
             </div>
             <span style={{ }} className="relative ml-10 ">
               <div onClick={() => handleDelete(item.id)} className="pointer hvr-glow">
@@ -139,7 +135,7 @@ const Draft = () => {
                />Delete
               </div>
             <NavLink to={`/createpost/${item.id}`}>
-              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400"> Edit</span>
+              <i className="fas fa-pen  ml-4 text-cyan-400 text-sm"  /><span className="text-cyan-400">Continue Edit</span>
             </NavLink>
             </span>
             

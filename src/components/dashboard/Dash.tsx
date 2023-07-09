@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/auth";
@@ -254,32 +255,7 @@ style={{width: '20rem',}}
     
       </div>
 
-      <div className="stats stats-vertical lg:stats-horizontal shadow">
-        <div className="stat">
-          <div className="stat-title">Readers</div>
-          <div className="stat-value">
-            31K <i className="fas fa-heart"></i>
-          </div>
-
-          <div className="stat-desc">Jan 1st - Feb 1st</div>
-        </div>
-
-        <div className="stat">
-          <div className="stat-title">Total Likes</div>
-          <div className="stat-value">
-            4,200 <i className="fas fa-thumbs-up"></i>
-          </div>
-          <div className="stat-desc">↗︎ 400 (22%)</div>
-        </div>
-
-        <div className="stat">
-          <div className="stat-title">Total Comments</div>
-          <div className="stat-value">
-            1,200 <i className="fas fa-comment"></i>
-          </div>
-          <div className="stat-desc">↘︎ 90 (14%)</div>
-        </div>
-      </div>
+ 
     </div>)
     :("")
 }

@@ -11,7 +11,7 @@ const Spinner : React.FC = () => {
         // loading={loading}
         // cssOverride={override}
         
-        size={80}
+        size={50}
         aria-label="Loading Spinner"
         data-testid="loader"
         className='m-auto w-100'
