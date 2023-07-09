@@ -41,13 +41,14 @@ const TagBlog = () => {
   return (
     <div>
       <div className="
-       mt-5  m_5 p-20 p_5  w-screen bg-slate-950 mob_width">
-        <div className="m-10 m_5">
-          <div className="blog-heading text-left text-white shadow  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
+        mt-5  pt-10 h-100 w-screen bg-slate-950 overflow-hidden">
+        <div className="m-10 m-10 m_5 h-full ">
+          <div className="blog-heading text-white shadow z-10  border-b-base-300 bg-accent text-left p-2 mb-4 fixed  hvr-bob ">
             Tag: <strong>{tag.toLocaleUpperCase()}</strong>
           </div>
          
         <ul
+        className="flex flex-wrap"
         style={{
           justifyContent: "center",
           alignItems: "center",
