@@ -446,9 +446,9 @@ const snapshot = await getDoc(draftCollection);
               className="input input-bordered w-full  text-x"
             ></input>
 
-            <label className="label-text flex mt-5 text-x w-auto">
+            <label className="label-text flex mob_block mt-5 text-x ">
               Tags (Seperate with Key ENTER)
-              <span className="bg-error p-1 block rounded text-x ">
+              <span className="bg-error p-1 block rounded  ">
               Ensure you select at least 1 Tag
             </span>
             </label>
