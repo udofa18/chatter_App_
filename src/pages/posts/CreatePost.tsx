@@ -446,10 +446,13 @@ const snapshot = await getDoc(draftCollection);
               className="input input-bordered w-full  text-x"
             ></input>
 
-            <label className="label-text mt-5 text-x">
+            <label className="label-text flex mt-5 text-x w-auto">
               Tags (Seperate with Key ENTER)
+              <span className="bg-error p-1 block rounded text-x ">
+              Ensure you select at least 1 Tag
+            </span>
             </label>
-
+            
             <div className=" border-1 rounded-1 cursor-text">
               <div className="tags flex m-2 border-1"></div>
               

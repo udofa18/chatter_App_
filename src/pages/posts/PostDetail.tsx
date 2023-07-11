@@ -204,25 +204,7 @@ const PostDetail = () => {
     setUserComment("");
   };
 
-  // const handleLike = async () => {
-  //   if (userId) {
-  //     if (blog?.likes) {
-  //       const index = likes.findIndex((id) => id === userId);
-  //       if (index === -1) {
-  //         likes.push(userId);
-  //         setLikes([...new Set(likes)]);
-  //       } else {
-  //          likes = likes.filter((id) => id !== userId);
-  //         setLikes(likes);
-  //       }
-  //     }
-  //     await updateDoc(doc(db, "blogs", id), {
-  //       ...blog,
-  //       likes,
-  //       timestamp: serverTimestamp(),
-  //     });
-  //   }
-  // };
+  
   function copyText() {
       
     /* Copy text into clipboard */

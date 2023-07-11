@@ -7,20 +7,27 @@ const FeatureBlogs = ({ blogs, title, id }) => {
   const [viewCount, setViewCount] = useState(0);
 
   const handleIncrementViewCount = async () => {
-    const docRef = doc(db, "views", id);
+    const docRef = doc(db, 'views', id);
+  
     try {
-      await getDoc(docRef);
-      // Document exists, increment view count
-      updateDoc(docRef, {
-        count: increment(1),
-      });
-      setViewCount(viewCount + 1);
+      const docSnapshot = await getDoc(docRef);
+      
+      if (docSnapshot.exists()) {
+        // Document exists, increment view count
+        await updateDoc(docRef, {
+          count: increment(1)
+        });
+        setViewCount(viewCount + 1);
+      } else {
+        // Document does not exist, set view count to 1
+        await setDoc(docRef, {
+          count: 1
+        });
+        setViewCount(1);
+      }
     } catch (error) {
-      // Document does not exist, set view count to 1
-      await setDoc(docRef, {
-        count: 1,
-      });
-      setViewCount(1);
+      // Handle any errors that occur during fetching or updating
+      console.error('Error incrementing view count:', error);
     }
   };
 
