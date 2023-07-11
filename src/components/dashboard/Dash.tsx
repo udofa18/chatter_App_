@@ -118,7 +118,7 @@ const Dash = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     try {
       const profileDocRef = doc(db, "users", authUser.uid); // Assuming you have a "profiles" collection in Firebase
       await setDoc(
@@ -141,7 +141,7 @@ const Dash = () => {
 
       console.log("Profile updated successfully!");
       toast.success("Profile updated successfully!");
-      setLoading(true)
+      
       navigate('/dashboard/Dash', { replace: true, state: { key: Math.random() }});
       setLoading(false)
       // Optionally, display a success message or navigate to a different page
