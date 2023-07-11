@@ -48,14 +48,13 @@ const TagBlog = () => {
           </div>
          
         <ul
-        className="flex flex-wrap"
         style={{
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
         }}
         role="list"
-        className=" flex flex-wrap  justify-content-center align-items-center flex-wrap w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950">
+        className=" flex flex-wrap  justify-content-center align-items-center  w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950">
           {tagBlogs?.map((item) => (
             <li className="mt-10 ">
               <PostSection key={item.id} {...item} />

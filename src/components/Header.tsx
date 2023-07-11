@@ -5,11 +5,14 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase/auth";
 import { toast } from "react-toastify";
 import "../components/css/header.css" 
+import { doc, getDoc } from "firebase/firestore";
+import { db,  } from "../firebase/auth";
 
 
 const Header: React.FC = () => {
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
+  const [profileData,setProfileData ]=useState(null);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -18,11 +21,42 @@ const Header: React.FC = () => {
       } else {
         setAuthUser(null);
       }
+     
     });
+    
     return () => {
       listen();
+     
     };
   }, []);
+
+ const userId = authUser?.uid;
+//  console.log(userId)
+
+ useEffect(() => {
+  const fetchProfileData = async () => {
+    try {
+      const profileDocRef = doc(db, 'users', userId); // Assuming you have a "users" collection in Firestore
+      const profileDocSnapshot = await getDoc(profileDocRef);
+      
+      if (profileDocSnapshot.exists()) {
+        const profileData = profileDocSnapshot.data();
+        setProfileData(profileData);
+        console.log(profileData.uid)
+      } else {
+        // Handle case where the profile document doesn't exist
+      }
+    } catch (error) {
+      // Handle any errors that occur during fetching
+      console.error('Error fetching profile data:', error);
+    }
+  };
+
+  fetchProfileData();
+}, [userId]);
+    
+
+ 
   const userSignout = () => {
     signOut(auth)
       .then(() => {
@@ -142,15 +176,15 @@ const Header: React.FC = () => {
               </div>
             </>
           )}
-          {authUser ? (
+          {profileData ? (
             <div className="dropdown dropdown-end ">
               <label
                 tabIndex={0}
                 className="btn-primary   flex-row "
               >
-                <div className="w-10  m-1 bg-primary rounded-full">
-                  <img src= {authUser.photoURL}  className="rounded-full"/>
-                 
+                <div className="w-10 h-10  m-1 bg-primary border rounded-full">
+                  <img src=  {profileData.photoURL} alt="Photo"  className="rounded-full"/>
+                  
                 </div>
                 
               </label>
@@ -161,7 +195,7 @@ const Header: React.FC = () => {
               >
                 <li>
                   {auth ? (
-                    <p className="lowercase  left text-m ">{`${authUser.email}`}</p>
+                    <p className="lowercase  left text-m ">{profileData.email}</p>
                   ) : (
                     ""
                   )}

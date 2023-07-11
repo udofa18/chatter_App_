@@ -10,6 +10,8 @@ import "bootstrap/js/dist/tab.js";
 import { useNavigate } from "react-router-dom";
 import { greetings } from "../components/greeting";
 import { Helmet } from 'react-helmet';
+import { doc, getDoc } from "firebase/firestore";
+import { db,  } from "../firebase/auth";
 
 
 
@@ -18,7 +20,7 @@ const Dashboard = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate()
-
+  const [profileData,setProfileData ]=useState(null);
   const greeting = greetings();
 
   useEffect(()=>{
@@ -32,12 +34,34 @@ const Dashboard = () => {
    
  console.log(authUser)
    })
+   
    return()=>{
     listen();
   }
 }, [authUser])
+const userId = authUser?.uid;
 
+useEffect(() => {
+  const fetchProfileData = async () => {
+    try {
+      const profileDocRef = doc(db, 'users', userId); // Assuming you have a "users" collection in Firestore
+      const profileDocSnapshot = await getDoc(profileDocRef);
+      
+      if (profileDocSnapshot.exists()) {
+        const profileData = profileDocSnapshot.data();
+        setProfileData(profileData);
+        console.log(profileData.uid)
+      } else {
+        // Handle case where the profile document doesn't exist
+      }
+    } catch (error) {
+      // Handle any errors that occur during fetching
+      console.error('Error fetching profile data:', error);
+    }
+  };
 
+  fetchProfileData();
+}, [userId]);
  
   const userSignout = () => {
     signOut(auth)
@@ -120,7 +144,7 @@ const Dashboard = () => {
 </div>
   </div>
  
-     {authUser ? (
+     {profileData ? (
     <div className=" px-20 w-full p_5 ">
    
   <div className="flex">
@@ -131,7 +155,7 @@ const Dashboard = () => {
       >
         <img
           // width={80}
-          src={authUser.photoURL}
+          src={profileData.photoURL}
           style={{ borderRadius: "100%", width: "5rem", height: "5rem" }}
           className=" m-auto p-2
             "

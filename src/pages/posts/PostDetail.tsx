@@ -51,9 +51,7 @@ import {
 } from '../posts/MarkdownStyles.tsx'
 
 
-
 const PostDetail = () => {
-
   
   const [authUser, setAuthUser] = useState(null);
   useEffect(() => {
@@ -283,7 +281,7 @@ const PostDetail = () => {
                 </p>
               </span>
               <span className=" flex meta-info text-start text-sm text-bg-info ">
-                <p className="author m-auto text-lh-base-400">Publihed by: {blog?.author}</p>
+                <p className="author m-auto text-lh-base-400">Publihed by: {profileData?.name}</p>
                 <img className="w-5  rounded-full" src={profileData?.photoURL}></img>
               </span>
             </div>
