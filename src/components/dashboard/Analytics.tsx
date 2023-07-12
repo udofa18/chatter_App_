@@ -13,9 +13,10 @@ import {query, collection, getDocs, where, doc, getDoc } from "firebase/firestor
 const Analytics = ( ) => {
   type BlogData = {
     id: string;
-    likes: any[]; // Update the type of the 'likes' property accordingly
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    comments: any[]; // Update the type of the 'comments' property accordingly
+    likes: []; // Update the type of the 'likes' property accordingly
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    comments: []; // Update the type of the 'comments' property accordingly
     // Include other properties as needed
   };
     const [userBlogs, setUserBlogs] = useState([]);

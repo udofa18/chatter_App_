@@ -197,7 +197,7 @@ const Header: React.FC = () => {
                   {auth ? (
                     <p className="lowercase  left text-m ">{profileData.email}</p>
                   ) : (
-                    ""
+                   ""
                   )}
                 </li>
 
@@ -217,7 +217,11 @@ const Header: React.FC = () => {
            
             </div>
           ) : (
-            ""
+            <NavLink to="/login">
+            <div className=" hidden mob_block m-auto">
+              <i className="fas fa-user m-auto icn_text text-slate-300"/>
+           </div>
+          </NavLink>
           )}
         
          
