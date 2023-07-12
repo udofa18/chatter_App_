@@ -113,6 +113,7 @@ const [bookmarkCount, setBookmarkCount] = useState(0);
         });
         setViewCount(1);
       }
+      
     } catch (error) {
       // Handle any errors that occur during fetching or updating
       console.error('Error incrementing view count:', error);

@@ -4,18 +4,20 @@ import { db } from "../../firebase/auth";
 import { auth } from "../../firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import {query, collection, getDocs, where } from "firebase/firestore";
+import {query, collection, getDocs, where, doc, getDoc } from "firebase/firestore";
 
 
 
 
 
 const Analytics = ( ) => {
-    interface BlogData {
-        id: string;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [key: string]: any;
-      }
+  type BlogData = {
+    id: string;
+    likes: any[]; // Update the type of the 'likes' property accordingly
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    comments: any[]; // Update the type of the 'comments' property accordingly
+    // Include other properties as needed
+  };
     const [userBlogs, setUserBlogs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [authUser, setAuthUser] = useState(null);
@@ -23,6 +25,7 @@ const Analytics = ( ) => {
     const[totalLikes, setTotalLikes]= useState(0);
     const[totalComments, setTotalComments]= useState(0);
     const[totalViews, setTotalViews]= useState(0);
+    
     
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
@@ -39,12 +42,10 @@ const Analytics = ( ) => {
       const user = authUser?.uid
     
       useEffect(() => {
-    
-        user && getUserBlogs();
-       
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-       }, [user]);
-       
+        if (user) {
+          getUserBlogs();
+        }
+      }, [user]);
     
       
      
@@ -53,51 +54,76 @@ const Analytics = ( ) => {
       }  
       
       const getUserBlogs = async () => {
-        
+        try {
           setLoading(true);
-        const blogRef = collection(db, "blogs", );
-        const userBlogQuery = query(blogRef, where("userId", "==", user));
-        const docSnapshot = await getDocs(userBlogQuery);
-        const userBlogs = [];
-        docSnapshot.forEach((doc) => {
-            const data = doc.data() as BlogData; // Add the type annotation here
-            userBlogs.push({ id: doc.id, ...data });
+          const blogRef = collection(db, 'blogs');
+          const userBlogQuery = query(blogRef, where('userId', '==', user));
+          const docSnapshot = await getDocs(userBlogQuery);
+          const userBlogsData = 
+          docSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setUserBlogs(userBlogsData);
+          
+          const totalPosts = docSnapshot.size;
+          setTotalPost(totalPosts);
+    
+          let totalLikes = 0;
+          userBlogsData.forEach((blog) => {
+            totalLikes += blog.likes.length;
           });
-        setUserBlogs(userBlogs);
-        setLoading(false);
-        console.log(userBlogs)
+          setTotalLikes(totalLikes);
+    
+          let totalComments = 0;
+          userBlogsData.forEach((blog) => {
+            totalComments += blog.comments.length;
+          });
+          setTotalComments(totalComments);
+    
+          // let totalViews = 0;
+          // const postIds = userBlogsData.map((blog) => blog.id);
+          
+          
+          //   for (const postId of postIds) {
+          //     const docRef = doc(db, 'views', postId);
+          //     const docSnapshot = await getDoc(docRef);
+          //     if (docSnapshot.exists()) {
+          //       const viewData = docSnapshot.data();
+          //       totalViews += viewData.count;
+               
+          //     }
+              
+          //   }
+            
+          //   setTotalViews(totalViews);
+            
         
-        const totalPosts = docSnapshot.size;
-        setTotalPost(totalPosts)
-        let totalLikes = 0;
-  userBlogs.forEach((blog) => {
-    totalLikes += blog.likes.length;
+          const postIds = userBlogsData.map((blog) => blog.id);
+    const viewCountPromises = postIds.map(async (postId) => {
+      const docRef = doc(db, 'views', postId);
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()) {
+        const viewData = docSnapshot.data();
+        return viewData.count;
+      }
+      return 0;
+    });
 
-    setTotalLikes(totalLikes)
-
-    let totalComments = 0;
-  userBlogs.forEach(async (blog) => {
-    totalComments += blog.comments.length;
-
-    setTotalComments(totalComments) 
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let totalViews = 0;
-
-    const viewsRef = collection(db, "views", );
-  const postIds = userBlogs.map((blog) => blog.id);
-  const viewsQuery = query(viewsRef, where("postId", "in", postIds));
-  const viewsSnapshot = await getDocs(viewsQuery);
-
-  viewsSnapshot.forEach((doc) => {
-    const viewData = doc.data();
-    console.log(viewData.count)
-    totalViews += viewData.count;
+    const viewCounts = await Promise.all(viewCountPromises);
+    const totalViews = viewCounts.reduce((acc, count) => acc + count, 0);
+    setTotalViews(totalViews);
+    setLoading(false);
+    
+        }catch (error) {
+          // Handle any errors that occur during fetching
+          console.error('Error fetching user blogs:', error);
+        }
+      }
       
-
-  });
-  });
-});
+      if (loading) {
+        return <Spinner />;
+      }
 //   let totalViews= 0;
 //   userBlogs.forEach((blog) => {
 //     totalComments += blog.length;
@@ -105,26 +131,26 @@ const Analytics = ( ) => {
 //     setTotalComments(totalComments) 
  
 //   });
-      }
+      
 
     return(
         <div className="  h-full w-full " >
         <div className="blog-heading text-left py-2 mb-4 text-2xl text-base-200 font-bold bg-slate-950 p-10">
-        Analytics
+       Your Analytics
       </div>
-        <div className="stats m-auto align-center stats-vertical lg:stats-horizontal shadow">
+        <div className="stats m-auto w-full m-auto  stats-vertical lg:stats-horizontal shadow">
             <div className="stat">
           <div className="stat-title">Posts</div>
           <div className="stat-value">
-            {totalPost} <i className="fas fa-heart"></i>
+            {totalPost} <i className="fas fa-heart text-accent"></i>
           </div>
 
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
         <div className="stat">
-          <div className="stat-title">Readers</div>
+          <div className="stat-title">Your Readers</div>
           <div className="stat-value">
-            {totalViews} <i className="fab fa-readme"></i>
+            {totalViews} <i className="fab fa-readme text-primary"></i>
           </div>
 
           <div className="stat-desc">Jan 1st - Feb 1st</div>
@@ -133,7 +159,7 @@ const Analytics = ( ) => {
         <div className="stat">
           <div className="stat-title">Total Likes</div>
           <div className="stat-value">
-            {totalLikes} <i className="fas fa-thumbs-up"></i>
+            {totalLikes} <i className="fas fa-thumbs-up text-secondary"></i>
           </div>
           <div className="stat-desc">↗︎ 400 (22%)</div>
         </div>
@@ -141,7 +167,7 @@ const Analytics = ( ) => {
         <div className="stat">
           <div className="stat-title">Total Comments</div>
           <div className="stat-value">
-           {totalComments} <i className="fas fa-comment"></i>
+           {totalComments} <i className="fas fa-comment text-info"></i>
           </div>
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>
