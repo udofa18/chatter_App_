@@ -139,7 +139,7 @@ const Analytics = ( ) => {
             <div className="stat">
           <div className="stat-title">Posts</div>
           <div className="stat-value">
-            {totalPost} <i className="fas fa-heart text-accent"></i>
+            {totalPost} <i className="fas fa-feather text-accent"></i>
           </div>
 
           <div className="stat-desc">Jan 1st - Feb 1st</div>
