@@ -1,5 +1,5 @@
 import { doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { db } from "../firebase/auth";
 import { useState } from "react";
 
@@ -31,7 +31,6 @@ const FeatureBlogs = ({ blogs, title, id }) => {
     }
   };
 
-  const navigate = useNavigate();
   return (
     <div>
       <div className="card text-white font-bold pt-3 py-2 mb-4">{title}</div>

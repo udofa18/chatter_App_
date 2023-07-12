@@ -13,13 +13,9 @@ import {query, collection, getDocs, where, doc, getDoc } from "firebase/firestor
 const Analytics = ( ) => {
   type BlogData = {
     id: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    likes: []; // Update the type of the 'likes' property accordingly
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    comments: []; // Update the type of the 'comments' property accordingly
-    // Include other properties as needed
+    likes: []; 
+    comments: [] ;
   };
-    const [userBlogs, setUserBlogs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [authUser, setAuthUser] = useState(null);
     const[totalPost, setTotalPost]= useState(0);
@@ -60,12 +56,12 @@ const Analytics = ( ) => {
           const blogRef = collection(db, 'blogs');
           const userBlogQuery = query(blogRef, where('userId', '==', user));
           const docSnapshot = await getDocs(userBlogQuery);
-          const userBlogsData = 
-          docSnapshot.docs.map((doc) => ({
+          const userBlogsData: BlogData[] = docSnapshot.docs.map((doc) => ({
             id: doc.id,
-            ...doc.data(),
+            likes: [], // Update with the appropriate type for 'likes'
+            comments: [], // Update with the appropriate type for 'comments'
           }));
-          setUserBlogs(userBlogsData);
+         
           
           const totalPosts = docSnapshot.size;
           setTotalPost(totalPosts);
