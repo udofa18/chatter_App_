@@ -368,7 +368,7 @@ const PostsPage = () => {
           {/* <Search search={search} handleChange={handleChange} /> */}
           <div className="bg-orange-400">
             {random.map((random) => (
-              <div className="heroh-full bg-light-subtle p-10 m_0 p_lr">
+              <div className="heroh-full bg-light-subtle text-left p-10 m_0 p_lr">
                 <div className="hero-content flex-col lg:flex-row">
                   <img
                     src={random.imgUrl}

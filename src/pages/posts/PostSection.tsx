@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { auth } from "../../firebase/auth";
 import "../../components/Tags";
 import "./PostDetail"
-import { deleteDoc, deleteField, doc, getDoc, getDocs, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, deleteField, doc, getDoc, increment, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
@@ -247,14 +247,14 @@ const handleDelete = async (id: string) => {
 
     <div style={{height:"450px"}} className="card w-80 block m-auto  bg-black shadow-lg shadow-cyan-500/50 hover:shadow-indigo-500/40 shadow-xl" key={id}>
       {/* <div style={{width:"100%",height:"150px"}} className="relative overflow-hidden "> */}
-  <figure  style={{width:"100%",height:"150px"}} className=" w-100 relative overflow-hidden"><img src={imgUrl} 
+  <figure  style={{width:"100%",height:"150px"}} className=" w-100  relative overflow-hidden"><img src={imgUrl} 
  
    alt={postTitle}/>
    </figure>
    {/* </div> */}
-  <div className="card-body bg-gradient ">
+  <div className="card-body bg-gradient text-left p_10 ">
   <div className="badge badge-ghost">Author: {author}</div>
-    <h2 className="card-title text-white">
+    <h2 className="card-title  text-white">
     {postTitle}
      
     </h2>

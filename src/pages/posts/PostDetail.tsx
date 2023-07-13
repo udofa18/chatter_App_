@@ -245,7 +245,7 @@ const PostDetail = () => {
        <Helmet>
            <meta name="Read" content={blog?.postDescription} />
          </Helmet>
-    <div className=" flex dis_block  mt-10 w-screen bg-base-200 "key={id}>
+    <div className=" flex dis_block  mt-10 w-screen bg-base-200 dark:bg-slate-800  dark:text-white"key={id}>
       <div className="w-80 flex-1 mob_width h-100 snap-y  overflow-hidden ">
         <div className="  shadow-xl w-full p_5 px-10 mt-10 relative">
           <div className="w-full relative border overflow-hidden m-auto">
