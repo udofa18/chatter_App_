@@ -420,7 +420,7 @@ const snapshot = await getDoc(draftCollection);
      
 };
   return (
-      <div style={{}} className="bg-base-300 mt-20   ">
+      <div style={{}} className="bg-base-300 mt-20  dark:text-white ">
         <div className=" container  bg-base-200 p-20 m-auto p_5">
        
           <h3 className="text-lg font-bold"> {id ? "Edit Post" : "Create New Post "}</h3>

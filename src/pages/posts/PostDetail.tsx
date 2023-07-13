@@ -361,9 +361,9 @@ const PostDetail = () => {
                   <img className="w-24 rounded-full" src={profileData?.photoURL}></img>
                   <div className="text-center">
                   <p className="text-xl">Author: {profileData?.name}</p>
-                  <p className="text-base-300 text-sm">Bio: {profileData?.shortBio}</p>
-                  <p className="text-base-300 text-sm">Interest: {profileData?.interests}</p>
-                  <p className="text-base-300 text-sm"> Email: {profileData?.email}</p>
+                  <p className="text-base-300 text-sm dark:text-base-100">Bio: {profileData?.shortBio}</p>
+                  <p className="text-base-300 text-sm dark:text-base-100">Interest: {profileData?.interests}</p>
+                  <p className="text-base-300 text-sm dark:text-base-100"> Email: {profileData?.email}</p>
                   </div>
 
                 </div>
@@ -375,7 +375,7 @@ const PostDetail = () => {
             </div>
             <div className=" bg-slate-950 text-base-200 p-5 mob_width">
               <div className="scroll">
-                <h4 className="small-title">{comments?.length} Comment</h4>
+                <h4 className="small-title dark:text-base-100">{comments?.length} Comment</h4>
                 {isEmpty(comments) ? (
                   <UserComment
                     msg={

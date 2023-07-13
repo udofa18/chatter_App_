@@ -4,7 +4,7 @@ const UserComment = ({ name, body, createdAt, msg }) => {
       <div className="row">
         <div className="col-lg-12">
           <div className="comments-list">
-            <div className="media">
+            <div className="media dark:text-white">
               {msg ? (
                 <h4 className="mt-5">{msg}</h4>
               ) : (
@@ -22,7 +22,7 @@ const UserComment = ({ name, body, createdAt, msg }) => {
                     <div className="chat chat-start w-auto">
                       <div className="chat-header">
                       {name}{" "}
-                        <time className="text-xs opacity-50">{createdAt.toDate().toDateString()}</time>
+                        <time className="text-xs opacity-50 dark:text-emerald-300">{createdAt.toDate().toDateString()}</time>
                       </div>
                       <div className="chat-bubble chat-bubble-primary w-full">
                       {body}

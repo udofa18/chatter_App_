@@ -25,10 +25,10 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <div className=" bg-slate-950 px-40 m-auto p_lr relative py-10 mobile_featues">
-      <div className="text-center text-3xl text-slate-200 mob_pad">
+    <div className=" bg-slate-950 px-40 m-auto p_lr relative py-10 ">
+      <div className="text-center text-3xl  text-slate-200 ">
         <h5>Features</h5>
-        <p className="text-center text-base m-10 m_5 mob_pad .mob_mag">
+        <p className="text-center text-base m-10 m_5">
           Our goal is to make writers and readers see our platform as their next
           heaven for blogging, ensuring ease in interactions, connecting with
           like-minded peers, have access to favorite content based on interests
@@ -40,11 +40,17 @@ const Features: React.FC = () => {
           with our in-built markdown, a rich text editor
         </p>
       </div>
-      <ul className="flex justify-between dis_block flex-wrap  text-centre px-10 p_5 feaitem_con m-0 ">
+      <ul
+       style={{
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+      className="flex  flex-wrap m-auto  text-centre px-10 p_5 feaitem_con  ">
         {features.map((features) => (
           <li
             key={features.title}
-            className="text-center text-base-300 cursor-pointer  hvr-hang p-3 "
+            className="text-center text-base-300 cursor-pointer  hvr-hang p-3 dark:text-slate-200"
           >
             <div className="card w-80 bg-slate-600 shadow-xl text-center p-4 h-96  ">
               <figure>
@@ -56,10 +62,10 @@ const Features: React.FC = () => {
                 />
               </figure>
               <div className="card-body text-center p-1">
-                <h2 className="font-bold text-center  text-xl">
+                <h2 className="font-bold text-center dark:text-white  text-xl">
                   {features.title}
                 </h2>
-                <p className="text-xm ">{features.description}</p>
+                <p className="text-xm dark:text-slate-100 ">{features.description}</p>
               </div>
             </div>
           </li>

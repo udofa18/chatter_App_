@@ -181,7 +181,7 @@ const Dash = () => {
               <p className=" text-white m-auto text-center text-3xl">
                 {name} {""}{" "}
               </p>
-              <p className=" text-center text-base-300">
+              <p className=" text-center text-base-300 dark:text-base-100">
                 Last Activity: {authUser.metadata.lastSignInTime}
               </p>
               <div
@@ -208,7 +208,7 @@ const Dash = () => {
                 </a>
               </div>
             </div>
-            <form onSubmit={handleSubmit} className=" text-white m-auto">
+            <form onSubmit={handleSubmit} className=" text-white m-auto ">
               <div className="flex mob_block ">
                 <div className=" w-50 m-auto mt-10">
                   <h2>Basic Information</h2>

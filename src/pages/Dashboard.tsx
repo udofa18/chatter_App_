@@ -80,7 +80,7 @@ useEffect(() => {
      <div className=" w-full bg-base-950">
     <h2 className="text-white text-3xl pt-3 p_5 pb-3 text_cen">Dashboard</h2>
     <div className=" relative top-7 left-0 hidden mob_dis_yes w-full  mt-10 ">
-  <ul className="menu menu-horizontal bg-base-200 rounded-box  w-full">
+  <ul className="menu menu-horizontal bg-base-200 dark:text-slate-200 rounded-box  w-full">
   <li>
     <NavLink  to="Dash" className="tooltip" data-tip="Home" >
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>

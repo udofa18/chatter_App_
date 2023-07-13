@@ -16,7 +16,7 @@ const Scroll = () => {
             />
           </div>
 
-          <div className="px-5 ml-5 t_center mob_pad">
+          <div className="px-5 ml-5 t_center mob_pad dark:text-white">
             <h2 className=" ">
               "Scroll has become an integral part of my online experience. As a
               user of this incredible blogging platform, I have discovered a
