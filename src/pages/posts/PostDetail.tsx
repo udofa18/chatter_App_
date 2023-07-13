@@ -255,7 +255,7 @@ const PostDetail = () => {
             <h1 className="text-3xl my-4 font-bold text-base-400 pb-4">
               {blog?.postTitle}
             </h1>
-            <div className="flex gap-5 ">
+            <div className="flex gap-5 bg-base-300 text-bg-light ">
               <span className="flex">
                 <p className=" text-sm text-danger m-auto ">
                   <i className="fas fa-calendar-days text-xl text-danger"></i>
@@ -267,13 +267,13 @@ const PostDetail = () => {
                 <img className="w-5  rounded-full" src={profileData?.photoURL}></img>
               </span>
             </div>
-            <div className="flex flex-col-right gap-10 m-5  ">
+            <div className="flex flex-col-right gap-2 m-5  ">
             <Like handleLike={handleLike} likes={likes} userId={userId} />
-            <div><i className="fas fa-comment"/> {comments?.length}  </div>
+            <div><i className="fas fa-comment text-info"/> {comments?.length}  </div>
             <span className="">
-        <i className="fas fa-binoculars"/> {viewCount}
+        <i className="fas fa-binoculars  text-primary"/> {viewCount}
       </span>
-            <div className="flex gap-4 m-auto">
+            <div className="flex gap-3 m-auto">
               <span>
               Share:
               </span>
@@ -361,9 +361,9 @@ const PostDetail = () => {
                   <img className="w-24 rounded-full" src={profileData?.photoURL}></img>
                   <div className="text-center">
                   <p className="text-xl">Author: {profileData?.name}</p>
-                  <p className="text-base-300">Bio: {profileData?.shortBio}</p>
-                  <p className="text-base-300">Interest: {profileData?.interests}</p>
-                  <p className="text-base-300"> Email: {profileData?.email}</p>
+                  <p className="text-base-300 text-sm">Bio: {profileData?.shortBio}</p>
+                  <p className="text-base-300 text-sm">Interest: {profileData?.interests}</p>
+                  <p className="text-base-300 text-sm"> Email: {profileData?.email}</p>
                   </div>
 
                 </div>

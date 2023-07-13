@@ -173,7 +173,7 @@ useEffect(() => {
               <NavLink
                 to="Dash"
               >
-                <div className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                <div className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-accent ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -194,7 +194,7 @@ useEffect(() => {
               </NavLink>
 
               <Link to="analytics" 
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-secondary "
                
               >
                 <svg
@@ -222,7 +222,7 @@ useEffect(() => {
               </label>
 
               <Link
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                className="flex items-center px-3 py-2 text-accent transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-accent"
                 to="Published"
               >
                 
@@ -244,7 +244,7 @@ useEffect(() => {
                 <span className="mx-2 text-sm font-medium">My Scrolls</span>
                 </Link>
               <Link
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                className="flex items-center px-3 py-2 text-green-500 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-green-500"
                 to="Draft"
               >
                 <svg
@@ -267,7 +267,7 @@ useEffect(() => {
              
           
               <Link
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                className="flex items-center px-3 py-2 text-yellow-400 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-yellow-400"
                 to="bookmarks"
               >
                 <svg
@@ -296,7 +296,7 @@ useEffect(() => {
               </label>
 
               <a
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 "
                 href="#"
               >
                
@@ -324,7 +324,7 @@ useEffect(() => {
               </a>
 
               <a
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                className="flex items-center px-3 py-2 text-danger transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-slate-950 dark:hover:bg-gray-800 dark:hover:text-gray-200 "
                 href="#"
               >
                 <svg

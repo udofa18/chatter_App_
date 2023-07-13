@@ -244,9 +244,8 @@ const handleDelete = async (id: string) => {
     <>
      <div className=" m-auto block align-self-center relative" key={id}>
     <NavLink to={`/posts/${id}`} className="  mob_width m-auto p_5 hvr-float p-2 " onClick={handleIncrementViewCount}>
-    {/* <img src={imgUrl} width={100} height={20}/> */}
 
-    <div style={{height:"450px"}} className="card w-80 block m-auto  bg-sky-900 shadow-xl" key={id}>
+    <div style={{height:"450px"}} className="card w-80 block m-auto  bg-black shadow-lg shadow-cyan-500/50 hover:shadow-indigo-500/40 shadow-xl" key={id}>
       {/* <div style={{width:"100%",height:"150px"}} className="relative overflow-hidden "> */}
   <figure  style={{width:"100%",height:"150px"}} className=" w-100 relative overflow-hidden"><img src={imgUrl} 
  
@@ -265,13 +264,13 @@ const handleDelete = async (id: string) => {
     <p className="text-gray-300">{excerpt(postDescription, 120)}</p>
     <div className="flex gap-4 ">
       <span className="text-white">
-      <i className="fas fa-comment text-white "/> {comments?.length} 
+      <i className="fas fa-comment text-info "/> {comments?.length} 
       </span>
       <span className="text-white">
-      <i className="fas fa-thumbs-up text-white"/> {likes?.length} 
+      <i className="fas fa-thumbs-up text-secondary"/> {likes?.length} 
       </span>
       <span className="text-white">
-        <i className="fas fa-binoculars"/> {viewCount}
+        <i className="fas fa-binoculars text-primary "/> {viewCount}
       </span>
        </div>
        

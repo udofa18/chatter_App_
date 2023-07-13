@@ -4,15 +4,14 @@ import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/auth";
 import { toast } from "react-toastify";
-import "../components/css/header.css" 
+import "../components/css/header.css";
 import { doc, getDoc } from "firebase/firestore";
-import { db,  } from "../firebase/auth";
-
+import { db } from "../firebase/auth";
 
 const Header: React.FC = () => {
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
-  const [profileData,setProfileData ]=useState(null);
+  const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -21,42 +20,38 @@ const Header: React.FC = () => {
       } else {
         setAuthUser(null);
       }
-     
     });
-    
+
     return () => {
       listen();
-     
     };
   }, []);
 
- const userId = authUser?.uid;
-//  console.log(userId)
+  const userId = authUser?.uid;
+  //  console.log(userId)
 
- useEffect(() => {
-  const fetchProfileData = async () => {
-    try {
-      const profileDocRef = doc(db, 'users', userId); // Assuming you have a "users" collection in Firestore
-      const profileDocSnapshot = await getDoc(profileDocRef);
-      
-      if (profileDocSnapshot.exists()) {
-        const profileData = profileDocSnapshot.data();
-        setProfileData(profileData);
-        console.log(profileData.uid)
-      } else {
-        // Handle case where the profile document doesn't exist
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const profileDocRef = doc(db, "users", userId); // Assuming you have a "users" collection in Firestore
+        const profileDocSnapshot = await getDoc(profileDocRef);
+
+        if (profileDocSnapshot.exists()) {
+          const profileData = profileDocSnapshot.data();
+          setProfileData(profileData);
+          console.log(profileData.uid);
+        } else {
+          // Handle case where the profile document doesn't exist
+        }
+      } catch (error) {
+        // Handle any errors that occur during fetching
+        console.error("Error fetching profile data:", error);
       }
-    } catch (error) {
-      // Handle any errors that occur during fetching
-      console.error('Error fetching profile data:', error);
-    }
-  };
+    };
 
-  fetchProfileData();
-}, [userId]);
-    
+    fetchProfileData();
+  }, [userId]);
 
- 
   const userSignout = () => {
     signOut(auth)
       .then(() => {
@@ -77,69 +72,46 @@ const Header: React.FC = () => {
         }}
         className="navbar navMobile  relative bg-slate-950"
       >
-         {/* <div className="block absolute -inset-1 blur w-full" aria-hidden="true"></div> */}
+        {/* <div className="block absolute -inset-1 blur w-full" aria-hidden="true"></div> */}
         <div className=" flex w-full relative px-20 p_lr ">
-        <div className="">
-          <NavLink to="/">
-            <a className="font-bold normal-case text-xl text-white  header-btn blinking-text flex m-auto">
-            <div className="badge badge-primary badge-xs"></div> Scroll <i className="fas fa-feather  icn_text text-slate-300 "/>
-            </a>
-          </NavLink>
-        </div>
-
-        
-        <div className="  navbar-end flex w-full ">
-        <div className=" m-auto flex gap-5">
-          
-            <NavLink to="/posts">
-              <label className="text-slate-300  normal-case text-md header-btn  w-36 ">
-                <i className="fa fa-globe icn_text   mx-2"></i>
-                <span className="no_dis">Explore</span>
-                
-              </label>
-            </NavLink>
-            <NavLink to="/posts"> 
-            <label className="text-slate-300  normal-case text-md header-btn  w-36">
-              <i className="fas fa-comments mx-2 icn_text "/>
-              <span className="no_dis">Community</span>
-              
-            </label>
-          </NavLink>
-          
-          </div>
-        
-          
-       
-        
-     
-          <div className="m-auto text-grey " >
-            <NavLink to="/createpost">
-              <label className="m-auto normal-case text-md icn_text   w-full header-btn">
-               <span><i className="fas fa-feather p-2 icn_text text-slate-300 "/></span> <span className=" no_dis text-slate-300">Create Post</span>
-              </label>
-             
+          <div className="">
+            <NavLink to="/">
+              <a className="font-bold normal-case text-xl text-white  header-btn blinking-text flex m-auto">
+                <div className="badge badge-primary badge-xs"></div> Scroll{" "}
+                <i className="fas fa-feather  icn_text text-slate-300 " />
+              </a>
             </NavLink>
           </div>
 
-          <div className=" flex no_display">
-            <button className="btn btn-ghost btn-circle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-            <button className="btn btn-ghost btn-circle ">
-              <div className="indicator">
+          <div className="  navbar-end flex w-full ">
+            <div className=" m-auto flex gap-5">
+              <NavLink to="/posts">
+                <label className="text-slate-300  normal-case text-md header-btn  w-36 ">
+                  <i className="fa fa-globe icn_text   mx-2"></i>
+                  <span className="no_dis">Explore</span>
+                </label>
+              </NavLink>
+              <NavLink to="/posts">
+                <label className="text-slate-300  normal-case text-md header-btn  w-36">
+                  <i className="fas fa-comments mx-2 icn_text " />
+                  <span className="no_dis">Community</span>
+                </label>
+              </NavLink>
+            </div>
+
+            <div className="m-auto text-grey ">
+              <NavLink to="/createpost">
+                <label className="m-auto normal-case text-md icn_text   w-full header-btn">
+                  <span>
+                    <i className="fas fa-feather p-2 icn_text text-slate-300 " />
+                  </span>{" "}
+                  <span className=" no_dis text-slate-300">Create Post</span>
+                </label>
+              </NavLink>
+            </div>
+
+            <div className=" flex no_display">
+              <button className="btn btn-ghost btn-circle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -151,82 +123,103 @@ const Header: React.FC = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
-                <span className="badge badge-xs badge-primary indicator-item"></span>
-              </div>
-            </button>
-          </div>
-          {authUser ? (
-            ""
-          ) : (
-            < >
-            <div className="no_display flex">
-              <NavLink to="/login">
-                <div className="flex-1">
-                  <label className="btn btn-ghost  text-white">Login</label>
+              </button>
+              <button className="btn btn-ghost btn-circle ">
+                <div className="indicator">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                    />
+                  </svg>
+                  <span className="badge badge-xs badge-primary indicator-item"></span>
                 </div>
-              </NavLink>
-              <NavLink to="/signup">
-                <div className="flex-2">
-                  <label className="btn btn-ghost  text-white">Signup</label>
-                </div>
-              </NavLink>
-              </div>
-            </>
-          )}
-          {profileData ? (
-            <div className="dropdown dropdown-end ">
-              <label
-                tabIndex={0}
-                className="btn-primary   flex-row "
-              >
-                <div className="w-10 h-10  m-1 bg-primary border rounded-full">
-                  <img src=  {profileData.photoURL} alt="Photo"  className="rounded-full"/>
-                  
-                </div>
-                
-              </label>
-              
-              <ul
-                tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-4 shadow bg-slate-600 rounded-box w-60"
-              >
-                <li>
-                  {auth ? (
-                    <p className="lowercase  left text-m ">{profileData.email}</p>
-                  ) : (
-                   ""
-                  )}
-                </li>
-
-                <li className="">
-                  <NavLink to="dashboard/Dash" className="justify-between">
-                    Dashboard
-                    <span className="badge">New</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <a>Settings</a>
-                </li>
-                <li onClick={userSignout}>
-                  <a>Logout</a>
-                </li>
-              </ul>
-           
+              </button>
             </div>
-          ) : (
-            <NavLink to="/login">
-            <div className=" hidden mob_block m-auto">
-              <i className="fas fa-user m-auto icn_text text-slate-300"/>
-           </div>
-          </NavLink>
-          )}
-        
-         
+            {authUser ? (
+              ""
+            ) : (
+              <>
+                <div className="no_display flex">
+                  <NavLink to="/login">
+                    <div className="flex-1">
+                      <label className="btn btn-ghost  text-white">Login</label>
+                    </div>
+                  </NavLink>
+                  <NavLink to="/signup">
+                    <div className="flex-2">
+                      <label className="btn btn-ghost  text-white">
+                        Signup
+                      </label>
+                    </div>
+                  </NavLink>
+                </div>
+              </>
+            )}
+            {authUser ? (
+              <div>
+                {profileData ? (
+                  <div className="dropdown dropdown-end ">
+                    <label tabIndex={0} className="btn-primary   flex-row ">
+                      <div className="w-10 h-10  m-1 bg-primary border rounded-full overflow-hidden">
+                        <img
+                          src={profileData.photoURL}
+                          alt="Photo"
+                          className="rounded-full m-auto"
+                        />
+                      </div>
+                    </label>
 
-        </div>
+                    <ul
+                      tabIndex={0}
+                      className="menu menu-compact dropdown-content mt-3 p-4 shadow bg-slate-600 rounded-box w-60"
+                    >
+                      <li>
+                        <p className="lowercase  left text-m ">
+                          {profileData.email}
+                        </p>
+                      </li>
+
+                      <li className="">
+                        <NavLink
+                          to="dashboard/Dash"
+                          className="justify-between"
+                        >
+                          Dashboard
+                          <span className="badge">New</span>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <a>Settings</a>
+                      </li>
+                      <li onClick={userSignout}>
+                        <a>Logout</a>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            ) : (
+              <NavLink to="/login" className="m-auto">
+                <div className=" hidden mob_block ">
+                  <i className="fas fa-user  icn_text text-slate-300" />
+                </div>
+              </NavLink>
+            )}
+          </div>
         </div>
       </div>
 

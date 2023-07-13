@@ -250,16 +250,16 @@ const handleIncrementViewCount = async () => {
     {/* <p className="text-gray-300">{excerpt(postDescription, 120)}</p> */}
     <div className="flex gap-4 ">
       <span className="text-white">
-      <i className="fas fa-comment text-white "/> {comments?.length} 
+      <i className="fas fa-comment text-info"/> {comments?.length} 
       </span>
       <span className="text-white">
-      <i className="fas fa-thumbs-up text-white"/> {likes?.length} 
+      <i className="fas fa-thumbs-up text-secondary"/> {likes?.length} 
       </span>
       <span className="text-white">
-        <i className="fas fa-binoculars"/> {viewCount}
+        <i className="fas fa-binoculars text-primary"/> {viewCount}
       </span>
       <span className="text-white">
-        <i className="fas fa-bookmark"/> {bookmarkCount}
+        <i className="fas fa-bookmark text-yellow-400"/> {bookmarkCount}
       </span>
        </div>
        
