@@ -12,11 +12,13 @@ import { greetings } from "../components/greeting";
 import { Helmet } from 'react-helmet';
 import { doc, getDoc } from "firebase/firestore";
 import { db,  } from "../firebase/auth";
+import Spinner from "../components/Spinner";
 
 
 
 const Dashboard = () => {
   const [authUser, setAuthUser] = useState(null)
+  const [loading, setLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate()
@@ -41,8 +43,11 @@ const Dashboard = () => {
 }, [authUser])
 const userId = authUser?.uid;
 
+
+
 useEffect(() => {
   const fetchProfileData = async () => {
+    setLoading(true);
     try {
       const profileDocRef = doc(db, 'users', userId); // Assuming you have a "users" collection in Firestore
       const profileDocSnapshot = await getDoc(profileDocRef);
@@ -58,11 +63,15 @@ useEffect(() => {
       // Handle any errors that occur during fetching
       console.error('Error fetching profile data:', error);
     }
+    setLoading(false);
   };
 
   fetchProfileData();
 }, [userId]);
  
+if (loading) {
+  return <Spinner />;
+}
   const userSignout = () => {
     signOut(auth)
       .then(() => {

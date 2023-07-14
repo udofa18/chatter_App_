@@ -264,7 +264,7 @@ const PostDetail = () => {
               </span>
               <span className=" flex meta-info text-start text-sm text-bg-info ">
                 <p className="author m-auto text-lh-base-400">Publihed by: {profileData?.name}</p>
-                <img className="w-5  rounded-full" src={profileData?.photoURL}></img>
+                <img className="w-5 h-5  rounded-full" src={profileData?.photoURL}></img>
               </span>
             </div>
             <div className="flex flex-col-right gap-2 m-5  ">
@@ -358,12 +358,14 @@ const PostDetail = () => {
             <div className="card bg-slate-950 text-white">
             
                 <div className="flex card-body">
-                  <img className="w-24 rounded-full" src={profileData?.photoURL}></img>
+                  
+                  <img className="w-24 h-24 rounded-full" src={profileData?.photoURL}></img>
+                  
                   <div className="text-center">
                   <p className="text-xl">Author: {profileData?.name}</p>
-                  <p className="text-base-300 text-sm dark:text-base-100">Bio: {profileData?.shortBio}</p>
-                  <p className="text-base-300 text-sm dark:text-base-100">Interest: {profileData?.interests}</p>
-                  <p className="text-base-300 text-sm dark:text-base-100"> Email: {profileData?.email}</p>
+                  <p className="text-base-300 text-sm dark:text-slate-100">Bio: {profileData?.shortBio}</p>
+                  <p className="text-base-300 text-sm dark:text-slate-100">Interest: {profileData?.interests}</p>
+                  <p className="text-base-300 text-sm dark:text-slate-100"> Email: {profileData?.email}</p>
                   </div>
 
                 </div>
