@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase/auth";
 import Spinner from "../../components/Spinner.js";
-import Pagination from "../../components/Pagination.js";
+// import Pagination from "../../components/Pagination.js";
 import PostSection from "./PostSection.js";
 import Tags from "../../components/Tags.js";
 import FeatureBlogs from "../../components/FeatureBlogs";
@@ -25,10 +25,12 @@ import Trending from "../../components/Trending.js";
 import Category from "../../components/Category.js";
 import "../css/postpage.css";
 import Search from "../../components/search.js";
+import Pagination from '@mui/material/Pagination';
 import { isEmpty, isNull } from "lodash";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import "../Homepage.css";
 import { Helmet } from "react-helmet";
+import { ThemeOptions, Theme } from "@mui/material";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -38,6 +40,7 @@ interface BlogData {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
+
 
 const PostsPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -54,9 +57,10 @@ const PostsPage = () => {
   const [random, useRandom] = useState<BlogData[]>([]);
   // const [blog, setBlog] = useState(null);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const [totalBlogs, setTotalBlogs] = useState([]);
   const [hide, setHide] = useState(false);
+  const [page, setPage] = useState(1);
   const id = useParams;
 
   // useEffect(() => {
@@ -71,16 +75,18 @@ const PostsPage = () => {
     randomPost();
     // setSearch("");
     // setActive("post");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+  
 
-  useEffect(() => {
-    getPostsData();
-  }, [search]);
+  // useEffect(() => {
+  //   getPostsData();
+  // }, [search]);
 
   if (loading) {
     return <Spinner />;
   }
+ 
 
   const randomPost = async () => {
     setLoading(true);
@@ -150,7 +156,7 @@ const PostsPage = () => {
   const getBlogsData = async () => {
     setLoading(true);
     const blogRef = collection(db, "blogs");
-    const first = query(blogRef, orderBy("postTitle"), limit(6));
+    const first = query(blogRef, orderBy("postTitle"));
     const docSnapshot = await getDocs(first);
     const blogData = docSnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -182,6 +188,14 @@ const PostsPage = () => {
     console.log(list);
 
     // setBlog(blogs.data());
+  };
+  const handleSearch = () => {
+    return blogs.filter(
+      (blogs) =>
+        blogs.postTitle.toLowerCase().includes(search) ||
+        blogs.postDescription.toLowerCase().includes(search) ||
+        blogs.content.toLowerCase().includes(search)
+    );
   };
 
   const getTotalBlogs = async () => {
@@ -216,6 +230,8 @@ const PostsPage = () => {
     console.log(nextBlogsSnapshot.size);
     setLastVisible(nextBlogsSnapshot.docs[nextBlogsSnapshot.docs.length - 1]);
   };
+
+
 
   // if (loading) {
   //   return <Spinner />;
@@ -275,15 +291,15 @@ const PostsPage = () => {
       fetchPrev();
     }
   };
-  const handleChange = (e) => {
-    const { value } = e.target;
-    if (isEmpty(value)) {
-      console.log("test");
-      setBlogs([]);
-      setHide(false);
-    }
-    setSearch(value);
-  };
+  // const handleChange = (e) => {
+  //   const { value } = e.target;
+  //   if (isEmpty(value)) {
+  //     console.log("test");
+  //     setBlogs([]);
+  //     setHide(false);
+  //   }
+  //   setSearch(value);
+  // };
   const counts = totalBlogs.reduce((prevValue, currentValue) => {
     const name = currentValue.category;
     // eslint-disable-next-line no-prototype-builtins
@@ -390,12 +406,21 @@ const PostsPage = () => {
               </div>
             ))}
           </div>
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search blog posts..."
-          />
+
+          <div style={{ textAlign: "center" }}></div>
+          <div
+            className="form-floating pt-10 text-center m-auto my-fs-4 p-1 bg-slate-950"
+            // style={{ width: "30%" }}
+          >
+            <input
+              style={{ color: "gold" }}
+              className="bg-transparent input input-bordered input-accent w-full max-w-xs"
+              id="floatingInputCustom"
+              type="text"
+              placeholder="Search Scrolls"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
           <ul
             style={{
               justifyContent: "center",
@@ -405,7 +430,7 @@ const PostsPage = () => {
             role="list"
             className=" flex  justify-content-center align-items-center flex-wrap w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950"
           >
-            {blogs?.map((blog) => (
+            {handleSearch().map((blog) => (
               <li className="   align-center " key={blog.id}>
                 <PostSection
                   content={undefined}
@@ -420,12 +445,30 @@ const PostsPage = () => {
               </li>
             ))}
           </ul>
-          <Pagination
+          {/* <Pagination
             currentPage={currentPage}
             noOfPages={noOfPages}
             handlePageChange={handlePageChange}
             
-          />
+          /> */}
+           {/* <Pagination
+                count={parseInt((handleSearch()?.length / 4).toFixed(0))}
+                style={{
+                  padding: 1,
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "white !important" ,
+                  fontSize: "50px",
+                  backgroundColor:"gold"
+                }}
+                size="large"
+                // classes={{ ul: theme.pagination }}
+                onChange={(_, value) => {
+                  setPage(value);
+                  window.scroll(0, 450);
+                } } /> */}
+                <Pagination count={10} color="primary" />
         </div>
         <div className=" pb-4 pt-20 p-4 bg-slate-800 w-80  relative mob_width">
           <div className="container padding">
@@ -449,3 +492,5 @@ const PostsPage = () => {
 };
 
 export default PostsPage;
+
+

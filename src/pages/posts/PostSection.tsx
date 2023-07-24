@@ -258,10 +258,10 @@ const handleDelete = async (id: string) => {
     {postTitle}
      
     </h2>
-    <p className="mt-1 text-xs leading-5 text-cyan-400">
+    <p className="mt-1 text-xs leading-5 text-cyan-400 border-b">
           Posted on {timestamp.toDate().toDateString()}
         </p>
-    <p className="text-gray-300">{excerpt(postDescription, 50)}</p>
+    <p className="text-gray-300 italic">{excerpt(postDescription, 50)}</p>
     <div className="flex gap-4 ">
       <span className="text-white">
       <i className="fas fa-comment text-info "/> {comments?.length} 

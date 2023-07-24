@@ -248,14 +248,14 @@ const PostDetail = () => {
     <div className=" flex dis_block  mt-10 w-screen bg-base-200 dark:bg-slate-800  dark:text-white"key={id}>
       <div className="w-80 flex-1 mob_width h-100 snap-y  overflow-hidden ">
         <div className="  shadow-xl w-full p_5 px-10 mt-10 relative">
-          <div className="w-full relative border overflow-hidden m-auto">
+          <div className="w-full relative  overflow-hidden m-auto">
             <img width={600} height={200} style={{alignItems:"center"}} src={blog?.imgUrl} alt="" className="hvr-bob m-auto w-100 flex " />
             </div>
           <div className="p_5 relative">
             <h1 className="text-3xl my-4 font-bold text-base-400 pb-4">
               {blog?.postTitle}
             </h1>
-            <div className="flex gap-5 bg-base-300 text-bg-light ">
+            <div className="flex gap-5  text-bg-light border-b border-b-gray-600 ">
               <span className="flex">
                 <p className=" text-sm text-danger m-auto ">
                   <i className="fas fa-calendar-days text-xl text-danger"></i>
@@ -307,11 +307,11 @@ const PostDetail = () => {
     </div>
             </div>
             
-            <div className="border mt-5 mb-5">
+            <div className=" mt-5 mb-5 border-bottom">
               {" "}
               <Tags tags={blog?.tags} />
             </div>
-            <p className=" text-lg ms-3">{blog?.postDescription}</p>
+            <p className=" text-lg ms-3 italic">{blog?.postDescription}</p>
 
             <div>
             <ReactMarkdown
@@ -407,9 +407,9 @@ const PostDetail = () => {
         </div>
       </div>
 
-      <div style={{height:"2000px"}} className=" pb-4 pt-4 p-4 bg-slate-800 border-l-base-300 snap-y w-80 mob_width overflow-scroll ">
+      <div style={{height:"2000px"}} className=" pb-4 pt-4 p-4 bg-slate-800 border-l-2 border-l-gray-600 snap-y w-80 mob_width overflow-scroll ">
         <div className="container padding">
-          <div className="row mx-0">
+          <div className="row mx-0">	
             <div className="col-md-3 ">
               <div className="font-bold text-start py-4 w-32 text-white">Tags</div>
               <Tags tags={tags} />
