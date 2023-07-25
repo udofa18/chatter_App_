@@ -11,10 +11,19 @@
   
 
 }
-
-
+.MuiPagination-ul{
+  color: wheat !important;
+}
+.MuiPagination-text{
+  color: aquamarine !important;
+}
 .bg{
     position: relative;
+  }
+  .MuiPagination-root {
+    button {
+      color: red !important;
+   }
   }
   
   /* .bg::before {

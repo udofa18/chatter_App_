@@ -30,7 +30,8 @@ import { isEmpty, isNull } from "lodash";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import "../Homepage.css";
 import { Helmet } from "react-helmet";
-import { ThemeOptions, Theme } from "@mui/material";
+// import { ThemeOptions, Theme } from "@mui/material";
+
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -62,12 +63,10 @@ const PostsPage = () => {
   const [hide, setHide] = useState(false);
   const [page, setPage] = useState(1);
   const id = useParams;
+  
 
-  // useEffect(() => {
-  //   if (!isNull(searchQuery)) {
-  //     searchBlogs();
-  //   }
-  // }, [searchQuery]);
+  
+
   useEffect(() => {
     getBlogsData();
     getTotalBlogs();
@@ -198,6 +197,7 @@ const PostsPage = () => {
     );
   };
 
+
   const getTotalBlogs = async () => {
     const blogRef = collection(db, "blogs");
     const docSnapshot = await getDocs(blogRef);
@@ -233,35 +233,6 @@ const PostsPage = () => {
 
 
 
-  // if (loading) {
-  //   return <Spinner />;
-  // }
-
-  // const fetchPrev = async () => {
-  //   setLoading(true);
-  //   const blogRef = collection(db, "blogs");
-  //   const end =
-  //     noOfPages !== currentPage
-  //       ? startAfter(lastVisible)
-  //       : startAfter(lastVisible);
-  //   const limitData =
-  //     noOfPages !== currentPage
-  //       ? limit(6)
-  //       : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  //       count! <= 6 && noOfPages! % 2 === 0
-  //       ? limit(6)
-  //       : limit(6);
-  //   const prevBlogsQuery = query(blogRef, orderBy("postTitle"), end, limitData);
-  //   const prevBlogsSnapshot = await getDocs(prevBlogsQuery);
-  //   const prevBlogData = prevBlogsSnapshot.docs.map((doc) => ({
-  //     id: doc.id,
-  //     ...doc.data(),
-  //   })) as BlogData[];
-  //   setBlogs(prevBlogData);
-  //   setCount(prevBlogsSnapshot.size);
-  //   setLastVisible(prevBlogsSnapshot.docs[prevBlogsSnapshot.docs.length - 1]);
-  //   setLoading(false);
-  // };
 
   const fetchPrev = async () => {
     const blogRef = collection(db, "blogs");
@@ -430,7 +401,9 @@ const PostsPage = () => {
             role="list"
             className=" flex  justify-content-center align-items-center flex-wrap w-full p-10 mob_width p_lr  pointer w_scr  bg-slate-950"
           >
-            {handleSearch().map((blog) => (
+            {handleSearch()
+            .slice((page - 1) * 12, (page - 1) * 12 + 12)
+            .map((blog) => (
               <li className="   align-center " key={blog.id}>
                 <PostSection
                   content={undefined}
@@ -468,9 +441,27 @@ const PostsPage = () => {
                   setPage(value);
                   window.scroll(0, 450);
                 } } /> */}
-                <Pagination count={10} color="primary" />
+                <Pagination 
+                count={parseInt((handleSearch()?.length / 9).toFixed(0))}
+                style={{
+                  padding: 1,
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "green " ,
+                  fontSize: "50px",
+                  outline:"white ",
+                  backgroundColor:"skyblue"
+                }}
+               
+                                  onChange={(_, value) => {
+                  setPage(value);
+                  window.scroll(0, 450);
+                } }
+                className=""
+                 color="primary" />
         </div>
-        <div className=" pb-4 pt-20 p-4 bg-slate-800 w-80  relative mob_width">
+        <div style={{height:"2465px"}} className=" pb-4 pt-20 p-4 bg-slate-800 w-80  relative mob_width border-l-2 border-l-gray-600 overflow-scroll">
           <div className="container padding">
             <div className="row mx-0">
               <div className="col-md-3">

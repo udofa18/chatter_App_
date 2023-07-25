@@ -7,11 +7,7 @@ export default defineConfig({
     react(),
     
   ]
-  resolve: {
-    alias: {
-      '@emotion/styled': require.resolve('@emotion/styled'),
-    },
-  },
+  
   
 
 });
