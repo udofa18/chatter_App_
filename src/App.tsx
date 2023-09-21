@@ -27,6 +27,8 @@ import Draft from "./components/Draft.js";
 import Bookmark from "./components/Bookmark.js";
 import ScrollToTop from "./components/ScrollToTop.js";
 import Analytics from "./components/dashboard/Analytics.js";
+import CommunityPage from "./pages/community/CommunityPage.js";
+import ContentFull from "./pages/community/ContentFull.js";
 const App: React.FC = () => {
  
   const [authUser, setAuthUser] = useState(null);
@@ -105,7 +107,8 @@ const App: React.FC = () => {
         />
           <Route path="/category/:category" element={<CategoryBlog/>} />
           <Route path="/dashboard" element={<Dashboard />} />
-       
+          <Route path="/community" element={<CommunityPage />} />
+          <Route path="/community/:id" element={<ContentFull />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/tag/:tag" element={<TagBlog />} />

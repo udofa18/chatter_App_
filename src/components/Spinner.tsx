@@ -3,7 +3,7 @@ import ClipLoader from "react-spinners/ClipLoader"
 
 const Spinner : React.FC = () => {
   return (
-    <div className="w-full border h-screen p-40 m-auto"> 
+    <div className="w-screen  h-screen p-40 m-auto dark:bg-slate-950"> 
 
      <div className=' center  flex mt-40 '>
       <ClipLoader

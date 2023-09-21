@@ -420,7 +420,7 @@ const snapshot = await getDoc(draftCollection);
      
 };
   return (
-      <div style={{}} className="bg-base-300 mt-20  dark:text-white ">
+      <div style={{}} className="bg-slate-950 pt-20  dark:text-white ">
         <div className=" container  bg-base-200 p-20 m-auto p_5">
        
           <h3 className="text-lg font-bold"> {id ? "Edit Post" : "Create New Post "}</h3>
@@ -472,9 +472,9 @@ const snapshot = await getDoc(draftCollection);
             <label className="label-text mt-5  mb-3 text-l">Add Image</label>
 
             <input
-              type="file"
+              type="file" 
               onChange={handleImageChange}
-              id="myFile"
+              id="myFile" 
               accept="image/*, video/*"
               name="filename"
               className="file-input file-input-bordered w-full max-w-xs"

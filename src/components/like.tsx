@@ -26,7 +26,7 @@ const Like = ({ handleLike, likes, userId }) => {
         <>
           <i className="fas fa-thumbs-up hvr-buzz m-auto" />
           &nbsp;{likes.length}
-        </>
+        </> 
       );
     }
     return (
@@ -45,7 +45,7 @@ const Like = ({ handleLike, likes, userId }) => {
         {!userId ? (
           <div
             data-bs-toggle="tooltip"
-            data-bs-placement="right"
+            data-bs-placement="bottom"
             title="Please Login to like post"
           >
             <LikeStatus />

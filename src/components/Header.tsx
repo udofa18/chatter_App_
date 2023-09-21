@@ -91,7 +91,7 @@ const Header: React.FC = () => {
                   <span className="no_dis">Explore</span>
                 </label>
               </NavLink>
-              <NavLink to="/posts">
+              <NavLink to="/community">
                 <label className="text-slate-300  normal-case text-md header-btn  w-36">
                   <i className="fas fa-comments mx-2 icn_text " />
                   <span className="no_dis">Community</span>

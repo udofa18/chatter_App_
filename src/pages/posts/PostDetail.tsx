@@ -348,7 +348,7 @@ const PostDetail = () => {
               }}}
             children={blog?.content as string} 
             
-            className= " break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10 "
+            className= " break-words p-4 bg-base-100 w-100 text-wrap markdown-body mt-10 mb-10 focus:select-all "
 
             
         
